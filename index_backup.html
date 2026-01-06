@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Floresta Brava | Comida típica ecuatoriana en Quito</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Restaurante Floresta Brava. Encebollado, yaguarlocro, corviches, empanadas y mucho más. Comida típica ecuatoriana con sabor casero en Quito.">
+  <style>
+    :root {
+      /* Colores basados en el logo */
+      --madera: #7a4b1f;
+      --madera-oscura: #4b2a12;
+      --turquesa: #1fb6c9;
+      --naranja: #f57c22;
+      --crema: #fff7e8;
+      --gris: #444;
+
+      /* Mantengo estos nombres para no cambiar tantas clases */
+      --verde: #145b6b;         /* fondo hero/nav, tono marino elegante */
+      --verde-oscuro: #0b2731;  /* textos fuertes */
+      --amarillo: var(--naranja);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      color: #222;
+      background: #f5f3ee;
+    }
+
+    a { text-decoration: none; }
+
+    /* NAVBAR */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(90deg, var(--madera-oscura), var(--verde));
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+    }
+
+    .logo-text {
+      font-weight: 700;
+      font-size: 18px;
+      color: #fff;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 16px;
+    }
+
+    nav a {
+      color: #f4f4f4;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: var(--amarillo);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg,
+        rgba(10,39,49,0.95),
+        rgba(122,75,31,0.65));
+      z-index: 1;
+    }
+
+    .hero img.bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(.8);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 40px 16px 40px;
+    }
+
+    .hero-kicker {
+      font-size: 13px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #ffe6c0;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      max-width: 520px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 480px;
+      font-size: 15px;
+      color: #fbeee0;
+      margin-bottom: 20px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-size: 12px;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: transform .1s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    /* Mantengo verde de WhatsApp */
+    .btn-primary {
+      background: #22c15d;
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(0,0,0,0.4);
+      background: #1ea652;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.7);
+      margin-left: 10px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* SECCIONES GENERALES */
+    .section {
+      padding: 56px 0;
+    }
+
+    .section.alt {
+      background: #ffffff;
+    }
+
+    .section.soft {
+      background: var(--crema);
+    }
+
+    .section-title {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 8px;
+      color: var(--madera-oscura);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 28px;
+      color: #555;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero-logo {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .hero-logo img {
+      height: 180px;
+      width: auto;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.55));
+    }
+
+    @media (min-width: 768px) {
+      .hero-logo img {
+        height: 240px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 { font-size: 40px; }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); }
+      .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 768px) {
+      .hero-content {
+        padding-top: 56px;
+      }
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: var(--madera-oscura);
+    }
+
+    .card p {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--verde-oscuro);
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
+    .pill {
+      display: inline-block;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(31,182,201,0.09);
+      color: var(--verde-oscuro);
+      margin-top: 4px;
+    }
+
+    /* EMPRESAS / BLOQUES DESTACADOS */
+    .highlight {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      border-left: 4px solid var(--madera);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+      margin-bottom: 16px;
+    }
+
+    .highlight h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: var(--madera-oscura);
+    }
+
+    .highlight p {
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* UBICACIÓN / CONTACTO */
+    .map {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.09);
+    }
+
+    .map iframe {
+      width: 100%;
+      height: 320px;
+      border: 0;
+    }
+
+    /* MENÚ DIARIO MEJORADO */
+    .section-menudiario .menudiario-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      max-width: 900px;
+      margin: 24px auto 0;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    .section-menudiario .menudiario-top > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .menudiario-img {
+      margin-top: 8px;
+    }
+
+    .menudiario-img img {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 14px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+      display: block;
+      margin-left: auto;
+    }
+
+    .menudiario-caption {
+      font-size: 12px;
+      color: #777;
+      margin-top: 6px;
+      text-align: right;
+    }
+
+    .menudiario-horario {
+      max-width: 900px;
+      margin: 32px auto 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .menudiario-horario h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: var(--madera-oscura);
+    }
+
+    .menudiario-horario ul {
+      margin-left: 18px;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 767px) {
+      .section-menudiario .menudiario-top {
+        max-width: 100%;
+        margin-top: 16px;
+        gap: 20px;
+        grid-template-columns: 1fr;
+      }
+
+      .menudiario-img img {
+        max-width: 100%;
+        margin-left: 0;
+      }
+
+      .menudiario-caption {
+        text-align: left;
+      }
+    }
+
+    .contact-info p {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .contact-info a {
+      color: var(--turquesa);
+      font-weight: 500;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--madera-oscura);
+      color: #eee;
+      padding: 24px 0;
+      font-size: 13px;
+      border-top: 3px solid var(--naranja);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .social a {
+      color: #eee;
+      margin-right: 12px;
+    }
+
+    .social a:hover {
+      color: var(--turquesa);
+    }
+
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    /* RESPONSIVE MENU simple */
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body id="top">
+
+<header>
+  <div class="container nav">
+    <div class="logo-area">
+      <a href="#top">
+        <img src="img/letrasflorestabrava.png" alt="Floresta Brava" class="logo-img">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#platos">Platos estrella</a></li>
+        <li><a href="#menudiario">Menú diario</a></li>
+        <li><a href="#empresas">Empresas</a></li>
+        <li><a href="#ubicacion">Ubicación</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <img src="img/hero-encebollado.jpg" alt="Encebollado Floresta Brava" class="bg">
+
+  <div class="container hero-content">
+    <div class="hero-logo">
+      <img src="img/logoflorestatransparente.png" alt="Floresta Brava - Logo">
+    </div>
+
+    <div class="hero-kicker">Restaurante · Quito</div>
+
+    <h1>Comida típica ecuatoriana con sabor casero.</h1>
+
+    <p>
+      Encebollado, yaguarlocro, corviches, empanadas, pinchos y más.
+      Ven a Floresta Brava o haz tu pedido por WhatsApp para disfrutar
+      de un almuerzo realmente casero.
+    </p>
+
+    <div class="hero-badges">
+      <a class="badge" href="#menudiario">Desayunos y almuerzos</a>
+      <a class="badge" href="#empresas">Pedidos para empresas</a>
+      <a class="badge" href="#ubicacion">Ubícanos</a>
+    </div>
+
+    <div class="btn-group">
+      <a class="btn btn-primary"
+         href="https://wa.me/593983603626?text=Hola%20quiero%20hacer%20un%20pedido%20en%20Floresta%20Brava"
+         target="_blank" rel="noopener">
+        Pedir por WhatsApp
+      </a>
+
+      <a class="btn btn-ghost" href="#platos">
+        Ver platos estrella
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="platos" class="section alt">
+  <div class="container">
+    <h2 class="section-title">Platos estrella</h2>
+    <p class="section-subtitle">
+      Estos son los platos que más piden nuestros clientes. Preparados al momento, 
+      con recetas caseras y productos frescos.
+    </p>
+
+    <div class="grid grid-3">
+      <article class="card">
+        <img src="img/hero-encebollado.jpg" alt="Encebollado">
+        <h3>Encebollado</h3>
+        <p>Pescado fresco, yuca suave y cebolla curtida. Ideal para empezar el día con energía.</p>
+        <div class="price">$3,00</div>
+        <div class="pill">Clásico de la casa</div>
+      </article>
+
+      <article class="card">
+        <img src="img/yaguarlocro.png" alt="Yaguarlocro">
+        <h3>Yaguarlocro</h3>
+        <p>Un manjar que no te lo puedes perder.</p>
+        <div class="price">$3,50</div>
+        <div class="pill">Sabor quiteño</div>
+      </article>
+
+      <article class="card">
+        <img src="img/corviches.png" alt="Corviches">
+        <h3>Corviches</h3>
+        <p>De verde, rellenos de pescado y fritos al punto: crujientes por fuera, jugosos por dentro.</p>
+        <div class="price">$1,00</div>
+        <div class="pill">Perfectos para compartir</div>
+      </article>
+
+      <article class="card">
+        <img src="img/empanadas.png" alt="Empanadas">
+        <h3>Empanadas variadas</h3>
+        <p>De queso, carne y pollo, doradas para los más golosos.</p>
+        <div class="price">$1,00</div>
+        <div class="pill">Para todos los gustos</div>
+      </article>
+
+      <article class="card">
+        <img src="img/pinchos.png" alt="Pinchos">
+        <h3>Pinchos a la parrilla</h3>
+        <p>Carne marinada y asada al momento, acompañada de papas y salsas caseras.</p>
+        <div class="price">$1,00</div>
+        <div class="pill">Pasión parrillera</div>
+      </article>
+
+      <article class="card">
+        <img src="img/churrasco.png" alt="Churrasco">
+        <h3>Churrasco</h3>
+        <p>Jugoso corte de carne, acompañado de arroz, papas fritas, ensalada fresca y huevo frito.</p>
+        <div class="price">$5,25</div>
+        <div class="pill">Sabor tradicional</div>
+      </article>
+
+      <article class="card">
+        <img src="img/bolon-estofado.png" alt="Bolón con estofado de carne">
+        <h3>Bolón con estofado de carne</h3>
+        <p>Bolón de verde bien amasado, acompañado de un estofado de carne suave y jugoso, con su salsita casera.</p>
+        <div class="price">$2,50</div>
+        <div class="pill">El sabor perfecto del verde</div>
+      </article>
+
+      <article class="card">
+        <img src="img/jugos.png" alt="Jugos naturales">
+        <h3>Jugos naturales</h3>
+        <p>Maracuyá, mora, naranjilla y más frutas frescas para acompañar cualquier plato.</p>
+        <div class="price">$1,50</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="menudiario" class="section soft section-menudiario">
+  <div class="container">
+    <h2 class="section-title">Menú diario</h2>
+    <p class="section-subtitle">
+      Todos los días tenemos un menú diferente con sopa, plato fuerte y bebida. 
+      Ideal para almuerzos ejecutivos y en familia.
+    </p>
+
+    <!-- fila: textos a la izquierda, foto a la derecha -->
+    <div class="menudiario-top">
+      <div>
+        <div class="highlight">
+          <h3>Desayunos típicos</h3>
+          <p>Bolón, tigrillo, tamales, corviches, desayunos continentales, desayunos costeños,
+             café pasado y más opciones para empezar bien la mañana.</p>
+        </div>
+        <div class="highlight">
+          <h3>Almuerzo ejecutivo</h3>
+          <p>Sopa del día, plato fuerte a elegir y jugo natural.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="menudiario-img">
+          <img src="img/almuerzo.png" alt="Almuerzo de Floresta Brava">
+          <p class="menudiario-caption">Foto referencial de nuestro menú del día.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Horario debajo de ambos bloques -->
+    <div class="menudiario-horario">
+      <p><strong>Horario de atención:</strong></p>
+      <ul>
+        <li>Lunes a Viernes: 08h00 a 22h00</li>
+        <li>Sábados: 09h00 a 22h00</li>
+        <li>Domingos: 09h00 a 15h00</li>
+      </ul>
+      <p>
+        Pregunta por el menú del día o reserva tu plato por WhatsApp,
+        para que lo tengamos listo cuando llegues.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="empresas" class="section alt">
+  <div class="container">
+    <h2 class="section-title">Pedidos para empresas y eventos</h2>
+    <p class="section-subtitle">
+      Llevamos el sabor de Floresta Brava a tu oficina o evento. 
+      Diseñamos menús especiales para reuniones, capacitaciones y celebraciones.
+    </p>
+
+    <div class="grid grid-2">
+      <div>
+        <div class="highlight">
+          <h3>Menú corporativo</h3>
+          <p>Almuerzos para grupos, con opciones de platos típicos y entrega puntual en tu empresa.</p>
+        </div>
+        <div class="highlight">
+          <h3>Coffee breaks y bocaditos</h3>
+          <p>Empanadas, corviches, jugos, café y opciones dulces para tus capacitaciones o eventos internos.</p>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:14px; color:#555; margin-bottom:10px;">
+          Escríbenos por WhatsApp y cuéntanos cuántas personas son, horario y tipo de evento. 
+          Te proponemos un menú y presupuesto ajustado a lo que necesitas.
+        </p>
+        <a href="https://wa.me/593983603626?text=Hola%20quiero%20cotizar%20para%20un%20evento%20con%20Floresta%20Brava"
+           class="btn btn-primary" target="_blank" rel="noopener">
+          Cotizar para mi empresa
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ubicacion" class="section soft">
+  <div class="container">
+    <h2 class="section-title">Ubicación</h2>
+    <p class="section-subtitle">
+      Estamos en el barrio La Floresta, Quito. 
+      Búscanos como <strong>“Restaurante Floresta Brava”</strong> en Google Maps
+      o usa el mapa interactivo para llegar fácilmente.
+    </p>
+
+    <div class="map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7913967586987!2d-78.4849230252237!3d-0.21048819978743813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d59b5dc1419ea7%3A0x230ed687bf1e3c6b!2sRestaurante%20Floresta%20Brava!5e0!3m2!1ses!2sec!4v1764054752201!5m2!1ses!2sec"
+              width="600" height="450" style="border:0;" allowfullscreen=""
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="section alt">
+  <div class="container">
+    <h2 class="section-title">Contacto y reservas</h2>
+    <p class="section-subtitle">
+      Haz tu pedido, reserva una mesa o pregunta por nuestros servicios para empresas.
+    </p>
+
+    <div class="grid grid-2 contact-info">
+      <div>
+        <p><strong>WhatsApp:</strong> 
+          <a href="https://wa.me/593983603626?text=Hola%20quiero%20hacer%20un%20pedido%20en%20Floresta%20Brava" 
+             target="_blank" rel="noopener">
+            +593 98 360 3626
+          </a>
+        </p>
+        <p><strong>Teléfono:</strong> 023226646</p>
+        <p><strong>Correo:</strong> 
+          <a href="mailto:info@florestabrava.com">ventas@florestabrava.com</a>
+        </p>
+        <p><strong>Dirección:</strong> Av. Coruña y Guipuzcoa</p>
+      </div>
+      <div>
+		<p>
+		  <strong>Síguenos en redes:</strong>
+		</p>
+		<p>
+		  Instagram:
+		  <a href="https://www.instagram.com/florestabrava/" target="_blank" rel="noopener">
+			@florestabrava
+		  </a><br>
+		  Facebook:
+		  <a href="https://www.facebook.com/FlorestaBrava" target="_blank" rel="noopener">
+			Restaurante Floresta Brava
+		  </a><br>
+		  TikTok:
+		  <a href="https://www.tiktok.com/@florestabrava" target="_blank" rel="noopener">
+			@florestabrava
+		  </a>
+		</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div>© <span id="year"></span> Floresta Brava. Todos los derechos reservados.</div>
+    <div class="social">
+      <a href="#ubicacion">Cómo llegar</a>
+      <a href="#contacto">Reservas</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Año dinámico en el footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Bloquear menú contextual (clic derecho)
+  document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+  });
+
+  // Bloquear algunas teclas rápidas típicas (F12, Ctrl+Shift+I/J/C, Ctrl+U)
+  document.addEventListener("keydown", function (e) {
+    // F12
+    if (e.key === "F12") {
+      e.preventDefault();
+    }
+
+    // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
+    if (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) {
+      e.preventDefault();
+    }
+
+    // Ctrl+U (ver código fuente)
+    if (e.ctrlKey && e.key.toUpperCase() === "U") {
+      e.preventDefault();
+    }
+  });
+</script>
+
+
+</body>
+</html>
