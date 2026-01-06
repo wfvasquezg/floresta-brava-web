@@ -5,7 +5,43 @@
   <title>Floresta Brava | Comida típica ecuatoriana en Quito</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Restaurante Floresta Brava. Encebollado, yaguarlocro, corviches, empanadas y mucho más. Comida típica ecuatoriana con sabor casero en Quito.">
-  <style>
+  
+  <link rel="canonical" href="https://florestabrava.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Floresta Brava">
+  <meta property="og:title" content="Floresta Brava | Comida típica ecuatoriana en Quito">
+  <meta property="og:description" content="Encebollado, yaguarlocro, corviches, empanadas y mucho más. Comida típica ecuatoriana con sabor casero en La Floresta, Quito.">
+  <meta property="og:url" content="https://florestabrava.com/">
+  <meta property="og:image" content="https://florestabrava.com/img/letrasflorestabrava.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Floresta Brava | Comida típica ecuatoriana en Quito">
+  <meta name="twitter:description" content="Comida típica ecuatoriana con sabor casero en La Floresta, Quito. Pide por WhatsApp.">
+  <meta name="twitter:image" content="https://florestabrava.com/img/letrasflorestabrava.png">
+
+  <!-- Datos estructurados para SEO Local (edita teléfono/horarios si cambian) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Floresta Brava",
+    "url": "https://florestabrava.com/",
+    "sameAs": ["https://g.page/r/CWs8Hr-H1g4jEBM"],
+    "hasMap": "https://www.google.com/maps/search/?api=1&query=Restaurante%20Floresta%20Brava%20Quito",
+    "telephone": "+593983603626",
+    "servesCuisine": ["Comida ecuatoriana", "Comida típica", "Desayunos", "Almuerzos"],
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Coruña y Guipúzcoa",
+      "addressLocality": "Quito",
+      "addressRegion": "Pichincha",
+      "addressCountry": "EC"
+    }
+  }
+  </script>
+
+<style>
     :root {
       /* Colores basados en el logo */
       --madera: #7a4b1f;
@@ -455,22 +491,119 @@
       }
     }
 
-    /* RESPONSIVE MENU simple */
-    @media (max-width: 640px) {
-      nav ul { display: none; }
+    /* Accesibilidad: saltar a contenido */
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 8px;
+      background: #fff;
+      color: #000;
+      padding: 10px 14px;
+      border-radius: 10px;
+      z-index: 9999;
+      box-shadow: 0 6px 18px rgba(0,0,0,.2);
     }
-  </style>
+    .skip-link:focus { left: 12px; }
+
+    /* NAV RESPONSIVE (hamburguesa) */
+    .nav-toggle {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 14px;
+      padding: 10px 12px;
+      cursor: pointer;
+      color: #fff;
+      backdrop-filter: blur(6px);
+    }
+    .nav-toggle:focus { outline: 2px solid rgba(255,255,255,.5); outline-offset: 2px; }
+    .nav-toggle-bar {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+    }
+    .nav-menu ul { margin: 0; padding: 0; list-style: none; }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: inline-flex; }
+      .nav-menu ul {
+        display: none;
+        position: absolute;
+        right: 16px;
+        top: 64px;
+        width: min(320px, calc(100vw - 32px));
+        background: rgba(10,10,10,.88);
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 16px;
+        padding: 10px;
+        box-shadow: 0 18px 40px rgba(0,0,0,.35);
+        backdrop-filter: blur(10px);
+      }
+      .nav-menu.open ul { display: block; }
+      .nav-menu li a { display: block; padding: 12px 14px; border-radius: 12px; }
+      .nav-menu li a:hover { background: rgba(255,255,255,.10); }
+    }
+
+    /* Botones flotantes */
+    .floating-ctas {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      display: grid;
+      gap: 10px;
+      z-index: 999;
+    }
+    .fab {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 14px 30px rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(10px);
+    }
+    .fab svg { width: 20px; height: 20px; fill: currentColor; }
+    .fab-whatsapp { background: #1faa59; }
+    .fab-maps { background: rgba(0,0,0,.55); }
+
+    @media (max-width: 480px) {
+      .fab span { display: none; }
+      .fab { padding: 12px; border-radius: 16px; }
+    }
+
+    /* Testimonios / FAQ */
+    .testimonial p { margin: 0 0 12px; }
+    .faq .card h3 { margin-top: 0; }
+
+</style>
 </head>
 <body id="top">
+  <a class="skip-link" href="#contenido">Saltar a contenido</a>
+
 
 <header>
   <div class="container nav">
     <div class="logo-area">
-      <a href="#top">
+      <a href="#top" aria-label="Ir al inicio">
         <img src="img/letrasflorestabrava.png" alt="Floresta Brava" class="logo-img">
       </a>
     </div>
-    <nav>
+
+    <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-controls="nav-menu" aria-expanded="false">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+
+    <nav id="nav-menu" class="nav-menu" aria-label="Navegación principal">
       <ul>
         <li><a href="#platos">Platos estrella</a></li>
         <li><a href="#menudiario">Menú diario</a></li>
@@ -482,7 +615,9 @@
   </div>
 </header>
 
-<section class="hero">
+
+<main id="contenido">
+<section id="top" class="hero">
   <img src="img/hero-encebollado.jpg" alt="Encebollado Floresta Brava" class="bg">
 
   <div class="container hero-content">
@@ -504,6 +639,7 @@
       <a class="badge" href="#menudiario">Desayunos y almuerzos</a>
       <a class="badge" href="#empresas">Pedidos para empresas</a>
       <a class="badge" href="#ubicacion">Ubícanos</a>
+      <a class="badge" href="#resenas">Reseñas</a>
     </div>
 
     <div class="btn-group">
@@ -674,6 +810,42 @@
   </div>
 </section>
 
+
+<section id="resenas" class="section alt">
+  <div class="container">
+    <h2 class="section-title">Lo que dice la gente</h2>
+    <p class="section-subtitle">
+      Las reseñas ayudan muchísimo a que más personas nos encuentren y se animen a visitarnos.
+      Si ya nos probaste, déjanos tu reseña en Google ⭐
+    </p>
+
+    <div class="grid grid-3">
+      <article class="card testimonial">
+        <p>“Por fin un encebollado con sabor casero de verdad. ¡Regresamos seguro!”</p>
+        <div class="pill">Cliente</div>
+      </article>
+      <article class="card testimonial">
+        <p>“El menú del día es súper completo y rápido. Perfecto para almorzar en La Floresta.”</p>
+        <div class="pill">Cliente</div>
+      </article>
+      <article class="card testimonial">
+        <p>“Corviches crujientes y el yaguarlocro top. Atención amable.”</p>
+        <div class="pill">Cliente</div>
+      </article>
+    </div>
+
+    <div class="btn-group" style="margin-top:16px;">
+      <a class="btn btn-ghost" href="https://g.page/r/CWs8Hr-H1g4jEBM" target="_blank" rel="noopener">
+        Ver reseñas en Google
+      </a>
+      <a class="btn btn-primary" href="https://g.page/r/CWs8Hr-H1g4jEBM/review" target="_blank" rel="noopener">
+        Dejar una reseña
+      </a>
+    </div>
+  </div>
+</section>
+
+
 <section id="ubicacion" class="section soft">
   <div class="container">
     <h2 class="section-title">Ubicación</h2>
@@ -692,6 +864,32 @@
   </div>
 </section>
 
+
+<section id="faq" class="section soft">
+  <div class="container">
+    <h2 class="section-title">Preguntas frecuentes</h2>
+    <div class="grid grid-2 faq">
+      <div class="card">
+        <h3>¿Dónde queda Floresta Brava?</h3>
+        <p>Estamos en <strong>La Floresta, Quito</strong>, en la intersección de <strong>Av. Coruña y Guipúzcoa</strong>. Puedes usar el mapa de esta página para llegar.</p>
+      </div>
+      <div class="card">
+        <h3>¿Puedo pedir por WhatsApp?</h3>
+        <p>Sí. Haz clic en el botón <strong>Pedir por WhatsApp</strong> y te atenderemos para pedidos para llevar, a domicilio (según zona) y reservas.</p>
+      </div>
+      <div class="card">
+        <h3>¿Tienen menú del día?</h3>
+        <p>Sí. Publicamos el <strong>menú diario</strong> y también lo enviamos por WhatsApp. Ideal para almuerzos rápidos en Quito.</p>
+      </div>
+      <div class="card">
+        <h3>¿Atienden empresas?</h3>
+        <p>Sí. Tenemos opciones para <strong>pedidos corporativos</strong> (bandejas/porciones). Escríbenos para cotizar según cantidad y horario.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section id="contacto" class="section alt">
   <div class="container">
     <h2 class="section-title">Contacto y reservas</h2>
@@ -707,9 +905,9 @@
             +593 98 360 3626
           </a>
         </p>
-        <p><strong>Teléfono:</strong> 023226646</p>
+        <p><strong>Teléfono:</strong> <a href="tel:+59323226646">023226646</a></p>
         <p><strong>Correo:</strong> 
-          <a href="mailto:info@florestabrava.com">ventas@florestabrava.com</a>
+          <a href="mailto:ventas@florestabrava.com">ventas@florestabrava.com</a>
         </p>
         <p><strong>Dirección:</strong> Av. Coruña y Guipuzcoa</p>
       </div>
@@ -736,6 +934,8 @@
   </div>
 </section>
 
+</main>
+
 <footer>
   <div class="container footer-inner">
     <div>© <span id="year"></span> Floresta Brava. Todos los derechos reservados.</div>
@@ -746,34 +946,63 @@
   </div>
 </footer>
 
+
 <script>
   // Año dinámico en el footer
-  document.getElementById("year").textContent = new Date().getFullYear();
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Bloquear menú contextual (clic derecho)
-  document.addEventListener("contextmenu", function (e) {
-    e.preventDefault();
-  });
+  // Menú móvil (hamburguesa)
+  const toggle = document.querySelector(".nav-toggle");
+  const menu = document.querySelector(".nav-menu");
 
-  // Bloquear algunas teclas rápidas típicas (F12, Ctrl+Shift+I/J/C, Ctrl+U)
-  document.addEventListener("keydown", function (e) {
-    // F12
-    if (e.key === "F12") {
-      e.preventDefault();
-    }
+  if (toggle && menu) {
+    const setExpanded = (v) => toggle.setAttribute("aria-expanded", v ? "true" : "false");
 
-    // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
-    if (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key.toUpperCase())) {
-      e.preventDefault();
-    }
+    toggle.addEventListener("click", () => {
+      const isOpen = menu.classList.toggle("open");
+      setExpanded(isOpen);
+    });
 
-    // Ctrl+U (ver código fuente)
-    if (e.ctrlKey && e.key.toUpperCase() === "U") {
-      e.preventDefault();
-    }
-  });
+    // Cierra el menú al hacer clic en un link
+    menu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        menu.classList.remove("open");
+        setExpanded(false);
+      });
+    });
+
+    // Cierra si se hace clic fuera
+    document.addEventListener("click", (e) => {
+      if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+        menu.classList.remove("open");
+        setExpanded(false);
+      }
+    });
+  }
 </script>
 
+
+
+
+  <!-- Botones flotantes (WhatsApp / Cómo llegar) -->
+  <div class="floating-ctas" aria-label="Accesos rápidos">
+    <a class="fab fab-whatsapp" href="https://wa.me/593983603626?text=Hola%20vengo%20desde%20la%20web%20de%20Floresta%20Brava%20y%20quiero%20hacer%20un%20pedido"
+       target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path d="M19.11 17.45c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.48-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5 0 1.47 1.08 2.9 1.23 3.1.15.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.71.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/>
+        <path d="M16.02 3C8.84 3 3 8.84 3 16.02c0 2.3.6 4.47 1.65 6.36L3 29l6.81-1.63c1.82 1 3.92 1.57 6.21 1.57C23.2 28.94 29 23.2 29 16.02 29 8.84 23.2 3 16.02 3zm0 23.64c-2.06 0-3.97-.6-5.59-1.63l-.4-.25-4.04.97.96-3.93-.26-.41a10.48 10.48 0 0 1-1.64-5.67c0-5.82 4.74-10.56 10.56-10.56 5.82 0 10.56 4.74 10.56 10.56 0 5.82-4.74 10.56-10.56 10.56z"/>
+      </svg>
+      <span>Pedir</span>
+    </a>
+
+    <a class="fab fab-maps" href="#ubicacion" aria-label="Cómo llegar">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/>
+      </svg>
+      <span>Ubicación</span>
+    </a>
+  </div>
 
 </body>
 </html>
