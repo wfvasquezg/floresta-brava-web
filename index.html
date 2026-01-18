@@ -5,6 +5,8 @@
   <title>Floresta Brava | Comida típica ecuatoriana en Quito</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Restaurante Floresta Brava. Encebollado, yaguarlocro, corviches, empanadas y mucho más. Comida típica ecuatoriana con sabor casero en Quito.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:locale" content="es_EC">
   
   <link rel="canonical" href="https://florestabrava.com/">
   <meta property="og:type" content="website">
@@ -21,25 +23,25 @@
 
   <!-- Datos estructurados para SEO Local (edita teléfono/horarios si cambian) -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": "Floresta Brava",
-    "url": "https://florestabrava.com/",
-    "sameAs": ["https://g.page/r/CWs8Hr-H1g4jEBM"],
-    "hasMap": "https://www.google.com/maps/search/?api=1&query=Restaurante%20Floresta%20Brava%20Quito",
-    "telephone": "+593983603626",
-    "servesCuisine": ["Comida ecuatoriana", "Comida típica", "Desayunos", "Almuerzos"],
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Av. Coruña y Guipúzcoa",
-      "addressLocality": "Quito",
-      "addressRegion": "Pichincha",
-      "addressCountry": "EC"
-    }
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Floresta Brava",
+  "url": "https://florestabrava.com/",
+  "sameAs": ["https://g.page/r/CWs8Hr-H1g4jEBM"],
+  "hasMap": "https://www.google.com/maps/search/?api=1&query=Restaurante%20Floresta%20Brava%20Quito",
+  "telephone": "+593983603626",
+  "servesCuisine": ["Comida ecuatoriana", "Comida típica", "Desayunos", "Almuerzos"],
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. Coruña y Guipúzcoa",
+    "addressLocality": "Quito",
+    "addressRegion": "Pichincha",
+    "addressCountry": "EC"
   }
-  </script>
+}
+</script>
 
 <style>
     :root {
@@ -583,7 +585,121 @@
     .testimonial p { margin: 0 0 12px; }
     .faq .card h3 { margin-top: 0; }
 
+
+/* Menú en columnas (Menú de hoy / Fin de semana) */
+.menu-hoy-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:16px;
+  margin-top:18px;
+}
+
+.menu-hoy-col{
+  background:#fff;
+  border:1px solid rgba(0,0,0,.06);
+  border-radius:16px;
+  padding:16px 16px 14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+
+.menu-hoy-col h3{
+  margin:0 0 10px 0;
+}
+
+.menu-hoy-col ul{
+  margin:0;
+  padding-left:18px;
+}
+
+.menu-hoy-col li{
+  margin:6px 0;
+}
+
+@media (max-width: 920px){
+  .menu-hoy-grid{ grid-template-columns: 1fr; }
+}
+
+/* Ajuste de espacio entre secciones */
+#finsemana{ padding-bottom: 18px; }
+#platos{ padding-top: 18px; }
+
+
+/* Fin de semana tweaks */
+#finsemana .menu-hoy-col .price{
+  margin-top:10px;
+  font-weight:800;
+  font-size:18px;
+}
+#finsemana .menu-hoy-col .pill{
+  display:inline-block;
+  margin-top:10px;
+}
+
+
+/* Opciones fin de semana */
+.finsemana-opciones .menu-hoy-col p{
+  margin: 8px 0;
+}
+.finsemana-opciones .menu-hoy-col h3{
+  margin-bottom: 12px;
+}
+
+
+/* Banner fin de semana (tamaño controlado) */
+.finsemana-banner{
+  margin: 18px auto 10px;
+  max-width: 980px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(0,0,0,.10);
+  border: 1px solid rgba(0,0,0,.06);
+  background: #fff;
+}
+
+.finsemana-banner img{
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 520px;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* En pantallas pequeñas, reduce la altura para no “empujar” el contenido */
+@media (max-width: 640px){
+  .finsemana-banner img{ max-height: 340px; }
+}
+
+
+/* Centrar texto en tarjetas de opciones (Fin de semana) */
+#finsemana .finsemana-opciones .menu-hoy-col{
+  text-align: center;
+}
+#finsemana .finsemana-opciones .menu-hoy-col p{
+  margin: 8px 0;
+}
+
+
+/* Fin de semana: solo 2 opciones */
+#finsemana .finsemana-opciones{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 920px){
+  #finsemana .finsemana-opciones{ grid-template-columns: 1fr; }
+}
+
 </style>
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/florestabrava-isotipo-512.png">
+  <meta name="theme-color" content="#145b6b">
+
 </head>
 <body id="top">
   <a class="skip-link" href="#contenido">Saltar a contenido</a>
@@ -593,7 +709,7 @@
   <div class="container nav">
     <div class="logo-area">
       <a href="#top" aria-label="Ir al inicio">
-        <img src="img/letrasflorestabrava.png" alt="Floresta Brava" class="logo-img">
+        <img src="img/letrasflorestabrava.png" alt="Floresta Brava" class="logo-img" loading="lazy">
       </a>
     </div>
 
@@ -605,10 +721,14 @@
 
     <nav id="nav-menu" class="nav-menu" aria-label="Navegación principal">
       <ul>
+        <li><a href="menu.html">Menú</a></li>
         <li><a href="#platos">Platos estrella</a></li>
         <li><a href="#menudiario">Menú diario</a></li>
+        <li><a href="#finsemana">Fin de semana</a></li>
         <li><a href="#empresas">Empresas</a></li>
         <li><a href="#ubicacion">Ubicación</a></li>
+        <li><a href="#resenas">Reseñas</a></li>
+        <li><a href="#faq">FAQ</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
@@ -618,11 +738,11 @@
 
 <main id="contenido">
 <section id="top" class="hero">
-  <img src="img/hero-encebollado.jpg" alt="Encebollado Floresta Brava" class="bg">
+  <img src="img/hero-encebollado.jpg" alt="" class="bg" aria-hidden="true">
 
   <div class="container hero-content">
     <div class="hero-logo">
-      <img src="img/logoflorestatransparente.png" alt="Floresta Brava - Logo">
+      <img src="img/logoflorestatransparente.png" alt="Floresta Brava - Logo" loading="lazy">
     </div>
 
     <div class="hero-kicker">Restaurante · Quito</div>
@@ -631,8 +751,7 @@
 
     <p>
       Encebollado, yaguarlocro, corviches, empanadas, pinchos y más.
-      Ven a Floresta Brava o haz tu pedido por WhatsApp para disfrutar
-      de un almuerzo realmente casero.
+      Ven a Floresta Brava o haz tu pedido por WhatsApp. También puedes ver el <strong>menú digital</strong> desde tu celular (ideal para QR en mesas).
     </p>
 
     <div class="hero-badges">
@@ -649,12 +768,64 @@
         Pedir por WhatsApp
       </a>
 
+      <a class="btn btn-ghost" href="menu.html">
+        Ver menú completo
+      </a>
+
       <a class="btn btn-ghost" href="#platos">
         Ver platos estrella
+      </a>
+
+      <a class="btn btn-ghost" href="#ubicacion">
+        Cómo llegar
       </a>
     </div>
   </div>
 </section>
+
+
+<section id="finsemana" class="section alt">
+  <div class="container">
+    <h2 class="section-title">Menú especial de fin de semana</h2>
+    <p class="section-subtitle">
+      Sábados y domingos tenemos opciones especiales. Reserva por WhatsApp para que lo tengas listo.
+    </p>
+
+    <!-- Banner / Publicidad del fin de semana -->
+    <a class="finsemana-banner-link" href="img/finsemana-banner.png" target="_blank" rel="noopener">
+    <div class="finsemana-banner">
+      <img id="finsemana-poster" src="img/finsemana-banner.png" data-fallback="img/finsemana-banner.png" alt="Almuerzo especial de fin de semana - Floresta Brava" loading="lazy">
+    </div>
+    </a>
+
+    <!-- Opciones -->
+    <div id="finsemana-opciones" class="menu-hoy-grid finsemana-opciones">
+      <div class="menu-hoy-col">
+        <h3>Opción 1</h3>
+        <p><strong>Sopa:</strong> Pozole</p>
+        <p><strong>Plato fuerte:</strong> Seco de pollo</p>
+        <p><strong>Incluye:</strong> Jugo natural</p>
+        <div class="price">$2,75</div>
+      </div>
+
+      <div class="menu-hoy-col">
+        <h3>Opción 2</h3>
+        <p><strong>Sopa:</strong> Pozole</p>
+        <p><strong>Plato fuerte:</strong> Caúcara</p>
+        <p><strong>Incluye:</strong> Jugo natural</p>
+        <div class="price">$2,75</div>
+      </div>
+
+    <div class="btn-group" style="margin-top:16px; justify-content:center;">
+      <a class="btn btn-primary"
+         href="https://wa.me/593983603626?text=Hola%20quiero%20reservar%20el%20men%C3%BA%20especial%20de%20fin%20de%20semana%20en%20Floresta%20Brava"
+         target="_blank" rel="noopener">
+        Reservar menú fin de semana
+      </a>
+    </div>
+  </div>
+</section>
+
 
 <section id="platos" class="section alt">
   <div class="container">
@@ -666,7 +837,7 @@
 
     <div class="grid grid-3">
       <article class="card">
-        <img src="img/hero-encebollado.jpg" alt="Encebollado">
+        <img src="img/hero-encebollado.jpg" alt="Encebollado" loading="lazy">
         <h3>Encebollado</h3>
         <p>Pescado fresco, yuca suave y cebolla curtida. Ideal para empezar el día con energía.</p>
         <div class="price">$3,00</div>
@@ -674,7 +845,7 @@
       </article>
 
       <article class="card">
-        <img src="img/yaguarlocro.png" alt="Yaguarlocro">
+        <img src="img/yaguarlocro.png" alt="Yaguarlocro" loading="lazy">
         <h3>Yaguarlocro</h3>
         <p>Un manjar que no te lo puedes perder.</p>
         <div class="price">$3,50</div>
@@ -682,7 +853,7 @@
       </article>
 
       <article class="card">
-        <img src="img/corviches.png" alt="Corviches">
+        <img src="img/corviches.png" alt="Corviches" loading="lazy">
         <h3>Corviches</h3>
         <p>De verde, rellenos de pescado y fritos al punto: crujientes por fuera, jugosos por dentro.</p>
         <div class="price">$1,00</div>
@@ -690,7 +861,7 @@
       </article>
 
       <article class="card">
-        <img src="img/empanadas.png" alt="Empanadas">
+        <img src="img/empanadas.png" alt="Empanadas" loading="lazy">
         <h3>Empanadas variadas</h3>
         <p>De queso, carne y pollo, doradas para los más golosos.</p>
         <div class="price">$1,00</div>
@@ -698,7 +869,7 @@
       </article>
 
       <article class="card">
-        <img src="img/pinchos.png" alt="Pinchos">
+        <img src="img/pinchos.png" alt="Pinchos" loading="lazy">
         <h3>Pinchos a la parrilla</h3>
         <p>Carne marinada y asada al momento, acompañada de papas y salsas caseras.</p>
         <div class="price">$1,00</div>
@@ -706,7 +877,7 @@
       </article>
 
       <article class="card">
-        <img src="img/churrasco.png" alt="Churrasco">
+        <img src="img/churrasco.png" alt="Churrasco" loading="lazy">
         <h3>Churrasco</h3>
         <p>Jugoso corte de carne, acompañado de arroz, papas fritas, ensalada fresca y huevo frito.</p>
         <div class="price">$5,25</div>
@@ -714,7 +885,7 @@
       </article>
 
       <article class="card">
-        <img src="img/bolon-estofado.png" alt="Bolón con estofado de carne">
+        <img src="img/bolon-estofado.png" alt="Bolón con estofado de carne" loading="lazy">
         <h3>Bolón con estofado de carne</h3>
         <p>Bolón de verde bien amasado, acompañado de un estofado de carne suave y jugoso, con su salsita casera.</p>
         <div class="price">$2,50</div>
@@ -722,7 +893,7 @@
       </article>
 
       <article class="card">
-        <img src="img/jugos.png" alt="Jugos naturales">
+        <img src="img/jugos.png" alt="Jugos naturales" loading="lazy">
         <h3>Jugos naturales</h3>
         <p>Maracuyá, mora, naranjilla y más frutas frescas para acompañar cualquier plato.</p>
         <div class="price">$1,50</div>
@@ -751,11 +922,25 @@
           <h3>Almuerzo ejecutivo</h3>
           <p>Sopa del día, plato fuerte a elegir y jugo natural.</p>
         </div>
+
+        <div class="highlight" id="menu-hoy">
+          <h3>Menú de hoy</h3>
+          <p><strong>Sopa:</strong> <span id="menu-sopa">Consulta por WhatsApp</span></p>
+          <p><strong>Segundos:</strong> <span id="menu-segundos">3 opciones disponibles</span></p>
+          <p><strong>Precio:</strong> <span id="menu-precio">$2,75</span></p>
+          <p><strong>Bebida:</strong> <span id="menu-bebida">Limonada</span></p>
+          <a class="btn btn-primary" style="margin-top:10px; width:max-content;"
+             href="https://wa.me/593983603626?text=Hola%20%C2%BFme%20env%C3%ADas%20el%20men%C3%BA%20de%20hoy%20por%20favor%3F"
+             target="_blank" rel="noopener">
+            Pedir menú de hoy
+          </a>
+        </div>
+
       </div>
 
       <div>
         <div class="menudiario-img">
-          <img src="img/almuerzo.png" alt="Almuerzo de Floresta Brava">
+          <img id="menu-hoy-poster" src="img/almuerzo.png" data-fallback="img/almuerzo.png" alt="Menú del día - Floresta Brava" loading="lazy">
           <p class="menudiario-caption">Foto referencial de nuestro menú del día.</p>
         </div>
       </div>
@@ -945,6 +1130,150 @@
     </div>
   </div>
 </footer>
+
+
+<script>
+  // Menús dinámicos desde Google Sheets (publicado como CSV)
+  // IMPORTANTE: evita comas dentro de las celdas (CSV separa por comas). Usa "|" para listas.
+  const MENU_HOY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYEmb5kfi089waViF4yNTGsSyeQYKDO-KFyuHBZGMXjxjB2fs38FWdHne6387SjEVs9HQq2qJPdh4A/pub?gid=0&single=true&output=csv";
+  const FIN_SEMANA_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYEmb5kfi089waViF4yNTGsSyeQYKDO-KFyuHBZGMXjxjB2fs38FWdHne6387SjEVs9HQq2qJPdh4A/pub?gid=17929628&single=true&output=csv";
+
+  function todayYMD(timeZone = "America/Guayaquil") {
+    const parts = new Intl.DateTimeFormat("en-CA", {
+      timeZone, year: "numeric", month: "2-digit", day: "2-digit"
+    }).formatToParts(new Date());
+    const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
+    return `${map.year}-${map.month}-${map.day}`;
+  }
+
+  function parseCSV(text) {
+    const lines = text.trim().split(/?
+/);
+    const headers = lines[0].split(",").map(h => h.trim());
+    return lines.slice(1).filter(Boolean).map(line => {
+      const cols = line.split(",").map(c => c.trim());
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = (cols[i] ?? ""));
+      return obj;
+    });
+  }
+
+  async function loadCSV(url) {
+    const r = await fetch(url, { cache: "no-store" });
+    if (!r.ok) throw new Error("No se pudo leer CSV: " + url);
+    return parseCSV(await r.text());
+  }
+
+  function inRange(today, from, to) {
+    return today >= from && today <= to;
+  }
+
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el && value !== undefined && value !== null) el.textContent = value;
+  }
+
+  function setImg(id, url) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const clean = (url || "").trim();
+    if (clean) {
+      el.src = clean;
+      return;
+    }
+    // fallback
+    const fb = el.getAttribute("data-fallback");
+    if (fb) el.src = fb;
+  }
+
+  function normalizePrice(p) {
+    const v = (p || "").toString().replace("$", "").trim();
+    if (!v) return "";
+    return v.startsWith("$") ? v : "$" + v;
+  }
+
+  (async function initMenus() {
+    const today = todayYMD();
+
+    // MENU HOY
+    try {
+      const rows = await loadCSV(MENU_HOY_CSV_URL);
+      if (rows.length) {
+        const m = rows[0];
+        setText("menu-precio", normalizePrice(m.price) || "$2,75");
+
+        const sopas = (m.sopas || "").split("|").map(s => s.trim()).filter(Boolean);
+        const platos = (m.platos_fuertes || "").split("|").map(s => s.trim()).filter(Boolean);
+
+        setText("menu-sopa", sopas.length ? sopas.join(" / ") : "Consulta por WhatsApp");
+        setText("menu-segundos", platos.length ? platos.join(" / ") : "3 opciones disponibles");
+        setText("menu-bebida", (m.bebida || "Limonada").trim());
+
+        // poster_url es opcional
+        setImg("menu-hoy-poster", m.poster_url);
+
+        // Mejora el mensaje de WhatsApp de "Pedir menú de hoy" para que el cliente lo complete
+        const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
+        if (waBtn) {
+          const msg = encodeURIComponent('Hola, vengo del menú de hoy de Floresta Brava. Quiero pedir: ');
+          waBtn.href = 'https://wa.me/593983603626?text=' + msg;
+        }
+      }
+    } catch (e) {
+      console.warn("MENU_HOY:", e);
+    }
+
+    // FIN DE SEMANA
+    try {
+      const rows = await loadCSV(FIN_SEMANA_CSV_URL);
+      const sec = document.getElementById("finsemana");
+      if (!sec) return;
+
+      if (!rows.length) {
+        sec.style.display = "none";
+        return;
+      }
+
+      const from = (rows[0].active_from || "").trim();
+      const to = (rows[0].active_to || "").trim();
+
+      if (!from || !to || !inRange(today, from, to)) {
+        sec.style.display = "none"; // fuera de rango: oculto
+        return;
+      }
+
+      sec.style.display = "";
+      setImg("finsemana-poster", rows[0].poster_url);
+
+      const cont = document.getElementById("finsemana-opciones");
+      if (cont) {
+        cont.innerHTML = rows.map((r, idx) => {
+          const title = (r.title || ("Opción " + (idx + 1))).trim();
+          const price = normalizePrice(r.price) || "$2,75";
+          return `
+            <div class="menu-hoy-col">
+              <h3>${title}</h3>
+              <p><strong>Sopa:</strong> ${(r.sopa || '').trim()}</p>
+              <p><strong>Plato fuerte:</strong> ${(r.plato_fuerte || '').trim()}</p>
+              <p><strong>Bebida:</strong> ${(r.bebida || '').trim()}</p>
+              <div class="price">${price}</div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      // Ajusta CTA de reserva
+      const reserveBtn = sec.querySelector('a.btn.btn-primary');
+      if (reserveBtn) {
+        const msg = encodeURIComponent('Hola, vengo del menú fin de semana de Floresta Brava. Quiero reservar: ');
+        reserveBtn.href = 'https://wa.me/593983603626?text=' + msg;
+      }
+
+    } catch (e) {
+      console.warn("FIN_SEMANA:", e);
+    }
+  })();
+</script>
 
 
 <script>
