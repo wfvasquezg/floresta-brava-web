@@ -794,7 +794,7 @@
     <!-- Banner / Publicidad del fin de semana -->
     <a class="finsemana-banner-link" href="img/finsemana-banner.png" target="_blank" rel="noopener">
     <div class="finsemana-banner">
-      <img id="finsemana-poster" src="img/finsemana-banner.png" data-fallback="img/finsemana-banner.png" alt="Almuerzo especial de fin de semana - Floresta Brava" loading="lazy">
+      <img id="finsemana-poster" src="img/finsemana-banner.png" data-fallback="img/menu_finsemana.png" alt="Almuerzo especial de fin de semana - Floresta Brava" loading="lazy">
     </div>
     </a>
 
@@ -1131,10 +1131,11 @@
   </div>
 </footer>
 
+<!-- CSV parser robusto (maneja comas, comillas y saltos de línea) -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
 <script>
   // Menús dinámicos desde Google Sheets (publicado como CSV)
-  // IMPORTANTE: evita comas dentro de las celdas (CSV separa por comas). Usa "|" para listas.
   const MENU_HOY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYEmb5kfi089waViF4yNTGsSyeQYKDO-KFyuHBZGMXjxjB2fs38FWdHne6387SjEVs9HQq2qJPdh4A/pub?gid=0&single=true&output=csv";
   const FIN_SEMANA_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYEmb5kfi089waViF4yNTGsSyeQYKDO-KFyuHBZGMXjxjB2fs38FWdHne6387SjEVs9HQq2qJPdh4A/pub?gid=17929628&single=true&output=csv";
 
@@ -1143,19 +1144,16 @@
       timeZone, year: "numeric", month: "2-digit", day: "2-digit"
     }).formatToParts(new Date());
     const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
-    return `${map.year}-${map.month}-${map.day}`;
+    return `${map.year}-${map.month}-${map.day}`; // YYYY-MM-DD
   }
 
   function parseCSV(text) {
-    const lines = text.trim().split(/?
-/);
-    const headers = lines[0].split(",").map(h => h.trim());
-    return lines.slice(1).filter(Boolean).map(line => {
-      const cols = line.split(",").map(c => c.trim());
-      const obj = {};
-      headers.forEach((h, i) => obj[h] = (cols[i] ?? ""));
-      return obj;
+    // PapaParse maneja CSV real: comillas, comas dentro de celdas, saltos de línea, etc.
+    const parsed = Papa.parse(text, {
+      header: true,
+      skipEmptyLines: true
     });
+    return Array.isArray(parsed.data) ? parsed.data : [];
   }
 
   async function loadCSV(url) {
@@ -1176,54 +1174,56 @@
   function setImg(id, url) {
     const el = document.getElementById(id);
     if (!el) return;
+
     const clean = (url || "").trim();
-    if (clean) {
-      el.src = clean;
-      return;
-    }
-    // fallback
-    const fb = el.getAttribute("data-fallback");
-    if (fb) el.src = fb;
+    const fb = el.getAttribute("data-fallback") || "";
+    const base = clean || fb;
+    if (!base) return;
+
+    // cache-buster por día
+    const v = todayYMD();
+    el.src = base + (base.includes("?") ? "&" : "?") + "v=" + v;
   }
 
   function normalizePrice(p) {
     const v = (p || "").toString().replace("$", "").trim();
     if (!v) return "";
-    return v.startsWith("$") ? v : "$" + v;
+    return "$" + v;
   }
 
   (async function initMenus() {
     const today = todayYMD();
 
-    // MENU HOY
+    // ===== MENU HOY =====
     try {
       const rows = await loadCSV(MENU_HOY_CSV_URL);
       if (rows.length) {
-        const m = rows[0];
-        setText("menu-precio", normalizePrice(m.price) || "$2,75");
+        const m = rows[0] || {};
 
-        const sopas = (m.sopas || "").split("|").map(s => s.trim()).filter(Boolean);
-        const platos = (m.platos_fuertes || "").split("|").map(s => s.trim()).filter(Boolean);
+        setText("menu-precio", normalizePrice(m.price) || "$2.75");
+
+        const sopas = (m.sopas || "").toString().split("|").map(s => s.trim()).filter(Boolean);
+        const platos = (m.platos_fuertes || "").toString().split("|").map(s => s.trim()).filter(Boolean);
 
         setText("menu-sopa", sopas.length ? sopas.join(" / ") : "Consulta por WhatsApp");
         setText("menu-segundos", platos.length ? platos.join(" / ") : "3 opciones disponibles");
-        setText("menu-bebida", (m.bebida || "Limonada").trim());
+        setText("menu-bebida", (m.bebida || "Limonada").toString().trim());
 
-        // poster_url es opcional
-        setImg("menu-hoy-poster", m.poster_url);
+        // poster_url opcional
+        setImg("menu-hoy-poster", m.poster_url, today);
 
-        // Mejora el mensaje de WhatsApp de "Pedir menú de hoy" para que el cliente lo complete
+        // WhatsApp botón del menú de hoy
         const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
         if (waBtn) {
-          const msg = encodeURIComponent('Hola, vengo del menú de hoy de Floresta Brava. Quiero pedir: ');
-          waBtn.href = 'https://wa.me/593983603626?text=' + msg;
+          const msg = encodeURIComponent("Hola, vengo del menú de hoy de Floresta Brava. Quiero pedir: ");
+          waBtn.href = "https://wa.me/593983603626?text=" + msg;
         }
       }
     } catch (e) {
       console.warn("MENU_HOY:", e);
     }
 
-    // FIN DE SEMANA
+    // ===== FIN DE SEMANA =====
     try {
       const rows = await loadCSV(FIN_SEMANA_CSV_URL);
       const sec = document.getElementById("finsemana");
@@ -1234,39 +1234,41 @@
         return;
       }
 
-      const from = (rows[0].active_from || "").trim();
-      const to = (rows[0].active_to || "").trim();
+      const from = (rows[0].active_from || "").toString().trim();
+      const to = (rows[0].active_to || "").toString().trim();
 
       if (!from || !to || !inRange(today, from, to)) {
-        sec.style.display = "none"; // fuera de rango: oculto
+        sec.style.display = "none";
         return;
       }
 
       sec.style.display = "";
-      setImg("finsemana-poster", rows[0].poster_url);
+
+      // banner fin de semana (poster_url opcional)
+      setImg("finsemana-poster", rows[0].poster_url, today);
 
       const cont = document.getElementById("finsemana-opciones");
       if (cont) {
         cont.innerHTML = rows.map((r, idx) => {
-          const title = (r.title || ("Opción " + (idx + 1))).trim();
-          const price = normalizePrice(r.price) || "$2,75";
+          const title = (r.title || ("Opción " + (idx + 1))).toString().trim();
+          const price = normalizePrice(r.price) || "$2.75";
           return `
             <div class="menu-hoy-col">
               <h3>${title}</h3>
-              <p><strong>Sopa:</strong> ${(r.sopa || '').trim()}</p>
-              <p><strong>Plato fuerte:</strong> ${(r.plato_fuerte || '').trim()}</p>
-              <p><strong>Bebida:</strong> ${(r.bebida || '').trim()}</p>
+              <p><strong>Sopa:</strong> ${(r.sopa || "").toString().trim()}</p>
+              <p><strong>Plato fuerte:</strong> ${(r.plato_fuerte || "").toString().trim()}</p>
+              <p><strong>Bebida:</strong> ${(r.bebida || "").toString().trim()}</p>
               <div class="price">${price}</div>
             </div>
           `;
         }).join("");
       }
 
-      // Ajusta CTA de reserva
-      const reserveBtn = sec.querySelector('a.btn.btn-primary');
+      // CTA reserva fin de semana
+      const reserveBtn = sec.querySelector("a.btn.btn-primary");
       if (reserveBtn) {
-        const msg = encodeURIComponent('Hola, vengo del menú fin de semana de Floresta Brava. Quiero reservar: ');
-        reserveBtn.href = 'https://wa.me/593983603626?text=' + msg;
+        const msg = encodeURIComponent("Hola, vengo del menú fin de semana de Floresta Brava. Quiero reservar: ");
+        reserveBtn.href = "https://wa.me/593983603626?text=" + msg;
       }
 
     } catch (e) {
@@ -1274,7 +1276,6 @@
     }
   })();
 </script>
-
 
 <script>
   // Año dinámico en el footer
