@@ -776,87 +776,154 @@
       if (!v) return "";
       return "$" + v;
     }
-
+    function getNowInTZ(timeZone = "America/Guayaquil") {
+      // Crea una “fecha” basada en la hora de Ecuador (evita desfases)
+      const s = new Intl.DateTimeFormat("en-US", {
+        timeZone,
+        year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", second: "2-digit",
+        hour12: false
+      }).format(new Date());
+  
+      const [mdy, hms] = s.split(", ");
+      const [m, d, y] = mdy.split("/");
+      return new Date(`${y}-${m}-${d}T${hms}`);
+    }
+  
+    function getDayEC() {
+      // 0=Dom, 1=Lun...6=Sab
+      const dt = getNowInTZ("America/Guayaquil");
+      return dt.getDay();
+    }
+  
+    function show(elOrId) {
+      const el = typeof elOrId === "string" ? document.getElementById(elOrId) : elOrId;
+      if (el) el.style.display = "";
+    }
+  
+    function hide(elOrId) {
+      const el = typeof elOrId === "string" ? document.getElementById(elOrId) : elOrId;
+      if (el) el.style.display = "none";
+    }
+    
     // ===== init =====
-    (async function initMenus() {
-      const today = todayYMD();
+(async function initMenus() {
+  const today = todayYMD();
+  const timeZone = "America/Guayaquil";
 
-      // Año footer
-      const yearEl = document.getElementById("year");
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
+  // ===== Helpers para dia Ecuador (0=Dom, 1=Lun...6=Sab) =====
+  function getNowInTZ(tz) {
+    const s = new Intl.DateTimeFormat("en-US", {
+      timeZone: tz,
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit",
+      hour12: false
+    }).format(new Date());
 
-      // MENU HOY
-      try {
-        const rows = await loadCSV(MENU_HOY_CSV_URL);
-        if (rows.length) {
-          const m = rows[0] || {};
-          setText("menu-precio", normalizePrice(m.price) || "$2.75");
+    const parts = s.split(", ");
+    const [m, d, y] = parts[0].split("/");
+    const hms = parts[1];
+    return new Date(`${y}-${m}-${d}T${hms}`);
+  }
 
-          const sopas = (m.sopas || "").toString().split("|").map(s => s.trim()).filter(Boolean);
-          const platos = (m.platos_fuertes || "").toString().split("|").map(s => s.trim()).filter(Boolean);
+  const dow = getNowInTZ(timeZone).getDay(); // 0=Dom
 
-          setText("menu-sopa", sopas.length ? sopas.join(" / ") : "Consulta por WhatsApp");
-          setText("menu-segundos", platos.length ? platos.join(" / ") : "3 opciones disponibles");
-          setText("menu-bebida", (m.bebida || "Limonada").toString().trim());
+  // Mostrar/ocultar utilitario (sin romper layout)
+  function show(id) { const el = document.getElementById(id); if (el) el.style.display = ""; }
+  function hide(id) { const el = document.getElementById(id); if (el) el.style.display = "none"; }
 
-          setImg("menu-hoy-poster", m.poster_url, today);
+  // ===== Regla de negocio =====
+  // Menú diario (bloque "menu-hoy") = Lunes a Sabado
+  // Menú fin de semana (seccion "finsemana") = SOLO Domingo (y ademas dentro de active_from/active_to)
+  if (dow === 0) {
+    hide("menu-hoy");     // domingo: oculto menú diario
+    show("finsemana");    // domingo: muestro fin de semana (luego se valida rango)
+  } else {
+    show("menu-hoy");     // lun-sab: muestro menú diario
+    hide("finsemana");    // lun-sab: oculto fin de semana
+  }
 
-          const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
-          if (waBtn) {
-            const msg = encodeURIComponent("Hola, vengo del menú de hoy de Floresta Brava. Quiero pedir: ");
-            waBtn.href = "https://wa.me/593983603626?text=" + msg;
-          }
+  // Año footer
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // ===== MENU HOY (solo Lun-Sab) =====
+  if (dow !== 0) {
+    try {
+      const rows = await loadCSV(MENU_HOY_CSV_URL);
+      if (rows.length) {
+        const m = rows[0] || {};
+        setText("menu-precio", normalizePrice(m.price) || "$2.75");
+
+        const sopas = (m.sopas || "").toString().split("|").map(s => s.trim()).filter(Boolean);
+        const platos = (m.platos_fuertes || "").toString().split("|").map(s => s.trim()).filter(Boolean);
+
+        setText("menu-sopa", sopas.length ? sopas.join(" / ") : "Consulta por WhatsApp");
+        setText("menu-segundos", platos.length ? platos.join(" / ") : "3 opciones disponibles");
+        setText("menu-bebida", (m.bebida || "Limonada").toString().trim());
+
+        setImg("menu-hoy-poster", m.poster_url, today);
+
+        const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
+        if (waBtn) {
+          const msg = encodeURIComponent("Hola, vengo del menú de hoy de Floresta Brava. Quiero pedir: ");
+          waBtn.href = "https://wa.me/593983603626?text=" + msg;
         }
-      } catch (e) {
-        console.warn("MENU_HOY:", e);
+      }
+    } catch (e) {
+      console.warn("MENU_HOY:", e);
+    }
+  }
+
+  // ===== FIN DE SEMANA (solo Domingo) =====
+  if (dow === 0) {
+    try {
+      const rows = await loadCSV(FIN_SEMANA_CSV_URL);
+      const sec = document.getElementById("finsemana");
+      if (!sec) return;
+
+      if (!rows.length) { sec.style.display = "none"; return; }
+
+      const from = (rows[0].active_from || "").toString().trim();
+      const to = (rows[0].active_to || "").toString().trim();
+
+      // Si no hay rango o hoy no esta en rango -> oculto
+      if (!from || !to || !inRange(today, from, to)) {
+        sec.style.display = "none";
+        return;
       }
 
-      // FIN DE SEMANA
-      try {
-        const rows = await loadCSV(FIN_SEMANA_CSV_URL);
-        const sec = document.getElementById("finsemana");
-        if (!sec) return;
+      sec.style.display = "";
 
-        if (!rows.length) { sec.style.display = "none"; return; }
+      setImg("finsemana-poster", rows[0].poster_url, today);
 
-        const from = (rows[0].active_from || "").toString().trim();
-        const to = (rows[0].active_to || "").toString().trim();
-
-        if (!from || !to || !inRange(today, from, to)) {
-          sec.style.display = "none";
-          return;
-        }
-
-        sec.style.display = "";
-
-        setImg("finsemana-poster", rows[0].poster_url, today);
-
-        const cont = document.getElementById("finsemana-opciones");
-        if (cont) {
-          cont.innerHTML = rows.map((r, idx) => {
-            const title = (r.title || ("Opción " + (idx + 1))).toString().trim();
-            const price = normalizePrice(r.price) || "$2.75";
-            return `
-              <div class="menu-hoy-col">
-                <h3>${title}</h3>
-                <p><strong>Sopa:</strong> ${(r.sopa || "").toString().trim()}</p>
-                <p><strong>Plato fuerte:</strong> ${(r.plato_fuerte || "").toString().trim()}</p>
-                <p><strong>Bebida:</strong> ${(r.bebida || "").toString().trim()}</p>
-                <div class="price">${price}</div>
-              </div>
-            `;
-          }).join("");
-        }
-
-        const reserveBtn = sec.querySelector("a.btn.btn-primary");
-        if (reserveBtn) {
-          const msg = encodeURIComponent("Hola, vengo del menú fin de semana de Floresta Brava. Quiero reservar: ");
-          reserveBtn.href = "https://wa.me/593983603626?text=" + msg;
-        }
-      } catch (e) {
-        console.warn("FIN_SEMANA:", e);
+      const cont = document.getElementById("finsemana-opciones");
+      if (cont) {
+        cont.innerHTML = rows.map((r, idx) => {
+          const title = (r.title || ("Opción " + (idx + 1))).toString().trim();
+          const price = normalizePrice(r.price) || "$2.75";
+          return `
+            <div class="menu-hoy-col">
+              <h3>${title}</h3>
+              <p><strong>Sopa:</strong> ${(r.sopa || "").toString().trim()}</p>
+              <p><strong>Plato fuerte:</strong> ${(r.plato_fuerte || "").toString().trim()}</p>
+              <p><strong>Bebida:</strong> ${(r.bebida || "").toString().trim()}</p>
+              <div class="price">${price}</div>
+            </div>
+          `;
+        }).join("");
       }
-    })();
+
+      const reserveBtn = sec.querySelector("a.btn.btn-primary");
+      if (reserveBtn) {
+        const msg = encodeURIComponent("Hola, vengo del menú fin de semana de Floresta Brava. Quiero reservar: ");
+        reserveBtn.href = "https://wa.me/593983603626?text=" + msg;
+      }
+    } catch (e) {
+      console.warn("FIN_SEMANA:", e);
+    }
+  }
+})();
 
     // Menú móvil (hamburguesa)
     document.addEventListener("DOMContentLoaded", () => {
