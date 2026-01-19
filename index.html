@@ -811,6 +811,18 @@
   const today = todayYMD();
   const timeZone = "America/Guayaquil";
 
+  const dow = getDayEC(); // 0=Dom, 1=Lun...6=Sab
+  
+  // Regla: Menú diario L-S, Fin de semana SOLO Domingo
+  if (dow === 0) {
+    hide("menudiario");   // oculta TODO el bloque “Menú diario” (incluye el poster)
+    show("finsemana");    // muestra el bloque de domingo (luego se valida rango)
+  } else {
+    show("menudiario");   // muestra menú diario
+    hide("finsemana");    // oculta fin de semana
+  }
+  
+
   // ===== Helpers para dia Ecuador (0=Dom, 1=Lun...6=Sab) =====
   function getNowInTZ(tz) {
     const s = new Intl.DateTimeFormat("en-US", {
@@ -890,9 +902,12 @@
       // Si no hay rango o hoy no esta en rango -> oculto
       if (!from || !to || !inRange(today, from, to)) {
         sec.style.display = "none";
+        // fallback: si es domingo pero NO hay fin de semana activo, muestra menudiario
+        show("menudiario");
         return;
       }
-
+      
+      
       sec.style.display = "";
 
       setImg("finsemana-poster", rows[0].poster_url, today);
