@@ -166,10 +166,15 @@
       gap: 40px;
     }
     .menudiario-img { margin-top: 8px; }
-    .menudiario-img img {
-      width: 100%; max-width: 420px; border-radius: 14px;
-      box-shadow: 0 8px 18px rgba(0,0,0,0.10);
-      display: block; margin-left: auto;
+    .menudiario-img img{
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      display: block;
+      margin-left: auto;
+    
+      object-fit: contain;     /* clave: no recorta */
+      object-position: center;
     }
     .menudiario-caption { font-size: 12px; color: #777; margin-top: 6px; text-align: right; }
     .menudiario-horario { max-width: 900px; margin: 32px auto 0; font-size: 14px; color: #555; }
@@ -567,9 +572,11 @@
           <div>
             <div class="menudiario-img">
               <!-- Poster: si está en pantalla, puedes dejar eager; si prefieres, lazy -->
-              <img id="menu-hoy-poster" src="img/almuerzo.png" data-fallback="img/almuerzo.png"
+              <img id="menu-hoy-poster"
+                   src="img/almuerzo.jpg"
+                   data-fallback="img/almuerzo.jpg"
                    alt="Menú del día - Floresta Brava"
-                   loading="eager" decoding="async" width="900" height="1200">
+                   loading="lazy">
               <p class="menudiario-caption">Foto referencial de nuestro menú del día.</p>
             </div>
           </div>
