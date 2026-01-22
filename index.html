@@ -75,7 +75,6 @@
     nav ul { list-style: none; display: flex; gap: 16px; }
     nav a { color: #f4f4f4; font-size: 14px; }
     nav a:hover { color: var(--amarillo); }    
-    #menu-hoy, #finsemana, #menudiario { display: block; }
     .hero {
       position: relative; min-height: 80vh;
       display: flex; align-items: center;
@@ -287,10 +286,8 @@
     .menu-hoy-col h3{ margin:0 0 10px 0; }
     @media (max-width: 920px){ .menu-hoy-grid{ grid-template-columns: 1fr; } }
 
-    #finsemana{ padding-bottom: 18px; }
     #platos{ padding-top: 18px; }
 
-    .finsemana-banner{
       margin: 18px auto 10px;
       max-width: 980px;
       border-radius: 18px;
@@ -299,7 +296,6 @@
       border: 1px solid rgba(0,0,0,.06);
       background: #fff;
     }
-    .finsemana-banner img{
       width: 100%;
       height: auto;
       display: block;
@@ -307,10 +303,7 @@
       object-fit: cover;
       object-position: center;
     }
-    @media (max-width: 640px){ .finsemana-banner img{ max-height: 340px; } }
 
-    .finsemana-opciones { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 860px; margin-left: auto; margin-right: auto; }
-    @media (max-width: 920px){ .finsemana-opciones{ grid-template-columns: 1fr; } }
   </style>
 
   <!-- Favicons -->
@@ -346,7 +339,7 @@
           <li><a href="menu.html">Menú</a></li>
           <li><a href="#platos">Platos estrella</a></li>
           <li><a href="#menudiario">Menú diario</a></li>
-          <li><a href="#finsemana">Fin de semana</a></li>
+          <li><a href="#menudiario">Menú especial</a></li>
           <li><a href="#empresas">Empresas</a></li>
           <li><a href="#ubicacion">Ubicación</a></li>
           <li><a href="#resenas">Reseñas</a></li>
@@ -414,58 +407,7 @@
         </div>
       </div>
     </section>
-
-    <section id="finsemana" class="section alt">
-      <div class="container">
-        <h2 class="section-title">Menú especial de fin de semana</h2>
-        <p class="section-subtitle">Sábados y domingos tenemos opciones especiales. Reserva por WhatsApp para que lo tengas listo.</p>
-
-        <a class="finsemana-banner-link"
-           href="https://wa.me/593983603626?text=Hola%2C%20vengo%20del%20menu%20fin%20de%20semana%20de%20Floresta%20Brava.%20Quiero%20reservar%3A%20"
-           target="_blank" rel="noopener">
-          <div class="finsemana-banner">
-            <!-- Si lo ves arriba, mejor eager -->
-            <img id="finsemana-poster"
-                 src="img/menu_finsemana.png"
-                 data-fallback="img/menu_finsemana.png"
-                 alt="Menu especial de fin de semana - Floresta Brava"
-                 loading="eager"
-                 fetchpriority="high"
-                 decoding="async"
-                 width="1200"
-                 height="1600">
-          </div>
-        </a>
-
-        <div id="finsemana-opciones" class="menu-hoy-grid finsemana-opciones">
-          <!-- fallback por si no carga sheet -->
-          <div class="menu-hoy-col">
-            <h3>Opción 1</h3>
-            <p><strong>Sopa:</strong> Pozole</p>
-            <p><strong>Plato fuerte:</strong> Seco de pollo</p>
-            <p><strong>Incluye:</strong> Jugo natural</p>
-            <div class="price">$2.75</div>
-          </div>
-          <div class="menu-hoy-col">
-            <h3>Opción 2</h3>
-            <p><strong>Sopa:</strong> Pozole</p>
-            <p><strong>Plato fuerte:</strong> Caúcara</p>
-            <p><strong>Incluye:</strong> Jugo natural</p>
-            <div class="price">$2.75</div>
-          </div>
-        </div>
-
-        <div class="btn-group" style="margin-top:16px; justify-content:center;">
-          <a class="btn btn-primary"
-             href="https://wa.me/593983603626?text=Hola%20quiero%20reservar%20el%20menu%20especial%20de%20fin%20de%20semana%20en%20Floresta%20Brava"
-             target="_blank" rel="noopener">
-            Reservar menú fin de semana
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section id="platos" class="section alt">
+<section id="platos" class="section alt">
       <div class="container">
         <h2 class="section-title">Platos estrella</h2>
         <p class="section-subtitle">Estos son los platos que más piden nuestros clientes. Preparados al momento, con recetas caseras y productos frescos.</p>
@@ -555,22 +497,25 @@
             </div>
 
             <div class="highlight" id="menu-hoy">
-              <h3 id="menu-box-title">Menú del día</h3>
+              <h3 id="menu-titulo">Menú del día</h3>
+              <p id="menu-descripcion" style="color:#555; font-size:13px; margin-top:6px;">
+                Sopa, plato fuerte y bebida. Pide por WhatsApp y lo dejamos listo.
+              </p>
+
               <p><strong>Sopa:</strong> <span id="menu-sopa">Consulta por WhatsApp</span></p>
-              <p><strong>Segundos:</strong> <span id="menu-segundos">3 opciones disponibles</span></p>
+              <p><strong>Plato(s):</strong> <span id="menu-segundos">3 opciones disponibles</span></p>
               <p><strong>Precio:</strong> <span id="menu-precio">$2.75</span></p>
-              <p><strong>Bebida:</strong> <span id="menu-bebida">Limonada</span></p>
+              <p><strong>Bebida:</strong> <span id="menu-bebida">Jugo del Día</span></p>
+
+              <!-- Solo se muestra cuando es DOMINGO (menú especial) -->
+              <div id="menu-opciones" class="menu-hoy-grid" style="display:none; margin-top:14px;"></div>
 
               <a class="btn btn-primary" style="margin-top:10px; width:max-content;"
-                 href="https://wa.me/593983603626?text=Hola%20me%20envias%20el%20menu%20de%20hoy%20por%20favor"
+                 href="https://wa.me/593983603626?text=Hola%20vengo%20desde%20la%20web%20de%20Floresta%20Brava%20y%20quiero%20hacer%20un%20pedido"
                  target="_blank" rel="noopener">
-                Pedir menú de hoy
+                Pedir por WhatsApp
               </a>
-</div>
-          
-                        <div id="domingo-opciones" class="menu-hoy-grid finsemana-opciones" style="display:none; margin-top:14px;"></div>
-
-</div>
+            </div>
 
           <div>
       <div class="menudiario-img">
@@ -733,215 +678,237 @@
 
   <!-- JS (defer) -->
   <script defer>
-    // ===== utilidades =====
-    const MENU_HOY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYEmb5kfi089waViF4yNTGsSyeQYKDO-KFyuHBZGMXjxjB2fs38FWdHne6387SjEVs9HQq2qJPdh4A/pub?gid=0&single=true&output=csv";
-    const FIN_SEMANA_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYEmb5kfi089waViF4yNTGsSyeQYKDO-KFyuHBZGMXjxjB2fs38FWdHne6387SjEVs9HQq2qJPdh4A/pub?gid=17929628&single=true&output=csv";
+  // =========================
+  // Floresta Brava - Menú dinámico (Google Sheets CSV)
+  // - Lunes a sábado: MENU_HOY (gid=0)
+  // - Domingo: FIN_SEMANA (gid=17929628) como "menú especial"
+  // =========================
 
-    function todayYMD(timeZone = "America/Guayaquil") {
-      const parts = new Intl.DateTimeFormat("en-CA", { timeZone, year:"numeric", month:"2-digit", day:"2-digit" }).formatToParts(new Date());
-      const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
-      return `${map.year}-${map.month}-${map.day}`;
-    }
+  const MENU_HOY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYEmb5kfi089waViF4yNTGsSyeQYKDO-KFyuHBZGMXjxjB2fs38FWdHne6387SjEVs9HQq2qJPdh4A/pub?gid=0&single=true&output=csv";
+  const FIN_SEMANA_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYEmb5kfi089waViF4yNTGsSyeQYKDO-KFyuHBZGMXjxjB2fs38FWdHne6387SjEVs9HQq2qJPdh4A/pub?gid=17929628&single=true&output=csv";
 
-    function parseCSV(text){
-      const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
-      return parsed.data || [];
-    }
+  const TZ = "America/Guayaquil";
+  const WHATSAPP_BASE = "https://wa.me/593983603626?text=";
 
-    async function loadCSV(url) {
-      const r = await fetch(url, { cache: "no-store" });
-      if (!r.ok) throw new Error("No se pudo leer CSV: " + url);
-      return parseCSV(await r.text());
-    }
+  function escapeHtml(s) {
+    return String(s ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
 
-    function inRange(today, from, to) { return today >= from && today <= to; }
+  function todayYMD(timeZone = TZ) {
+    // YYYY-MM-DD (en-CA devuelve el formato deseado)
+    const parts = new Intl.DateTimeFormat("en-CA", {
+      timeZone, year: "numeric", month: "2-digit", day: "2-digit"
+    }).formatToParts(new Date());
+    const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
+    return `${map.year}-${map.month}-${map.day}`;
+  }
 
-    function setText(id, value) {
-      const el = document.getElementById(id);
-      if (el && value !== undefined && value !== null) el.textContent = value;
-    }
+  function dayOfWeekTZ(timeZone = TZ) {
+    // 0=Domingo ... 6=Sábado
+    const parts = new Intl.DateTimeFormat("en-US", { timeZone, weekday: "short" }).format(new Date());
+    // en-US: Sun, Mon, Tue...
+    const map = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    return map[parts] ?? new Date().getDay();
+  }
 
-    function setImg(id, url, cacheKey) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const clean = (url || "").toString().trim();
-      const fb = (el.getAttribute("data-fallback") || "").trim();
-      const base = clean || fb;
-      if (!base) return;
+  function normalizePrice(p) {
+    const v = String(p ?? "").replace("$", "").trim();
+    if (!v) return "";
+    return "$" + v.replace(",", "."); // normaliza por si viene con coma
+  }
 
-      const v = cacheKey || todayYMD();
-      const sep = base.includes("?") ? "&" : "?";
-      el.src = base + sep + "v=" + encodeURIComponent(v);
-    }
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el && value !== undefined && value !== null) el.textContent = value;
+  }
 
-    function normalizePrice(p) {
-      const v = (p || "").toString().replace("$", "").trim();
-      if (!v) return "";
-      return "$" + v;
-    }
-    function getNowInTZ(timeZone = "America/Guayaquil") {
-      // Crea una “fecha” basada en la hora de Ecuador (evita desfases)
-      const s = new Intl.DateTimeFormat("en-US", {
-        timeZone,
-        year: "numeric", month: "2-digit", day: "2-digit",
-        hour: "2-digit", minute: "2-digit", second: "2-digit",
-        hour12: false
-      }).format(new Date());
-  
-      const [mdy, hms] = s.split(", ");
-      const [m, d, y] = mdy.split("/");
-      return new Date(`${y}-${m}-${d}T${hms}`);
-    }
-  
-    function getDayEC() {
-      // 0=Dom, 1=Lun...6=Sab
-      const dt = getNowInTZ("America/Guayaquil");
-      return dt.getDay();
-    }
-  
-    function show(elOrId) {
-      const el = typeof elOrId === "string" ? document.getElementById(elOrId) : elOrId;
-      if (el) el.style.display = "";
-    }
-  
-    function hide(elOrId) {
-      const el = typeof elOrId === "string" ? document.getElementById(elOrId) : elOrId;
-      if (el) el.style.display = "none";
-    }
-    
-    // ===== init =====
-    (async function initMenus() {
-      const tz = "America/Guayaquil";
-      const today = todayYMD(tz);
+  function setHtml(id, html) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  }
 
-      // Año footer
-      const yearEl = document.getElementById("year");
-      if (yearEl) yearEl.textContent = new Date().getFullYear();
+  function setDisplay(id, displayValue) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = displayValue;
+  }
 
-      // Día de la semana en Ecuador (0=Domingo ... 6=Sábado)
-      const tzNow = new Date(new Date().toLocaleString("en-US", { timeZone: tz }));
-      const dow = tzNow.getDay();
+  function setImg(id, url) {
+    const el = document.getElementById(id);
+    if (!el) return;
 
-      // Helpers de UI
-      const domingoCont = document.getElementById("domingo-opciones");
-      function hideSundayOptions(){ if (domingoCont) domingoCont.style.display = "none"; }
-      function showSundayOptions(html){ if (domingoCont){ domingoCont.innerHTML = html; domingoCont.style.display = "grid"; } }
+    const clean = String(url ?? "").trim();
+    const fb = String(el.getAttribute("data-fallback") || "").trim();
+    const base = clean || fb;
+    if (!base) return;
 
-      // Por defecto ocultamos opciones de domingo
-      hideSundayOptions();
+    // cache-buster por día (evita que el navegador “se quede” con una imagen vieja)
+    const v = todayYMD();
+    el.src = base + (base.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(v);
+  }
 
-      // Regla de negocio:
-      // - Lunes a sábado: menú diario (gid 0)
-      // - Domingo: menú especial (gid 17929628) si está activo hoy; si no, cae al menú diario.
-      const isSunday = (dow === 0);
+  async function loadCSV(url) {
+    // Asegura que PapaParse esté disponible (cdn)
+    if (!window.Papa) throw new Error("PapaParse no cargó (revisa el CDN).");
 
-      // --- 1) Intentar menú especial del domingo ---
-      if (isSunday) {
-        try {
-          const rows = await loadCSV(FIN_SEMANA_CSV_URL);
-          if (rows && rows.length) {
-            const from = (rows[0].active_from || "").toString().trim();
-            const to = (rows[0].active_to || "").toString().trim();
+    const r = await fetch(url, { cache: "no-store" });
+    if (!r.ok) throw new Error("No se pudo leer CSV: " + url);
 
-            // Si no hay rango, asumimos activo solo el domingo actual.
-            const active = (!from || !to) ? true : inRange(today, from, to);
+    const text = await r.text();
+    const parsed = window.Papa.parse(text, { header: true, skipEmptyLines: true });
+    return parsed.data || [];
+  }
 
-            if (active) {
-              // Título
-              setText("menu-box-title", "Menú especial (Domingo)");
+  function buildWeekendCards(rows) {
+    // Render tipo tarjeta para 2-4 opciones
+    return rows.map((r, idx) => {
+      const title = escapeHtml((r.title || `Opción ${idx + 1}`).toString().trim());
+      const sopa = escapeHtml((r.sopa || "").toString().trim());
+      const plato = escapeHtml((r.plato_fuerte || "").toString().trim());
+      const bebida = escapeHtml((r.bebida || "").toString().trim());
+      const price = escapeHtml(normalizePrice(r.price) || "$2.75");
 
-              // Mostrar poster (si viene en la primera fila)
-              setImg("menu-hoy-poster", rows[0].poster_url, today);
+      return `
+        <div class="menu-hoy-col">
+          <h3>${title}</h3>
+          ${sopa ? `<p><strong>Sopa:</strong> ${sopa}</p>` : ""}
+          ${plato ? `<p><strong>Plato fuerte:</strong> ${plato}</p>` : ""}
+          ${bebida ? `<p><strong>Bebida:</strong> ${bebida}</p>` : ""}
+          <div class="price">${price}</div>
+        </div>
+      `;
+    }).join("");
+  }
 
-              // Si hay varias opciones, mostramos un grid de opciones
-              const cards = []
-              for (let i = 0; i < rows.length; i++) {
-                const r = rows[i] || {};
-                const title = (r.title || ("Opción " + (i + 1))).toString().trim();
-                const price = normalizePrice(r.price) || "";
-                cards.push(`
-                  <div class="menu-hoy-col">
-                    <h3>${escapeHtml(title)}</h3>
-                    <p><strong>Sopa:</strong> ${escapeHtml((r.sopa || "").toString().trim())}</p>
-                    <p><strong>Plato fuerte:</strong> ${escapeHtml((r.plato_fuerte || "").toString().trim())}</p>
-                    <p><strong>Bebida:</strong> ${escapeHtml((r.bebida || "").toString().trim())}</p>
-                    ${price ? `<div class="price">${escapeHtml(price)}</div>` : ""}
-                  </div>
-                `);
-              }
-              if (cards.length) showSundayOptions(cards.join(""));
+  async function initMenus() {
+    // Año footer
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-              // Botón WhatsApp
-              const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
-              if (waBtn) {
-                const msg = encodeURIComponent("Hola, vengo del menú especial (domingo) de Floresta Brava. Quiero pedir: ");
-                waBtn.href = "https://wa.me/593983603626?text=" + msg;
-              }
+    const dow = dayOfWeekTZ(); // 0 domingo
+    const isSunday = dow === 0;
 
-              // No seguimos: ya aplicamos menú especial
-              return;
-            }
-          }
-        } catch (e) {
-          console.warn("MENU_DOMINGO:", e);
-        }
-      }
+    // Un solo bloque (menú diario) que cambia a "especial" el domingo
+    const menuOpciones = document.getElementById("menu-opciones");
 
-      // --- 2) Menú diario (lunes a sábado o fallback) ---
+    // --- DOMINGO: Menú especial (FIN_SEMANA) ---
+    if (isSunday) {
       try {
-        const rows = await loadCSV(MENU_HOY_CSV_URL);
+        const rows = await loadCSV(FIN_SEMANA_CSV_URL);
+
+        // si no hay data válida, cae al menú normal
         if (rows && rows.length) {
-          const m = rows[0] || {};
-          setText("menu-box-title", "Menú del día");
-          setText("menu-precio", normalizePrice(m.price) || "$2.75");
+          const first = rows[0] || {};
 
-          const sopas = (m.sopas || "").toString().split("|").map(s => s.trim()).filter(Boolean);
-          const platos = (m.platos_fuertes || "").toString().split("|").map(s => s.trim()).filter(Boolean);
+          setText("menu-titulo", "Menú especial de domingo");
+          setText("menu-descripcion", "Solo por hoy: opciones especiales. Reserva por WhatsApp y lo dejamos listo.");
 
-          setText("menu-sopa", sopas.length ? sopas.join(" / ") : "Consulta por WhatsApp");
-          setText("menu-segundos", platos.length ? platos.join(" / ") : "3 opciones disponibles");
-          setText("menu-bebida", (m.bebida || "Limonada").toString().trim());
+          // Imagen del especial (poster_url opcional)
+          setImg("menu-hoy-poster", first.poster_url);
 
-          setImg("menu-hoy-poster", m.poster_url, today);
+          // Resumen arriba (toma la primera opción como referencia)
+          setText("menu-sopa", (first.sopa || "Consulta por WhatsApp").toString().trim() || "Consulta por WhatsApp");
+          setText("menu-segundos", "Elige tu opción especial");
+          setText("menu-bebida", (first.bebida || "Jugo natural").toString().trim() || "Jugo natural");
+          setText("menu-precio", normalizePrice(first.price) || "$2.75");
 
+          // Tarjetas de opciones
+          if (menuOpciones) {
+            menuOpciones.style.display = "";
+            menuOpciones.innerHTML = buildWeekendCards(rows.slice(0, 6)); // máximo 6 para no saturar
+          }
+
+          // Botón WhatsApp del bloque
           const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
           if (waBtn) {
-            const msg = encodeURIComponent("Hola, vengo del menú del día de Floresta Brava. Quiero pedir: ");
-            waBtn.href = "https://wa.me/593983603626?text=" + msg;
+            const msg = encodeURIComponent("Hola, vengo del menú especial de domingo de Floresta Brava. Quiero reservar: ");
+            waBtn.href = WHATSAPP_BASE + msg;
           }
+          return; // listo (domingo)
         }
       } catch (e) {
-        console.warn("MENU_DIARIO:", e);
+        console.warn("FIN_SEMANA:", e);
+        // sigue a menú normal si falla
       }
-    })();
-// Menú móvil (hamburguesa)
-    document.addEventListener("DOMContentLoaded", () => {
-      const toggle = document.querySelector(".nav-toggle");
-      const menu = document.querySelector(".nav-menu");
-      if (!toggle || !menu) return;
+    }
 
-      const setExpanded = (v) => toggle.setAttribute("aria-expanded", v ? "true" : "false");
+    // --- LUN-SAB: Menú del día (MENU_HOY) ---
+    try {
+      const rows = await loadCSV(MENU_HOY_CSV_URL);
+      if (rows && rows.length) {
+        const m = rows[0] || {};
 
-      toggle.addEventListener("click", () => {
-        const isOpen = menu.classList.toggle("open");
-        setExpanded(isOpen);
-      });
+        setText("menu-titulo", "Menú del día");
+        setText("menu-descripcion", "Sopa, plato fuerte y bebida. Pide por WhatsApp y lo dejamos listo.");
 
-      menu.querySelectorAll("a").forEach((a) => {
-        a.addEventListener("click", () => {
-          menu.classList.remove("open");
-          setExpanded(false);
-        });
-      });
+        setText("menu-precio", normalizePrice(m.price) || "$2.75");
 
-      document.addEventListener("click", (e) => {
-        if (!menu.contains(e.target) && !toggle.contains(e.target)) {
-          menu.classList.remove("open");
-          setExpanded(false);
+        const sopas = (m.sopas || "").toString().split("|").map(s => s.trim()).filter(Boolean);
+        const platos = (m.platos_fuertes || "").toString().split("|").map(s => s.trim()).filter(Boolean);
+
+        setText("menu-sopa", sopas.length ? sopas.join(" / ") : "Consulta por WhatsApp");
+        setText("menu-segundos", platos.length ? platos.join(" / ") : "3 opciones disponibles");
+        setText("menu-bebida", (m.bebida || "Limonada").toString().trim());
+
+        // poster_url opcional
+        setImg("menu-hoy-poster", m.poster_url);
+
+        // Oculta tarjetas (no aplica)
+        if (menuOpciones) {
+          menuOpciones.style.display = "none";
+          menuOpciones.innerHTML = "";
         }
+
+        const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
+        if (waBtn) {
+          const msg = encodeURIComponent("Hola, vengo del menú de hoy de Floresta Brava. Quiero pedir: ");
+          waBtn.href = WHATSAPP_BASE + msg;
+        }
+      }
+    } catch (e) {
+      console.warn("MENU_HOY:", e);
+      // Fallback: deja el contenido que ya está en el HTML
+      if (menuOpciones) { menuOpciones.style.display = "none"; menuOpciones.innerHTML = ""; }
+    }
+  }
+
+  // Menú móvil (hamburguesa)
+  function initNav() {
+    const toggle = document.querySelector(".nav-toggle");
+    const menu = document.querySelector(".nav-menu");
+    if (!toggle || !menu) return;
+
+    const setExpanded = (v) => toggle.setAttribute("aria-expanded", v ? "true" : "false");
+
+    toggle.addEventListener("click", () => {
+      const isOpen = menu.classList.toggle("open");
+      setExpanded(isOpen);
+    });
+
+    menu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        menu.classList.remove("open");
+        setExpanded(false);
       });
     });
-  </script>
+
+    document.addEventListener("click", (e) => {
+      if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+        menu.classList.remove("open");
+        setExpanded(false);
+      }
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    initNav();
+    initMenus();
+  });
+</script>
 
   <!-- Botones flotantes -->
   <div class="floating-ctas" aria-label="Accesos rápidos">
