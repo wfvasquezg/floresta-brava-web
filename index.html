@@ -47,264 +47,372 @@
   </script>
 
   <style>
-    :root {
-      --madera: #7a4b1f;
-      --madera-oscura: #4b2a12;
-      --turquesa: #1fb6c9;
-      --naranja: #f57c22;
-      --crema: #fff7e8;
-      --gris: #444;
-      --verde: #145b6b;
-      --verde-oscuro: #0b2731;
-      --amarillo: var(--naranja);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.5; color: #222; background: #f5f3ee; }
-    a { text-decoration: none; }
+  :root {
+    --madera: #7a4b1f;
+    --madera-oscura: #4b2a12;
+    --turquesa: #1fb6c9;
+    --naranja: #f57c22;
+    --crema: #fff7e8;
+    --gris: #444;
+    --verde: #145b6b;
+    --verde-oscuro: #0b2731;
+    --amarillo: var(--naranja);
+  }
 
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: linear-gradient(90deg, var(--madera-oscura), var(--verde));
-      backdrop-filter: blur(6px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
-    .container { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-    .logo-area { display: flex; align-items: center; }
-    .logo-img { height: 40px; width: auto; }
-    nav ul { list-style: none; display: flex; gap: 16px; }
-    nav a { color: #f4f4f4; font-size: 14px; }
-    nav a:hover { color: var(--amarillo); }    
-    .hero {
-      position: relative; min-height: 80vh;
-      display: flex; align-items: center;
-      color: #fff; background: #000; overflow: hidden;
-    }
-    .hero::before {
-      content: ""; position: absolute; inset: 0;
-      background: linear-gradient(120deg, rgba(10,39,49,0.95), rgba(122,75,31,0.65));
-      z-index: 1;
-    }
-    .hero img.bg {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      filter: brightness(.8);
-    }
-    .hero-content { position: relative; z-index: 2; padding: 40px 16px 40px; }
-    .hero-kicker { font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: #ffe6c0; margin-bottom: 8px; }
-    .hero h1 { font-size: 32px; max-width: 520px; margin-bottom: 12px; }
-    .hero p { max-width: 480px; font-size: 15px; color: #fbeee0; margin-bottom: 20px; }
-    .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; font-size: 12px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.5;
+    color: #222;
+    background: #f5f3ee;
+  }
+  a { text-decoration: none; }
 
-    .badge {
-      padding: 4px 10px; border-radius: 999px;
-      background: rgba(0,0,0,0.25);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff;
-    }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 12px 22px; border-radius: 999px;
-      font-weight: 600; font-size: 14px;
-      border: none; cursor: pointer;
-      transition: transform .1s ease, box-shadow .15s ease, background .15s ease;
-    }
-    .btn-primary { background: #22c15d; color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.35); }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 14px 26px rgba(0,0,0,0.4); background: #1ea652; }
-    .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.7); margin-left: 10px; }
-    .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(90deg, var(--madera-oscura), var(--verde));
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
 
-    .section { padding: 56px 0; }
-    .section.alt { background: #ffffff; }
-    .section.soft { background: var(--crema); }
-    .section-title { font-size: 24px; text-align: center; margin-bottom: 8px; color: var(--madera-oscura); }
-    .section-subtitle { font-size: 14px; text-align: center; max-width: 560px; margin: 0 auto 28px; color: #555; }
-    .grid { display: grid; gap: 16px; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo-area { display: flex; align-items: center; }
+  .logo-img { height: 40px; width: auto; }
+  nav ul { list-style: none; display: flex; gap: 16px; }
+  nav a { color: #f4f4f4; font-size: 14px; }
+  nav a:hover { color: var(--amarillo); }
 
-    .hero-logo { margin-bottom: 24px; text-align: center; }
-    .hero-logo img { height: 180px; width: auto; filter: drop-shadow(0 10px 18px rgba(0,0,0,0.55)); }
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background: #000;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(10,39,49,0.95), rgba(122,75,31,0.65));
+    z-index: 1;
+  }
+  .hero img.bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(.8);
+  }
+  .hero-content { position: relative; z-index: 2; padding: 40px 16px 40px; }
+  .hero-kicker {
+    font-size: 13px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #ffe6c0;
+    margin-bottom: 8px;
+  }
+  .hero h1 { font-size: 32px; max-width: 520px; margin-bottom: 12px; }
+  .hero p { max-width: 480px; font-size: 15px; color: #fbeee0; margin-bottom: 20px; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; font-size: 12px; }
 
-    @media (min-width: 768px) {
-      .hero-logo img { height: 240px; }
-      .hero h1 { font-size: 40px; }
-      .grid-3 { grid-template-columns: repeat(3, 1fr); }
-      .grid-2 { grid-template-columns: repeat(2, 1fr); }
-      .hero-content { padding-top: 56px; }
-    }
+  .badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+  }
 
-    .card {
-      background: #fff; border-radius: 14px; padding: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-      border: 1px solid rgba(0,0,0,0.03);
-    }
-    .card img { width: 100%; border-radius: 12px; margin-bottom: 10px; display: block; }
-    .card h3 { font-size: 16px; margin-bottom: 4px; color: var(--madera-oscura); }
-    .card p { font-size: 13px; color: #555; }
-    .price { font-weight: 700; color: var(--verde-oscuro); margin-top: 6px; font-size: 14px; }
-    .pill { display: inline-block; font-size: 11px; padding: 3px 8px; border-radius: 999px; background: rgba(31,182,201,0.09); color: var(--verde-oscuro); margin-top: 4px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: transform .1s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn-primary {
+    background: #22c15d;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 26px rgba(0,0,0,0.4);
+    background: #1ea652;
+  }
+  .btn-ghost {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.7);
+    margin-left: 10px;
+  }
+  .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
 
-    .highlight {
-      background: #fff; border-radius: 14px; padding: 16px;
-      border-left: 4px solid var(--madera);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-      margin-bottom: 16px;
-    }
-    .highlight h3 { font-size: 16px; margin-bottom: 4px; color: var(--madera-oscura); }
-    .highlight p { font-size: 13px; color: #555; }
+  .section { padding: 56px 0; }
+  .section.alt { background: #ffffff; }
+  .section.soft { background: var(--crema); }
+  .section-title { font-size: 24px; text-align: center; margin-bottom: 8px; color: var(--madera-oscura); }
+  .section-subtitle { font-size: 14px; text-align: center; max-width: 560px; margin: 0 auto 28px; color: #555; }
 
-    .map { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 22px rgba(0,0,0,0.09); }
-    .map iframe { width: 100%; height: 320px; border: 0; }
+  .grid { display: grid; gap: 16px; }
 
-    .section-menudiario .menudiario-top {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      max-width: 900px;
-      margin: 24px auto 0;
-      align-items: flex-start;
-      gap: 40px;
-    }
-    .menudiario-img { margin-top: 8px; }
-    .menudiario-img img{
-      width: 100%;
-      max-width: 420px;
-      height: auto;
-      display: block;
-      margin-left: auto;
-    
-      object-fit: contain;     /* clave: no recorta */
-      object-position: center;
-    }
-    .menudiario-caption { font-size: 12px; color: #777; margin-top: 6px; text-align: right; }
-    .menudiario-horario { max-width: 900px; margin: 32px auto 0; font-size: 14px; color: #555; }
-    .menudiario-horario h3 { font-size: 16px; margin-bottom: 6px; color: var(--madera-oscura); }
-    .menudiario-horario ul { margin-left: 18px; margin-bottom: 8px; }
+  .hero-logo { margin-bottom: 24px; text-align: center; }
+  .hero-logo img {
+    height: 180px;
+    width: auto;
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,0.55));
+  }
 
-    @media (max-width: 767px) {
-      .section-menudiario .menudiario-top { max-width: 100%; margin-top: 16px; gap: 20px; grid-template-columns: 1fr; }
-      .menudiario-img img { max-width: 100%; margin-left: 0; }
-      .menudiario-caption { text-align: left; }
-    }
+  @media (min-width: 768px) {
+    .hero-logo img { height: 240px; }
+    .hero h1 { font-size: 40px; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .hero-content { padding-top: 56px; }
+  }
 
-    footer {
-      background: var(--madera-oscura);
-      color: #eee;
-      padding: 24px 0;
-      font-size: 13px;
-      border-top: 3px solid var(--naranja);
-    }
-    .footer-inner { display: flex; flex-direction: column; gap: 8px; }
-    .social a { color: #eee; margin-right: 12px; }
-    .social a:hover { color: var(--turquesa); }
-    @media (min-width: 640px) {
-      .footer-inner { flex-direction: row; justify-content: space-between; align-items: center; }
-    }
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.03);
+  }
+  .card img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .card h3 { font-size: 16px; margin-bottom: 4px; color: var(--madera-oscura); }
+  .card p { font-size: 13px; color: #555; }
+  .price { font-weight: 700; color: var(--verde-oscuro); margin-top: 6px; font-size: 14px; }
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(31,182,201,0.09);
+    color: var(--verde-oscuro);
+    margin-top: 4px;
+  }
 
-    .skip-link {
-      position: absolute; left: -999px; top: 8px;
-      background: #fff; color: #000;
-      padding: 10px 14px; border-radius: 10px;
-      z-index: 9999; box-shadow: 0 6px 18px rgba(0,0,0,.2);
-    }
-    .skip-link:focus { left: 12px; }
+  .highlight {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px;
+    border-left: 4px solid var(--madera);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    margin-bottom: 16px;
+  }
+  .highlight h3 { font-size: 16px; margin-bottom: 4px; color: var(--madera-oscura); }
+  .highlight p { font-size: 13px; color: #555; }
 
-    .nav-toggle {
+  .map { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 22px rgba(0,0,0,0.09); }
+  .map iframe { width: 100%; height: 320px; border: 0; }
+
+  @media (max-width: 767px) {
+    .hero h1 { font-size: 28px; }
+  }
+
+  footer {
+    background: var(--madera-oscura);
+    color: #eee;
+    padding: 24px 0;
+    font-size: 13px;
+    border-top: 3px solid var(--naranja);
+  }
+  .footer-inner { display: flex; flex-direction: column; gap: 8px; }
+  .social a { color: #eee; margin-right: 12px; }
+  .social a:hover { color: var(--turquesa); }
+  @media (min-width: 640px) {
+    .footer-inner { flex-direction: row; justify-content: space-between; align-items: center; }
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: 8px;
+    background: #fff;
+    color: #000;
+    padding: 10px 14px;
+    border-radius: 10px;
+    z-index: 9999;
+    box-shadow: 0 6px 18px rgba(0,0,0,.2);
+  }
+  .skip-link:focus { left: 12px; }
+
+  .nav-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 14px;
+    padding: 10px 12px;
+    cursor: pointer;
+    color: #fff;
+    backdrop-filter: blur(6px);
+  }
+  .nav-toggle:focus { outline: 2px solid rgba(255,255,255,.5); outline-offset: 2px; }
+  .nav-toggle-bar { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; }
+  .nav-menu ul { margin: 0; padding: 0; list-style: none; }
+
+  @media (max-width: 768px) {
+    .nav-toggle { display: inline-flex; }
+    .nav-menu ul {
       display: none;
-      align-items: center; justify-content: center; gap: 6px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 14px; padding: 10px 12px;
-      cursor: pointer; color: #fff;
-      backdrop-filter: blur(6px);
-    }
-    .nav-toggle:focus { outline: 2px solid rgba(255,255,255,.5); outline-offset: 2px; }
-    .nav-toggle-bar { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; }
-    .nav-menu ul { margin: 0; padding: 0; list-style: none; }
-
-    @media (max-width: 768px) {
-      .nav-toggle { display: inline-flex; }
-      .nav-menu ul {
-        display: none;
-        position: absolute;
-        right: 16px;
-        top: 64px;
-        width: min(320px, calc(100vw - 32px));
-        background: rgba(10,10,10,.88);
-        border: 1px solid rgba(255,255,255,.14);
-        border-radius: 16px;
-        padding: 10px;
-        box-shadow: 0 18px 40px rgba(0,0,0,.35);
-        backdrop-filter: blur(10px);
-      }
-      .nav-menu.open ul { display: block; }
-      .nav-menu li a { display: block; padding: 12px 14px; border-radius: 12px; }
-      .nav-menu li a:hover { background: rgba(255,255,255,.10); }
-    }
-
-    .floating-ctas {
-      position: fixed;
+      position: absolute;
       right: 16px;
-      bottom: 16px;
-      display: grid;
-      gap: 10px;
-      z-index: 999;
-    }
-    .fab {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
-      border-radius: 999px;
-      color: #fff;
-      font-weight: 700;
-      box-shadow: 0 14px 30px rgba(0,0,0,.25);
+      top: 64px;
+      width: min(320px, calc(100vw - 32px));
+      background: rgba(10,10,10,.88);
       border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.35);
       backdrop-filter: blur(10px);
     }
-    .fab svg { width: 20px; height: 20px; fill: currentColor; }
-    .fab-whatsapp { background: #1faa59; }
-    .fab-maps { background: rgba(0,0,0,.55); }
-    @media (max-width: 480px) {
-      .fab span { display: none; }
-      .fab { padding: 12px; border-radius: 16px; }
-    }
+    .nav-menu.open ul { display: block; }
+    .nav-menu li a { display: block; padding: 12px 14px; border-radius: 12px; }
+    .nav-menu li a:hover { background: rgba(255,255,255,.10); }
+  }
 
-    .menu-hoy-grid{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:16px;
-      margin-top:18px;
-    }
-    .menu-hoy-col{
-      background:#fff;
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:16px;
-      padding:16px 16px 14px;
-      box-shadow:0 10px 30px rgba(0,0,0,.06);
-      text-align:center;
-    }
-    .menu-hoy-col h3{ margin:0 0 10px 0; }
-    @media (max-width: 920px){ .menu-hoy-grid{ grid-template-columns: 1fr; } }
+  .floating-ctas {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    display: grid;
+    gap: 10px;
+    z-index: 999;
+  }
+  .fab {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 14px 30px rgba(0,0,0,.25);
+    border: 1px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(10px);
+  }
+  .fab svg { width: 20px; height: 20px; fill: currentColor; }
+  .fab-whatsapp { background: #1faa59; }
+  .fab-maps { background: rgba(0,0,0,.55); }
+  @media (max-width: 480px) {
+    .fab span { display: none; }
+    .fab { padding: 12px; border-radius: 16px; }
+  }
 
-    #platos{ padding-top: 18px; }
+  /* Cards grid (menú / opciones) */
+  .menu-hoy-grid{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+  }
+  .menu-hoy-col{
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 16px;
+    padding: 16px 16px 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.06);
+    text-align: center;
+  }
+  .menu-hoy-col h3{ margin: 0 0 10px 0; }
+  @media (max-width: 920px){
+    .menu-hoy-grid{ grid-template-columns: 1fr; }
+  }
 
-      margin: 18px auto 10px;
-      max-width: 980px;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 14px 40px rgba(0,0,0,.10);
-      border: 1px solid rgba(0,0,0,.06);
-      background: #fff;
-    }
-      width: 100%;
-      height: auto;
-      display: block;
-      max-height: 520px;
-      object-fit: cover;
-      object-position: center;
-    }
+  #platos{ padding-top: 18px; }
 
-  </style>
+  /* Banner (si lo usas) */
+  .finsemana-banner{
+    margin: 18px auto 10px;
+    max-width: 980px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 14px 40px rgba(0,0,0,.10);
+    border: 1px solid rgba(0,0,0,.06);
+    background: #fff;
+  }
+  .finsemana-banner img{
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 520px;
+    object-fit: cover;
+    object-position: center;
+  }
+  @media (max-width: 640px){
+    .finsemana-banner img{ max-height: 340px; }
+  }
+
+  /* Menú diario: 2 columnas (texto + afiche) */
+  .section-menudiario .menudiario-layout{
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 32px;
+    align-items: start;
+    max-width: 980px;
+    margin: 24px auto 0;
+  }
+  .section-menudiario .menudiario-left .highlight{
+    margin-bottom: 16px;
+  }
+  .section-menudiario .menudiario-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .section-menudiario .poster-card{
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,.06);
+    box-shadow: 0 14px 40px rgba(0,0,0,.10);
+  }
+  .section-menudiario .poster-card img{
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain; /* no recorta */
+    background: #fff;
+  }
+  .section-menudiario .menudiario-caption{
+    font-size: 12px;
+    color: #777;
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  @media (max-width: 900px){
+    .section-menudiario .menudiario-layout{
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .section-menudiario .poster-card{
+      max-width: 520px;
+    }
+  }
+</style>
+
 
   <!-- Favicons -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -479,68 +587,59 @@
       </div>
     </section>
 
-    <section id="menudiario" class="section soft section-menudiario">
-      <div class="container">
-        <h2 class="section-title">Menú diario</h2>
-        <p class="section-subtitle">Todos los días tenemos un menú diferente con sopa, plato fuerte y bebida. Ideal para almuerzos ejecutivos y en familia.</p>
+	<section id="menudiario" class="section soft section-menudiario">
+	  <div class="container">
+		<h2 class="section-title">Menú diario</h2>
+		<p class="section-subtitle">
+		  Todos los días tenemos un menú diferente con sopa, plato fuerte y bebida. Ideal para almuerzos ejecutivos y en familia.
+		</p>
 
-        <div class="menudiario-top">
-          <div>
-            <div class="highlight">
-              <h3>Desayunos típicos</h3>
-              <p>Bolón, tigrillo, tamales, corviches, desayunos continentales, desayunos costeños, café pasado y más opciones para empezar bien la mañana.</p>
-            </div>
+		<div class="menudiario-layout">
+		  <!-- IZQUIERDA: tus tarjetas -->
+		  <div class="menudiario-left">
+			<div class="highlight">
+			  <h3>Desayunos típicos</h3>
+			  <p>Bolón, tigrillo, tamales, corviches, desayunos continentales, desayunos costeños, café pasado y más opciones para empezar bien la mañana.</p>
+			</div>
 
-            <div class="highlight">
-              <h3>Almuerzo ejecutivo</h3>
-              <p>Sopa del día, plato fuerte a elegir y jugo natural.</p>
-            </div>
+			<div class="highlight">
+			  <h3>Almuerzo ejecutivo</h3>
+			  <p>Sopa del día, plato fuerte a elegir y jugo natural.</p>
+			</div>
 
-            <div class="highlight" id="menu-hoy">
-              <h3 id="menu-titulo">Menú del día</h3>
-              <p id="menu-descripcion" style="color:#555; font-size:13px; margin-top:6px;">
-                Sopa, plato fuerte y bebida. Pide por WhatsApp y lo dejamos listo.
-              </p>
+			<!-- ESTE ES TU BLOQUE DINÁMICO (se llena desde Google Sheet) -->
+			<div id="menu-hoy" class="highlight">
+			  <h3 id="menu-titulo">Menú del día</h3>
+			  <p id="menu-descripcion" style="margin-bottom:10px;">Sopa, plato fuerte y bebida.</p>
 
-              <p><strong>Sopa:</strong> <span id="menu-sopa">Consulta por WhatsApp</span></p>
-              <p><strong>Plato(s):</strong> <span id="menu-segundos">3 opciones disponibles</span></p>
-              <p><strong>Precio:</strong> <span id="menu-precio">$2.75</span></p>
-              <p><strong>Bebida:</strong> <span id="menu-bebida">Jugo del Día</span></p>
+			  <p><strong>Sopa:</strong> <span id="menu-sopa">Consulta por WhatsApp</span></p>
+			  <p><strong>Plato(s):</strong> <span id="menu-segundos">3 opciones disponibles</span></p>
+			  <p><strong>Precio:</strong> <span id="menu-precio">$2.75</span></p>
+			  <p><strong>Bebida:</strong> <span id="menu-bebida">Jugo del Día</span></p>
 
-              <!-- Solo se muestra cuando es DOMINGO (menú especial) -->
-              <div id="menu-opciones" class="menu-hoy-grid" style="display:none; margin-top:14px;"></div>
+			  <a class="btn btn-primary" href="https://wa.me/593983603626" target="_blank" rel="noopener">
+				Pedir por WhatsApp
+			  </a>
+			</div>
+		  </div>
 
-              <a class="btn btn-primary" style="margin-top:10px; width:max-content;"
-                 href="https://wa.me/593983603626?text=Hola%20vengo%20desde%20la%20web%20de%20Floresta%20Brava%20y%20quiero%20hacer%20un%20pedido"
-                 target="_blank" rel="noopener">
-                Pedir por WhatsApp
-              </a>
-            </div>
+		  <!-- DERECHA: afiche -->
+		  <aside class="menudiario-right">
+			<div class="poster-card">
+			  <img
+				id="menu-hoy-poster"
+				src="img/almuerzo.jpg"
+				alt="Afiche del menú del día"
+				loading="lazy"
+				decoding="async"
+			  />
+			</div>
+			<div class="menudiario-caption">Foto referencial de nuestro menú del día.</div>
+		  </aside>
+		</div>
+	  </div>
+	</section>
 
-          <div>
-      <div class="menudiario-img">
-              <!-- Poster: si está en pantalla, puedes dejar eager; si prefieres, lazy -->
-              <img id="menu-hoy-poster"
-                   src="img/almuerzo.jpg"
-                   data-fallback="img/almuerzo.jpg"
-                   alt="Menú del día - Floresta Brava"
-                   loading="lazy">
-              <p class="menudiario-caption">Foto referencial de nuestro menú del día.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="menudiario-horario">
-          <p><strong>Horario de atención:</strong></p>
-          <ul>
-            <li>Lunes a Viernes: 08h00 a 22h00</li>
-            <li>Sábados: 09h00 a 22h00</li>
-            <li>Domingos: 09h00 a 15h00</li>
-          </ul>
-          <p>Pregunta por el menú del día o reserva tu plato por WhatsApp, para que lo tengamos listo cuando llegues.</p>
-        </div>
-      </div>
-    </section>
 
     <section id="empresas" class="section alt">
       <div class="container">
@@ -699,23 +798,23 @@
       .replaceAll("'", "&#39;");
   }
 
-  function todayYMD(timeZone = TZ) {
-    // YYYY-MM-DD (en-CA devuelve el formato deseado)
-    const parts = new Intl.DateTimeFormat("en-CA", {
-      timeZone, year: "numeric", month: "2-digit", day: "2-digit"
-    }).formatToParts(new Date());
-    const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
-    return `${map.year}-${map.month}-${map.day}`;
+  function todayYMD(timeZone = "America/Guayaquil") {
+	const parts = new Intl.DateTimeFormat("en-CA", {
+	timeZone, year: "numeric", month: "2-digit", day: "2-digit"
+	}).formatToParts(new Date());
+	const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
+	return `${map.year}-${map.month}-${map.day}`; // YYYY-MM-DD
   }
 
-  function dayOfWeekTZ(timeZone = TZ) {
-    // 0=Domingo ... 6=Sábado
-    const parts = new Intl.DateTimeFormat("en-US", { timeZone, weekday: "short" }).format(new Date());
-    // en-US: Sun, Mon, Tue...
-    const map = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-    return map[parts] ?? new Date().getDay();
-  }
 
+  function dayOfWeekTZ(timeZone = "America/Guayaquil") {
+	// 0=Domingo ... 6=Sábado
+    const parts = new Intl.DateTimeFormat("en-US", { timeZone, weekday: "short" })
+		.formatToParts(new Date());
+	const wd = parts.find(p => p.type === "weekday")?.value || "";
+	const map = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+	return map[wd] ?? new Date().getDay();
+	}
   function normalizePrice(p) {
     const v = String(p ?? "").replace("$", "").trim();
     if (!v) return "";
@@ -733,22 +832,21 @@
   }
 
   function setDisplay(id, displayValue) {
-    const el = document.getElementById(id);
-    if (el) el.style.display = displayValue;
+	const el = document.getElementById(id);
+	if (el) el.style.display = displayValue;
   }
 
-  function setImg(id, url) {
-    const el = document.getElementById(id);
-    if (!el) return;
+  function setImg(id, url, versionStr) {
+	const el = document.getElementById(id);
+	if (!el) return;
 
-    const clean = String(url ?? "").trim();
-    const fb = String(el.getAttribute("data-fallback") || "").trim();
-    const base = clean || fb;
-    if (!base) return;
+    const clean = (url || "").toString().trim();
+	const fb = el.getAttribute("data-fallback") || el.getAttribute("src") || "";
+	const base = clean || fb;
+	if (!base) return;
 
-    // cache-buster por día (evita que el navegador “se quede” con una imagen vieja)
-    const v = todayYMD();
-    el.src = base + (base.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(v);
+	const v = versionStr || todayYMD();
+	el.src = base + (base.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(v);
   }
 
   async function loadCSV(url) {
@@ -784,97 +882,107 @@
     }).join("");
   }
 
-  async function initMenus() {
-    // Año footer
-    const yearEl = document.getElementById("year");
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
+	async function initMenus() {
+	  // Año footer
+	  const yearEl = document.getElementById("year");
+	  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    const dow = dayOfWeekTZ(); // 0 domingo
-    const isSunday = dow === 0;
+	  const today = todayYMD();
+	  const dow = dayOfWeekTZ(); // 0 domingo
+	  const isSunday = dow === 0;
 
-    // Un solo bloque (menú diario) que cambia a "especial" el domingo
-    const menuOpciones = document.getElementById("menu-opciones");
+	  const menuOpciones = document.getElementById("menu-opciones"); // opcional (tarjetas)
+	  const menuBlock = document.getElementById("menu-hoy");         // debe existir para el bloque
+	  if (menuBlock) menuBlock.style.display = ""; // importante: nunca ocultarlo por defecto
 
-    // --- DOMINGO: Menú especial (FIN_SEMANA) ---
-    if (isSunday) {
-      try {
-        const rows = await loadCSV(FIN_SEMANA_CSV_URL);
+	  // Helpers: poner textos si existen (si no existen, no pasa nada)
+	  const setTitle = (t) => setText("menu-titulo", t);
+	  const setDesc  = (t) => setText("menu-descripcion", t);
 
-        // si no hay data válida, cae al menú normal
-        if (rows && rows.length) {
-          const first = rows[0] || {};
+	  // ========= DOMINGO: FIN_SEMANA =========
+	  if (isSunday) {
+		try {
+		  const rows = await loadCSV(FIN_SEMANA_CSV_URL);
 
-          setText("menu-titulo", "Menú especial de domingo");
-          setText("menu-descripcion", "Solo por hoy: opciones especiales. Reserva por WhatsApp y lo dejamos listo.");
+		  if (rows && rows.length) {
+			const first = rows[0] || {};
 
-          // Imagen del especial (poster_url opcional)
-          setImg("menu-hoy-poster", first.poster_url);
+			setTitle("Menú especial de domingo");
+			setDesc("Solo por hoy: opciones especiales. Reserva por WhatsApp y lo dejamos listo.");
 
-          // Resumen arriba (toma la primera opción como referencia)
-          setText("menu-sopa", (first.sopa || "Consulta por WhatsApp").toString().trim() || "Consulta por WhatsApp");
-          setText("menu-segundos", "Elige tu opción especial");
-          setText("menu-bebida", (first.bebida || "Jugo natural").toString().trim() || "Jugo natural");
-          setText("menu-precio", normalizePrice(first.price) || "$2.75");
+			// Imagen especial (poster_url opcional)
+			setImg("menu-hoy-poster", first.poster_url, today);
 
-          // Tarjetas de opciones
-          if (menuOpciones) {
-            menuOpciones.style.display = "";
-            menuOpciones.innerHTML = buildWeekendCards(rows.slice(0, 6)); // máximo 6 para no saturar
-          }
+			// Resumen (usa la primera opción como referencia)
+			setText("menu-sopa", ((first.sopa || "") + "").trim() || "Consulta por WhatsApp");
+			setText("menu-segundos", "Elige tu opción especial");
+			setText("menu-bebida", ((first.bebida || "Jugo natural") + "").trim());
+			setText("menu-precio", normalizePrice(first.price) || "$2.75");
 
-          // Botón WhatsApp del bloque
-          const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
-          if (waBtn) {
-            const msg = encodeURIComponent("Hola, vengo del menú especial de domingo de Floresta Brava. Quiero reservar: ");
-            waBtn.href = WHATSAPP_BASE + msg;
-          }
-          return; // listo (domingo)
-        }
-      } catch (e) {
-        console.warn("FIN_SEMANA:", e);
-        // sigue a menú normal si falla
-      }
-    }
+			// Tarjetas opcionales (si quieres mostrar opciones)
+			if (menuOpciones) {
+			  menuOpciones.style.display = "";
+			  menuOpciones.innerHTML = buildWeekendCards(rows.slice(0, 6));
+			}
 
-    // --- LUN-SAB: Menú del día (MENU_HOY) ---
-    try {
-      const rows = await loadCSV(MENU_HOY_CSV_URL);
-      if (rows && rows.length) {
-        const m = rows[0] || {};
+			// Botón WhatsApp
+			const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
+			if (waBtn) {
+			  const msg = encodeURIComponent("Hola, vengo del menú especial de domingo de Floresta Brava. Quiero reservar: ");
+			  waBtn.href = WHATSAPP_BASE + msg;
+			}
 
-        setText("menu-titulo", "Menú del día");
-        setText("menu-descripcion", "Sopa, plato fuerte y bebida. Pide por WhatsApp y lo dejamos listo.");
+			return; // domingo listo
+		  }
+		  // si no hay rows, cae a menú normal
+		} catch (e) {
+		  console.warn("FIN_SEMANA:", e);
+		  // cae a menú normal si falla
+		}
+	  }
 
-        setText("menu-precio", normalizePrice(m.price) || "$2.75");
+	  // ========= LUN-SÁB: MENU_HOY =========
+	  try {
+		const rows = await loadCSV(MENU_HOY_CSV_URL);
 
-        const sopas = (m.sopas || "").toString().split("|").map(s => s.trim()).filter(Boolean);
-        const platos = (m.platos_fuertes || "").toString().split("|").map(s => s.trim()).filter(Boolean);
+		if (rows && rows.length) {
+		  const m = rows[0] || {};
 
-        setText("menu-sopa", sopas.length ? sopas.join(" / ") : "Consulta por WhatsApp");
-        setText("menu-segundos", platos.length ? platos.join(" / ") : "3 opciones disponibles");
-        setText("menu-bebida", (m.bebida || "Limonada").toString().trim());
+		  setTitle("Menú del día");
+		  setDesc("Sopa, plato fuerte y bebida. Pide por WhatsApp y lo dejamos listo.");
 
-        // poster_url opcional
-        setImg("menu-hoy-poster", m.poster_url);
+		  setText("menu-precio", normalizePrice(m.price) || "$2.75");
 
-        // Oculta tarjetas (no aplica)
-        if (menuOpciones) {
-          menuOpciones.style.display = "none";
-          menuOpciones.innerHTML = "";
-        }
+		  const sopas = (m.sopas || "").toString().split("|").map(s => s.trim()).filter(Boolean);
+		  const platos = (m.platos_fuertes || "").toString().split("|").map(s => s.trim()).filter(Boolean);
 
-        const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
-        if (waBtn) {
-          const msg = encodeURIComponent("Hola, vengo del menú de hoy de Floresta Brava. Quiero pedir: ");
-          waBtn.href = WHATSAPP_BASE + msg;
-        }
-      }
-    } catch (e) {
-      console.warn("MENU_HOY:", e);
-      // Fallback: deja el contenido que ya está en el HTML
-      if (menuOpciones) { menuOpciones.style.display = "none"; menuOpciones.innerHTML = ""; }
-    }
-  }
+		  setText("menu-sopa", sopas.length ? sopas.join(" / ") : "Consulta por WhatsApp");
+		  setText("menu-segundos", platos.length ? platos.join(" / ") : "3 opciones disponibles");
+		  setText("menu-bebida", (m.bebida || "Limonada").toString().trim());
+
+		  // Imagen menú diario (poster_url opcional)
+		  setImg("menu-hoy-poster", m.poster_url, today);
+
+		  // Oculta tarjetas si existen
+		  if (menuOpciones) {
+			menuOpciones.style.display = "none";
+			menuOpciones.innerHTML = "";
+		  }
+
+		  // Botón WhatsApp
+		  const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
+		  if (waBtn) {
+			const msg = encodeURIComponent("Hola, vengo del menú de hoy de Floresta Brava. Quiero pedir: ");
+			waBtn.href = WHATSAPP_BASE + msg;
+		  }
+		}
+	  } catch (e) {
+		console.warn("MENU_HOY:", e);
+		// Fallback: deja el contenido del HTML sin tocarlo
+		if (menuOpciones) { menuOpciones.style.display = "none"; menuOpciones.innerHTML = ""; }
+	  }
+	}
+
 
   // Menú móvil (hamburguesa)
   function initNav() {
