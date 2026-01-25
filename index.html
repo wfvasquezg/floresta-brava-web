@@ -22,7 +22,15 @@
   <meta name="twitter:image" content="https://www.florestabrava.com/img/letrasflorestabrava.png">
 
   <!-- Preload imagen principal (reduce pantalla negra/espera) -->
-  <link rel="preload" as="image" href="img/hero-encebollado.jpg" fetchpriority="high">
+  <link
+    rel="preload"
+    as="image"
+    href="img/hero-encebollado-1600.webp"
+    type="image/webp"
+    fetchpriority="high"
+    imagesrcset="img/hero-encebollado-1200.webp 1200w, img/hero-encebollado-1600.webp 1600w"
+    imagesizes="100vw">
+
 
   <!-- Datos estructurados para SEO Local -->
   <script type="application/ld+json">
@@ -461,17 +469,33 @@
   <main id="contenido">
     <section class="hero">
       <!-- HERO: eager + prioridad alta -->
-      <img
-        src="img/hero-encebollado.jpg"
-        alt=""
-        class="bg"
-        aria-hidden="true"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        width="1920"
-        height="1080"
-      >
+	<picture>
+	  <source
+	    type="image/webp"
+	    srcset="
+	      img/hero-encebollado-1200.webp 1200w,
+	      img/hero-encebollado-1600.webp 1600w
+	    "
+	    sizes="100vw"
+	  >
+	  <img
+	    class="bg"
+	    src="img/hero-encebollado-1600.jpg"
+	    srcset="
+	      img/hero-encebollado-1200.jpg 1200w,
+	      img/hero-encebollado-1600.jpg 1600w
+	    "
+	    sizes="100vw"
+	    alt=""
+	    aria-hidden="true"
+	    loading="eager"
+	    fetchpriority="high"
+	    decoding="async"
+	    width="1600"
+	    height="1067"
+	  >
+	</picture>
+
 
       <div class="container hero-content">
         <div class="hero-logo">
