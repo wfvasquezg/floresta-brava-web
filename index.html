@@ -614,7 +614,8 @@
 
 			  <p><strong>Sopa:</strong> <span id="menu-sopa">Consulta por WhatsApp</span></p>
 			  <p><strong>Plato(s):</strong> <span id="menu-segundos">3 opciones disponibles</span></p>
-			  <p><strong>Precio:</strong> <span id="menu-precio">$2.75</span></p>
+			  <p><strong>Precio servir:</strong> <span id="menu-precio">$2.75</span></p>
+			  <p><strong>Precio llevar:</strong> <span id="menu-preciollevar">$3.25</span></p>
 			  <p><strong>Bebida:</strong> <span id="menu-bebida">Jugo del Día</span></p>
 
 			  <a class="btn btn-primary" href="https://wa.me/593983603626" target="_blank" rel="noopener">
@@ -915,9 +916,10 @@
 
 			// Resumen (usa la primera opción como referencia)
 			setText("menu-sopa", ((first.sopa || "") + "").trim() || "Consulta por WhatsApp");
-			setText("menu-segundos", "Elige tu opción especial");
+			setText("menu-segundos",((first.plato_fuerte || "") + "").trim() ||  "Elige tu opción especial");
 			setText("menu-bebida", ((first.bebida || "Jugo natural") + "").trim());
 			setText("menu-precio", normalizePrice(first.price) || "$2.75");
+			setText("menu-preciollevar", normalizePrice(first.price_takeout) || "$3.25");
 
 			// Tarjetas opcionales (si quieres mostrar opciones)
 			if (menuOpciones) {
@@ -952,6 +954,7 @@
 		  setDesc("Sopa, plato fuerte y bebida. Pide por WhatsApp y lo dejamos listo.");
 
 		  setText("menu-precio", normalizePrice(m.price) || "$2.75");
+		  setText("menu-preciollevar", normalizePrice(m.price_takeout) || "$3.25");
 
 		  const sopas = (m.sopas || "").toString().split("|").map(s => s.trim()).filter(Boolean);
 		  const platos = (m.platos_fuertes || "").toString().split("|").map(s => s.trim()).filter(Boolean);
