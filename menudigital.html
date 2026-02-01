@@ -397,12 +397,26 @@
       flex-direction:column;
       min-height: 290px;
     }
+/* IMAGEN DEL PLATO - UNIFORME Y PRO */
     .item-img{
-      width:100%;
-      height:150px;
-      object-fit:cover;
-      background:#eee;
-      display:block;
+      width: 100%;
+      display: block;
+      background: #eee;
+    
+      /* Aquí está la clave */
+      aspect-ratio: 4 / 3;      /* ideal para platos en móvil */
+      height: auto;             /* NO fuerces height fijo */
+    
+      object-fit: cover;         /* recorta un poco, se ve pro */
+      background: #111; /* o #f3f1ea */
+      object-position: center;   /* centra el plato */
+    }
+    
+    /* En pantallas grandes, un poco más panorámico */
+    @media (min-width: 900px){
+      .item-img{
+        aspect-ratio: 3 / 2;     /* 1200x800 */
+      }
     }
     .no-img{
       width:100%;
@@ -535,6 +549,41 @@
       .category{ padding:12px; }
       .item{ min-height: 280px; }
     }
+
+    /* ====== IMAGEN GRANDE EN CARD (RESPONSIVE) ====== */
+    .dish-media{
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    
+    /* Relación fija: 16:9 (ideal para 1280x720) */
+    .dish-media img{
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;             /* la controla aspect-ratio */
+      display: block;
+      object-fit: cover;        /* recorta un poco, pero se ve “pro” */
+      background: #111; /* o #f3f1ea */
+      object-position: center;
+    }
+    
+    /* En móvil, evita que se vea demasiado alta */
+    @media (max-width: 480px){
+      .dish-media img{
+        aspect-ratio: 4 / 3;    /* un poco más “plato” en vertical */
+      }
+    }
+    
+    /* Opcional: si NO quieres recorte nunca, usa contain (pero puede dejar bordes) */
+    /*
+    .dish-media img{
+      object-fit: contain;
+      background: #111;
+    }
+    */
+    
   </style>
 </head>
 
@@ -1003,3 +1052,4 @@
   </script>
 </body>
 </html>
+
