@@ -619,6 +619,19 @@
       .category{ padding:12px; }
       .item{ min-height: 280px; }
     }
+/* --- Ajustes PRO (mobile + conversión) --- */
+/* Evita que el header tape secciones al navegar por anclas */
+.hero, .featured, .category { scroll-margin-top: 92px; }
+@media (max-width:560px){
+  .actions{ flex-wrap:wrap; justify-content:flex-end; }
+  .btn{ padding:9px 10px; font-size:12.5px; }
+}
+/* Un poco más de brillo en fotos para móvil (sin exagerar) */
+.item-img, .feat img{ filter: brightness(1.05) contrast(1.02); }
+/* Espacio inferior extra para que el botón flotante no tape contenido */
+.wrap{ padding-bottom: 120px; }
+
+
   </style>
 </head>
 
@@ -662,9 +675,9 @@
             Pide por WhatsApp y te lo tenemos listo.
           </p>
           <div class="hero-badges">
-            <div class="badge">⚡ <strong>Listo en minutos</strong></div>
-            <div class="badge">🍽️ <strong>Porciones que llenan</strong></div>
-            <div class="badge">🌊 <strong>Sabor costeño y tradicional</strong></div>
+            <div class="badge"><strong>Listo en minutos</strong></div>
+            <div class="badge"><strong>Porciones que llenan</strong></div>
+            <div class="badge"><strong>Sabor costeño y tradicional</strong></div>
           </div>
         </div>
 
