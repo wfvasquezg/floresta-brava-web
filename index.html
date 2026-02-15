@@ -419,6 +419,23 @@
       max-width: 520px;
     }
   }
+  /* --- Ajustes PRO (mobile + anclas + CTAs flotantes) --- */
+  /* Evita que el header tape títulos al navegar por anclas */
+  section, #platos, #menudiario, #empresas, #ubicacion, #resenas, #faq, #contacto { scroll-margin-top: 86px; }
+
+  /* En móvil, separa el hero del header sticky para que no se "coma" botones */
+  @media (max-width: 768px) {
+    .hero { padding-top: 68px; }
+    .hero-content { padding-top: 18px; }
+  }
+
+  /* Espacio inferior para que los botones flotantes no tapen precios/texto */
+  body { padding-bottom: 120px; }
+
+  /* Un toque de brillo en fotos (mejor apetito visual) */
+  .card img { filter: brightness(1.05) contrast(1.02); }
+
+
 </style>
 
 
