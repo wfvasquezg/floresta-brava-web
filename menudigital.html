@@ -45,6 +45,7 @@
 
   <style>
 
+
     :root{
       /* Colores base (mismo lenguaje visual que index.html) */
       --madera:#7a4b1f;
@@ -663,14 +664,7 @@
   backdrop-filter: blur(10px);
   z-index: 90;
 }
-.catmenu a{
-  display:block;
-  padding: 12px 14px;
-  border-radius: 12px;
-  color:#fff;
-  text-decoration:none;
-  font-weight:900;
-}
+.catmenu a{display:block;padding:12px 14px;border-radius:12px;color:var(--ink);text-decoration:none;font-weight:900;}
 .catmenu a:hover{ background: rgba(255,255,255,.10); }
 
 .catquick{
@@ -734,26 +728,6 @@ header.std-header .actions{
 }
 
 
-/* --- Menú por + Categorías centrado --- */
-.cathead{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  margin-top:14px;
-}
-.catlabel{
-  font-weight: 1000;
-  color: var(--ink);
-  font-size: 14px;
-  opacity: .9;
-  white-space: nowrap;
-}
-.cathead .catbtn{
-  margin: 0;
-}
-
-
 /* --- Botones flotantes unificados --- */
 .wa-float .float-btn{
   display:inline-flex;
@@ -782,28 +756,9 @@ header.std-header .actions{
 
 
 /* --- Overlay de Categorías (cuando se abre desde el botón flotante) --- */
-.catmenu.catmenu--overlay{
-  position: fixed;
-  left: 16px;
-  right: 16px;
-  bottom: 140px;
-  top: auto;
-  max-height: 60vh;
-  overflow: auto;
-  border-radius: 16px;
-  padding: 10px;
-  background: rgba(255,255,255,.96);
-  border: 1px solid var(--line);
-  box-shadow: 0 18px 40px rgba(0,0,0,.18);
-  z-index: 220;
-  backdrop-filter: blur(10px);
-}
-.catmenu-backdrop{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.25);
-  z-index: 210;
-}
+.catmenu.catmenu--overlay{position:fixed;left:16px;right:16px;bottom:108px;top:auto;max-height:62vh;overflow:auto;border-radius:18px;padding:10px;background:#ffffff;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.22);z-index:260;}
+.catmenu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:250;}
+
 
 
 </style>
@@ -857,26 +812,18 @@ header.std-header .actions{
       </div>
     </section>
 
+  <div class="catmenu" id="catMenu" hidden>
+    <a href="#almuerzos">Almuerzos</a>
+    <a href="#desayunos">Desayunos</a>
+    <a href="#mariscos">Mariscos</a>
+    <a href="#carnes">Carnes</a>
+    <a href="#pollos">Pollos</a>
+    <a href="#bebidas">Bebidas</a>
+    <a href="#pinchos">Pinchos</a>
+  </div>
+
+
     <!-- CATEGORÍAS (más simple en móvil) -->
-    <nav class="catbar" aria-label="Categorías">
-      <div class="cathead" aria-label="Menú por categorías">
-      <span class="catlabel">Menú por:</span>
-      <button class="catbtn" id="catBtn" type="button" aria-expanded="false" aria-controls="catMenu">
-        Categorías ▾
-      </button>
-    </div>
-
-      <div class="catmenu" id="catMenu" hidden>
-        <a href="#almuerzos">Almuerzos</a>
-        <a href="#desayunos">Desayunos</a>
-        <a href="#mariscos">Mariscos</a>
-        <a href="#carnes">Carnes</a>
-        <a href="#pollos">Pollos</a>
-        <a href="#gaseosas">Bebidas</a>
-        <a href="#pinchos">Pinchos</a>
-      </div>
-    </nav>
-
 <!-- FEATURED -->
     <section class="featured" id="destacados" aria-label="Destacados">
       <div class="section-title">
@@ -1280,78 +1227,7 @@ header.std-header .actions{
   </script>
 
 
-  <script>
-  // Dropdown categorías + botón flotante (overlay)
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn  = document.getElementById('catBtn');
-    const menu = document.getElementById('catMenu');
-    const floatBtn = document.getElementById('catFloat');
-    if (!btn || !menu) return;
-
-    let backdrop = null;
-
-    const setOverlay = (on) => {
-      if (on) {
-        menu.classList.add('catmenu--overlay');
-        if (!backdrop) {
-          backdrop = document.createElement('div');
-          backdrop.className = 'catmenu-backdrop';
-          backdrop.addEventListener('click', () => toggle(false));
-          document.body.appendChild(backdrop);
-        }
-      } else {
-        menu.classList.remove('catmenu--overlay');
-        if (backdrop) {
-          backdrop.remove();
-          backdrop = null;
-        }
-      }
-    };
-
-    const toggle = (forceOpen = null, fromFloat = false) => {
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      const nextOpen = (forceOpen === null) ? !isOpen : forceOpen;
-
-      btn.setAttribute('aria-expanded', String(nextOpen));
-      menu.hidden = !nextOpen;
-
-      // si se abre desde el flotante, lo mostramos como overlay
-      if (nextOpen && fromFloat) setOverlay(true);
-      if (!nextOpen) setOverlay(false);
-    };
-
-    // Botón normal (abre debajo del botón)
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      // abrir como dropdown normal
-      setOverlay(false);
-      toggle(null, false);
-    });
-
-    // Cierra al elegir una opción
-    menu.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (!a) return;
-      toggle(false);
-    });
-
-    // Cierra al click afuera (solo cuando NO es overlay)
-    document.addEventListener('click', (e) => {
-      if (menu.hidden) return;
-      if (menu.classList.contains('catmenu--overlay')) return;
-      if (e.target === btn || btn.contains(e.target) || menu.contains(e.target)) return;
-      toggle(false);
-    });
-
-    // Botón flotante: abre overlay con la lista visible (almuerzos, mariscos, etc.)
-    if (floatBtn) {
-      floatBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        toggle(true, true);
-      });
-    }
-  });
-</script>
+  
 
   <footer class="site-footer">
     <div class="footer-inner">
@@ -1365,5 +1241,63 @@ header.std-header .actions{
       </div>
     </div>
   </footer>
+
+<script>
+  // Categorías: solo botón flotante (abre overlay)
+  document.addEventListener('DOMContentLoaded', () => {
+    const menu = document.getElementById('catMenu');
+    const floatBtn = document.getElementById('catFloat');
+    if (!menu || !floatBtn) return;
+
+    let backdrop = null;
+
+    const closeMenu = () => {
+      menu.hidden = true;
+      menu.classList.remove('catmenu--overlay');
+      floatBtn.setAttribute('aria-expanded', 'false');
+      if (backdrop) { backdrop.remove(); backdrop = null; }
+    };
+
+    const openMenu = () => {
+      menu.hidden = false;
+      menu.classList.add('catmenu--overlay');
+      floatBtn.setAttribute('aria-expanded', 'true');
+
+      if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.className = 'catmenu-backdrop';
+        backdrop.addEventListener('click', closeMenu);
+        document.body.appendChild(backdrop);
+      }
+    };
+
+    const toggleMenu = () => {
+      const isOpen = floatBtn.getAttribute('aria-expanded') === 'true';
+      if (isOpen) closeMenu();
+      else openMenu();
+    };
+
+    floatBtn.setAttribute('aria-haspopup', 'true');
+    floatBtn.setAttribute('aria-expanded', 'false');
+
+    floatBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleMenu();
+    });
+
+    // Cierra al elegir una categoría
+    menu.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      closeMenu();
+    });
+
+    // ESC para cerrar (desktop)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+  });
+</script>
+
 </body>
 </html>
