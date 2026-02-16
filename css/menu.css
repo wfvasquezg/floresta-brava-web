@@ -130,3 +130,61 @@ main, section, .section, .cards, .card, .card-media, .card img{
   position: relative;
   z-index: 1;
 }
+
+/* ===== Categorías: comportamiento móvil (modal) ===== */
+#catMenu.catmenu--overlay{
+  position: fixed;
+  left: 14px;
+  right: 14px;
+  top: 120px;
+  max-width: 520px;
+  margin: 0 auto;
+  max-height: min(70vh, 520px);
+  overflow: auto;
+  z-index: 10050;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgba(0,0,0,.20);
+}
+
+/* Fondo oscuro detrás (móvil) */
+.catmenu-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 10040;
+}
+
+/* ===== Desktop: dropdown anclado al botón flotante ===== */
+@media (min-width: 900px){
+  #catMenu.catmenu--overlay{
+    left: auto;
+    right: 24px;
+    top: auto;
+    bottom: 110px;              /* queda encima del floating */
+    margin: 0;
+    width: 320px;
+    max-width: 320px;
+    max-height: 420px;
+    border-radius: 16px;
+  }
+
+  /* En desktop el backdrop puede ser más suave (o puedes ocultarlo) */
+  .catmenu-backdrop{
+    background: rgba(0,0,0,.18);
+  }
+}
+
+/* Texto y links del menú (para que no se vea “blanco sobre blanco”) */
+#catMenu a{
+  display: block;
+  padding: 12px 14px;
+  color: #123;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 12px;
+}
+
+#catMenu a:hover{
+  background: rgba(0,0,0,.06);
+}
