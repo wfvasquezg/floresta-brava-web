@@ -40,7 +40,7 @@
 </script>
 
 <!-- Preload logo -->
-<link rel="preload" as="image" href="img/logoflorestatransparente.png" fetchpriority="high">
+<link rel="preload" as="image" href="img/letrasflorestabrava.png" fetchpriority="high">
 
 
   <style>
@@ -114,25 +114,27 @@
   justify-content:space-between;
 }
     .brand{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      min-width: 200px;
-    }
-    .logo{
-  width:42px;height:42px;border-radius:14px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.18);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-  display:grid;place-items:center;
-  user-select:none;
-  flex:0 0 auto;
-  overflow:hidden;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  min-width: 200px;
 }
-.logo img{ width:100%; height:100%; object-fit:contain; display:block; }
-    .brand h1{margin:0;font-size:15px;line-height:1.1;color:#fff;}
-
-    .brand small{display:block;margin-top:2px;color:rgba(255,255,255,0.85);font-weight:600;font-size:12px;}
+.brand-link{ display:inline-flex; align-items:center; text-decoration:none; }
+.brand-mark{ height:40px; width:auto; display:block; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25)); }
+.brand-pill{
+  display:inline-flex;
+  align-items:center;
+  padding:8px 12px;
+  border-radius:999px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  color:#fff;
+  font-weight:800;
+  font-size:13px;
+  letter-spacing:.2px;
+  backdrop-filter: blur(6px);
+  white-space:nowrap;
+}
 
 
     .search-wrap{
@@ -709,22 +711,46 @@
   .catmenu{ width: 360px; right:auto; }
 }
 
+
+/* --- Header estandarizado (logo izquierda, acción derecha) --- */
+header.std-header .topbar,
+header.std-header .header-inner,
+header.std-header .site-header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+header.std-header .brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+header.std-header .brand .brand-text{
+  min-width:0;
+}
+header.std-header .header-actions,
+header.std-header .actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-left:auto;
+}
+
 </style>
 </head>
 
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <!-- TOPBAR -->
-  <header class="topbar" id="top">
+  <header class="topbar std-header" id="top">
     <div class="topbar-inner">
       <div class="brand">
-        <a class="logo" href="index.html" aria-label="Ir al inicio">
-          <img src="img/logoflorestatransparente.png" alt="Floresta Brava" width="42" height="42" loading="eager" decoding="async">
+        <a class="brand-link" href="index.html" aria-label="Ir al inicio">
+          <img class="brand-mark" src="img/letrasflorestabrava.png" alt="Floresta Brava" width="210" height="44" loading="eager" decoding="async">
         </a>
-        <div>
-          <h1>Floresta Brava</h1>
-          <small>La excelencia del sabor</small>
-        </div>
+        <span class="brand-pill" aria-label="Página actual">Menú digital</span>
       </div>
 
       <div class="search-wrap">
@@ -735,8 +761,7 @@
       </div>
 
       <div class="actions">
-        <a class="btn btn-ghost" href="#almuerzos">Ver menú</a>
-        <a class="btn btn-primary" id="waTop" href="#" target="_blank" rel="noopener">WhatsApp</a>
+<a class="btn btn-primary" id="waTop" href="#" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </header>
