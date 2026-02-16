@@ -449,7 +449,11 @@
   }
 
   /* Espacio inferior para que los botones flotantes no tapen precios/texto */
-  body { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
+  body { padding-bottom: 0; }
+
+  @media (max-width: 768px){
+   body { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
+  }
 
   /* Un toque de brillo en fotos (mejor apetito visual) */
   .card img { filter: brightness(1.05) contrast(1.02); }
