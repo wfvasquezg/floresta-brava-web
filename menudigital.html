@@ -93,7 +93,7 @@
   color:#000;
   padding:10px 14px;
   border-radius:10px;
-  z-index:9999;
+  z-index:10001;
   box-shadow: 0 6px 18px rgba(0,0,0,0.20);
 }
 .skip-link:focus{ left:12px; }
@@ -670,83 +670,41 @@
   box-shadow: 0 10px 22px rgba(0,0,0,.08);
   cursor:pointer;
 }
+/* Categories overlay (opened from the floating button) */
 .catmenu{
-  position:absolute;
-  left:0; right:0;
-  top: calc(100% + 8px);
-  background: rgba(10,10,10,.88);
-  border: 1px solid rgba(255,255,255,.14);
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  top: 86px; /* below header */
+  max-width: 560px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,.08);
   border-radius: 16px;
-  padding: 10px;
-  box-shadow: 0 18px 40px rgba(0,0,0,.35);
-  backdrop-filter: blur(10px);
-  z-index: 90;
+  padding: 12px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.22);
+  z-index: 9998;
 }
-.catmenu a{display:block;padding:12px 14px;border-radius:12px;color:var(--ink);text-decoration:none;font-weight:900;}
-.catmenu a:hover{ background: rgba(255,255,255,.10); }
-
-.catquick{
-  margin-top:10px;
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  align-items:center;
-}
-.catpill{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 12px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background: rgba(255,255,255,.85);
-  color: var(--ink);
-  font-weight: 900;
-  font-size: 12.5px;
+.catmenu ul{ list-style:none; padding:0; margin:0; }
+.catmenu a{
+  display:block;
+  padding: 12px 12px;
+  border-radius: 12px;
   text-decoration:none;
+  color: var(--ink);
+  font-weight: 800;
 }
-.catpill.wa{
-  border:0;
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-  color:#fff;
-  box-shadow: 0 14px 30px rgba(34,197,94,.20);
+.catmenu a:hover{ background: rgba(0,0,0,.06); }
+
+.catmenu-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.22);
+  backdrop-filter: blur(1px);
+  z-index: 9997;
 }
 
-/* En escritorio, la barra de categorías puede ser más compacta */
-@media (min-width: 900px){
-  .catbar{ max-width: 520px; }
-  .catmenu{ width: 360px; right:auto; }
-}
-
-
-/* --- Header estandarizado (logo izquierda, acción derecha) --- */
-header.std-header .topbar,
-header.std-header .header-inner,
-header.std-header .site-header-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-header.std-header .brand{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  min-width:0;
-}
-header.std-header .brand .brand-text{
-  min-width:0;
-}
-header.std-header .header-actions,
-header.std-header .actions{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-left:auto;
-}
-
-
-/* --- Botones flotantes unificados --- */
+/* Floating buttons */
 .wa-float .float-btn{
   display:inline-flex;
   align-items:center;
@@ -785,6 +743,16 @@ header.std-header .actions{
 
 .catmenu.catmenu--overlay a{color:var(--ink);}
 .catmenu.catmenu--overlay a:hover{background:rgba(2,132,199,.10);}
+
+.float-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  white-space:nowrap;
+}
+#catFloat .cat-ico{ font-size:18px; line-height:1; }
+#catFloat .chev{ font-weight:900; }
+
 </style>
 </head>
 
@@ -954,11 +922,7 @@ header.std-header .actions{
   </main>
 <!-- Floating buttons -->
   <div class="wa-float" aria-label="Acciones rápidas">
-    <button class="float-btn float-cat" id="catFloat" type="button" aria-label="Abrir categorías" aria-haspopup="true" aria-expanded="false">
-      <span class="float-cat__label">Categorías</span>
-      <span class="float-cat__icon" aria-hidden="true">☰</span>
-      <span class="chev" aria-hidden="true">▾</span>
-    </button>
+    <button class="float-btn float-cat" id="catFloat" type="button" aria-label="Abrir categorías" aria-haspopup="true" aria-expanded="false"><span class="cat-ico">☰</span><span class="cat-label">Categorías</span><span class="chev">▾</span></button>
     <a class="float-btn top" id="topFloat" href="#top" title="Volver arriba">↑ Arriba</a>
 </div>
 
@@ -1270,45 +1234,31 @@ header.std-header .actions{
   </footer>
 
 <script>
-// Categorías: botón flotante (abre overlay)
 document.addEventListener('DOMContentLoaded', () => {
   const menu = document.getElementById('catMenu');
   const floatBtn = document.getElementById('catFloat');
-  const topBtn = document.getElementById('topFloat');
   if (!menu || !floatBtn) return;
 
   let backdrop = null;
-  let originalParent = menu.parentNode;
-  let originalNext = menu.nextSibling;
 
-  const setChevron = (open) => {
+  const setChev = (open) => {
     const chev = floatBtn.querySelector('.chev');
     if (chev) chev.textContent = open ? '▴' : '▾';
   };
 
   const closeMenu = () => {
     menu.hidden = true;
-    menu.classList.remove('catmenu--overlay');
     floatBtn.setAttribute('aria-expanded', 'false');
-    setChevron(false);
-
-    // devolver el menú a su posición original (por si lo movimos al <body>)
-    if (menu.parentNode !== originalParent) {
-      originalParent.insertBefore(menu, originalNext);
-    }
-
+    setChev(false);
     document.body.classList.remove('no-scroll');
     if (backdrop) { backdrop.remove(); backdrop = null; }
   };
 
   const openMenu = () => {
-    // mover al <body> para evitar que algún contenedor con overflow/transform lo tape
-    document.body.appendChild(menu);
-
     menu.hidden = false;
-    menu.classList.add('catmenu--overlay');
     floatBtn.setAttribute('aria-expanded', 'true');
-    setChevron(true);
+    setChev(true);
+    document.body.classList.add('no-scroll');
 
     if (!backdrop) {
       backdrop = document.createElement('div');
@@ -1316,8 +1266,6 @@ document.addEventListener('DOMContentLoaded', () => {
       backdrop.addEventListener('click', closeMenu);
       document.body.appendChild(backdrop);
     }
-
-    document.body.classList.add('no-scroll');
   };
 
   const toggleMenu = () => {
@@ -1328,31 +1276,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   floatBtn.setAttribute('aria-haspopup', 'true');
   floatBtn.setAttribute('aria-expanded', 'false');
-  setChevron(false);
+  setChev(false);
 
   floatBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    e.stopPropagation();
     toggleMenu();
   });
 
-  // Si hay botón flotante "Arriba"
-  if (topBtn) {
-    topBtn.addEventListener('click', () => closeMenu());
-  }
-
-  // Cerrar al hacer click en una categoría
+  // Close after selecting a category
   menu.addEventListener('click', (e) => {
     const a = e.target.closest('a');
     if (a) closeMenu();
   });
 
-  // Cerrar con ESC
+  // ESC closes
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });
 
-  // Cerrar si rota / cambia tamaño (evita overlays raros)
+  // Avoid odd overlays on rotate/resize
   window.addEventListener('resize', () => {
     if (floatBtn.getAttribute('aria-expanded') === 'true') closeMenu();
   });
