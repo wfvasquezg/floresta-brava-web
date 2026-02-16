@@ -758,7 +758,7 @@
         </div>
 
         <div class="hero-cta">
-          <a class="btn btn-primary" id="waHero" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+          <a class="btn btn-primary" id="waDay" href="#" target="_blank" rel="noopener">Pedir menú del día</a>
           <a class="btn btn-light" href="#destacados">Ver destacados</a>
           <a class="btn btn-light" href="#mariscos">Ir a mariscos</a>
         </div>
@@ -890,8 +890,7 @@
   <!-- Floating buttons -->
   <div class="wa-float" aria-label="Acciones rápidas">
     <a class="top" href="#top" title="Volver arriba">↑ Arriba</a>
-    <a id="waFloat" href="#" target="_blank" rel="noopener" title="Pedir por WhatsApp">WhatsApp</a>
-  </div>
+</div>
 
   <script>
     /***********************
@@ -1133,7 +1132,7 @@
       const generalMsg = WHATSAPP_PREFIX + "Quiero hacer un pedido. ¿Me ayudas por favor?";
       const href = waLink(generalMsg);
 
-      const ids = ["waTop", "waHero", "waFloat"];
+      const ids = ["waTop", "waHero", "waDay"];
       ids.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.href = href;
