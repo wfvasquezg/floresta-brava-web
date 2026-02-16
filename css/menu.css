@@ -114,3 +114,19 @@
 /* Overlay categorías (si se abre desde botón flotante) */
 .catmenu.catmenu--overlay{position:fixed;left:16px;right:16px;bottom:108px;max-height:62vh;overflow:auto;border-radius:18px;padding:10px;background:#fff;border:1px solid rgba(0,0,0,.12);box-shadow:0 18px 50px rgba(0,0,0,.22);z-index:9998;}
 .catmenu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:9997;}
+
+/* FIX: Header siempre por encima del contenido */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 10000;          /* súbelo fuerte */
+  background: rgba(16, 73, 73, .92);  /* evita “transparencias raras” */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Asegura que el contenido no tape al header */
+main, section, .section, .cards, .card, .card-media, .card img{
+  position: relative;
+  z-index: 1;
+}
