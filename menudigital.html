@@ -100,7 +100,7 @@
     .topbar{
   position: sticky;
   top: 0;
-  z-index: 99999;
+  z-index: 50;
   background: linear-gradient(90deg, var(--madera-oscura), var(--verde));
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
@@ -536,7 +536,30 @@
     }
 
     /* Floating WhatsApp */
-          background: rgba(255,255,255,.92);
+    .wa-float{
+      position: fixed;
+      right: calc(16px + env(safe-area-inset-right));
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      z-index: 80;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-end;
+    }
+    .wa-float a{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:999px;
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      color:#fff;
+      text-decoration:none;
+      font-weight:1000;
+      box-shadow: 0 14px 30px rgba(34,197,94,.22);
+    }
+    .wa-float .top{
+      background: rgba(255,255,255,.92);
       color: var(--brand);
       border: 1px solid var(--line);
       box-shadow: 0 14px 30px rgba(0,0,0,.12);
@@ -609,7 +632,26 @@
 .wrap{ padding-bottom: 120px; }
 
 
-  </style>
+  
+
+/* --- Categorías overlay + botones flotantes --- */
+header{position:sticky;top:0;z-index:2000}
+.wa-float{position:fixed;right:14px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:2200}
+.float-btn{border:0;border-radius:999px;padding:12px 16px;font-weight:800;font-size:16px;line-height:1;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,.18);backdrop-filter: blur(10px);}
+.float-cat{background:rgba(255,255,255,.92);color:#0b2b2b;border:1px solid rgba(0,0,0,.08)}
+.float-top{background:rgba(255,255,255,.92);color:#0b2b2b;border:1px solid rgba(0,0,0,.08)}
+.float-btn:active{transform:translateY(1px)}
+.float-btn .chev{font-weight:900;opacity:.8}
+.catmenu{position:fixed;right:14px;bottom:74px;width:min(86vw,320px);max-height:min(60vh,520px);overflow:auto;background:rgba(255,255,255,.96);border:1px solid rgba(0,0,0,.10);border-radius:18px;box-shadow:0 18px 40px rgba(0,0,0,.22);padding:10px;z-index:3000}
+.catmenu a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px;border-radius:14px;color:#0b2b2b;text-decoration:none;font-weight:800}
+.catmenu a:hover{background:rgba(16,128,96,.08)}
+.catmenu a:active{background:rgba(16,128,96,.14)}
+.catmenu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.28);backdrop-filter: blur(2px);z-index:2500}
+@media (min-width: 900px){
+  .wa-float{right:22px;bottom:22px}
+  .catmenu{right:22px;bottom:82px}
+}
+</style>
 </head>
 
 <body>
@@ -635,8 +677,7 @@
       </div>
 
       <div class="actions">
-        <a class="btn btn-ghost" href="#almuerzos">Ver menú</a>
-        <a class="btn btn-primary" id="waTop" href="#" target="_blank" rel="noopener">WhatsApp</a>
+<a class="btn btn-primary" id="waTop" href="#" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </header>
@@ -783,32 +824,209 @@
   </main>
 
   
-  <!-- Categorías (panel flotante) -->
-  <div id="catMenu" class="catmenu" role="dialog" aria-label="Categorías" hidden>
+  <!-- Categorías (overlay) -->
+  <nav id="catMenu" class="catmenu" hidden aria-label="Categorías del menú">
     <a href="#destacados">Destacados</a>
     <a href="#almuerzos">Almuerzos</a>
     <a href="#desayunos">Desayunos</a>
     <a href="#mariscos">Mariscos</a>
     <a href="#carnes">Carnes</a>
     <a href="#pollos">Pollos</a>
-    <a href="#pinchos">Pinchos</a>
     <a href="#gaseosas">Bebidas</a>
-  </div>
+    <a href="#pinchos">Pinchos</a>
+  </nav>
 
 
 <!-- Floating buttons -->
-  <div class="quick-fab" aria-label="Acciones rápidas">
-    <button class="fab-btn fab-cats" id="catFloat" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Abrir categorías">
-      <span class="fab-label">Categorías</span>
-      <span class="fab-icon" aria-hidden="true">☰</span>
-      <span class="fab-chev" aria-hidden="true">▾</span>
+  <div class="wa-float" aria-label="Acciones rápidas">
+    <button class="float-btn float-cat" id="catFloat" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Abrir categorías">
+      Categorías <span class="chev" aria-hidden="true">▾</span>
     </button>
-    <a class="fab-btn fab-top" href="#top" title="Volver arriba" aria-label="Volver arriba">
-      <span class="fab-icon" aria-hidden="true">↑</span>
-      <span class="fab-label">Arriba</span>
-    </a>
+    <a class="float-btn float-top" href="#top" title="Volver arriba" aria-label="Volver arriba">↑ Arriba</a>
   </div>
+<script>
+    /***********************
+     * CONFIG PRODUCCION
+     ***********************/
+    // 1) Carpeta de imágenes
+    const IMG_BASE = "img/";
 
+    // 2) Número WhatsApp (formato internacional sin +)
+    const WHATSAPP_NUMBER = "593983603626";
+
+    // 3) Texto base para WhatsApp
+    const WHATSAPP_PREFIX = "Hola, vengo del menú QR de Floresta Brava. ";
+
+    // 4) Destacados (máximo 6 recomendado)
+    const FEATURED = [
+      { category: "Mariscos", name: "Encebollado", tag: "Clásico" },
+      { category: "Mariscos", name: "Ceviche mixto", tag: "Top" },
+      { category: "Mariscos", name: "Chaulafán", tag: "Rápido" },
+      { category: "Carnes",  name: "Bisteck costeño", tag: "Fuerte" },
+      { category: "Carnes",  name: "Carne apanada", tag: "Crocante" },
+      { category: "Desayunos", name: "Tigrillo", tag: "Desayuno" },
+    ];
+
+    /***********************
+     * DATA MENU (EXCEL)
+     * Si file = "" => sin imagen
+     * Si price = null => sin precio (por ejemplo, aún por definir)
+     ***********************/
+    const MENU = [
+      {
+        id: "almuerzos",
+        title: "Almuerzos",
+        desc: "Opciones completas y económicas para todos los días.",
+        items: [
+          { name: "Almuerzos y Meriendas", price: 2.75, file: "almuerzo.webp" },
+          { name: "Almuerzos con encebollado", price: 3.50, file: "almuerzo-encebollado.webp" },
+          { name: "Meriendas con pincho", price: 3.50, file: "merienda-pincho.webp" },
+          { name: "Segundo del día", price: 2.25, file: "segundo.webp" },
+          { name: "Sopa del día", price: 1.50, file: "sopasola.webp" },
+        ],
+      },
+      {
+        id: "carnes",
+        title: "Carnes",
+        desc: "Cortes preparados a la plancha o apanados, con guarniciones completas.",
+        items: [
+          { name: "Bisteck costeño", price: 5.25, file: "bisteckcosteno.webp" },
+          { name: "Carne apanada", price: 5.25, file: "carneapanada.webp" },
+          { name: "Chuleta", price: 6.00, file: "chuleta.webp" },
+          { name: "Churrasco", price: 5.25, file: "churrasco.webp" },
+          { name: "Lomo a la pimienta", price: 5.25, file: "lomoalapimienta.webp" },
+          { name: "Lomo a la plancha", price: 5.25, file: "lomolaplancha.webp" },
+          { name: "Menestras", price: 5.25, file: "menestradecarne.webp" },
+          { name: "Yaguarlocro", price: null, file: "yaguarlocro.webp" },
+        ],
+      },
+      {
+        id: "desayunos",
+        title: "Desayunos",
+        desc: "Desayunos típicos ecuatorianos para arrancar el día con energía.",
+        items: [
+          { name: "Bolones", price: 1.00, file: "bolon-estofado.webp" },
+          { name: "Corviches", price: 1.00, file: "corviches.webp" },
+          { name: "Desayuno completo", price: 3.75, file: "" },
+          { name: "Desayuno continental", price: 2.75, file: "desayunocontinental.webp" },
+          { name: "Empanadas", price: 1.00, file: "empanadas.webp" },
+          { name: "Muchines", price: 1.00, file: "muchin.webp" },
+          { name: "Tamales", price: 1.00, file: "tamal.webp" },
+          { name: "Tigrillo", price: 4.00, file: "tigrillo.webp" },
+        ],
+      },
+      {
+        id: "mariscos",
+        title: "Mariscos",
+        desc: "Ceviches, arroces y platos calientes preparados con mariscos frescos.",
+        items: [
+          { name: "Arroz con camarón", price: 8.50, file: "arrozconcamaron.webp" },
+          { name: "Arroz con concha", price: 8.50, file: "arrozconconcha.webp" },
+          { name: "Arroz mixto", price: 10.00, file: "arrozmixto.webp" },
+          { name: "Bandera", price: 10.00, file: "bandera.webp" },
+          { name: "Bochinche", price: 10.00, file: "bochinche.webp" },
+          { name: "Camarones al ajillo", price: 8.50, file: "camaronesalajillo.webp" },
+          { name: "Camarones apanados", price: 8.50, file: "camaronesapanados.webp" },
+          { name: "Cazuelas", price: 8.50, file: "cazueladecamaron.webp" },
+          { name: "Ceviche de camarón", price: 8.50, file: "cevichedecamaron.webp" },
+          { name: "Ceviche de concha", price: 8.50, file: "cevichedeconcha.webp" },
+          { name: "Ceviche de pescado", price: 8.00, file: "cevichedepescado.webp" },
+          { name: "Ceviche mixto", price: 8.50, file: "cevichemixto.webp" },
+          { name: "Cevichón", price: 4.50, file: "cevichon.webp" },
+          { name: "Chaulafán", price: 3.75, file: "chaulafan.webp" },
+          { name: "Chupe de pescado", price: 3.75, file: "chupedepescado.webp" },
+          { name: "Corvinas", price: 8.50, file: "corvina.webp" },
+          { name: "Encebollado", price: 3.00, file: "encebollado.webp" },
+          { name: "Encebollado mixto", price: 8.50, file: "encebolladomixto.webp" },
+          { name: "Guatita", price: 3.00, file: "guatita.webp" },
+          { name: "Langostinos a la brava", price: 10.00, file: "langostinosalabrava.webp" },
+          { name: "Sopa de camarón", price: 8.50, file: "sopadecamaron.webp" },
+        ],
+      },
+      {
+        id: "pollos",
+        title: "Pollos",
+        desc: "Platos de pollo jugosos y bien sazonados, con acompañantes.",
+        items: [
+          { name: "Arroz con pollo", price: 3.75, file: "arrozconpollo.webp" },
+          { name: "Pechuga a la plancha", price: 5.25, file: "pechugaalaplancha.webp" },
+          { name: "Pechuga apanada", price: 5.25, file: "pechugaapanada.webp" },
+          { name: "Seco de pollo", price: 4.00, file: "secodepollo.webp" },
+        ],
+      },
+      {
+        id: "gaseosas",
+        title: "Gaseosa",
+        desc: "Opciones individuales y familiares.",
+        items: [
+          { name: "Mediana", price: 1.00, file: "" },
+          { name: "Personal", price: 0.65, file: "" },
+          { name: "1.35 ml", price: 2.25, file: "" },
+        ],
+      },
+      {
+        id: "cerveza",
+        title: "Cerveza",
+        desc: "Cervezas nacionales.",
+        items: [
+          { name: "Pilsener 600 ml", price: 2.25, file: "" },
+          { name: "Club 550 ml", price: 2.50, file: "" },
+        ],
+      },
+      {
+        id: "pinchos",
+        title: "Pinchos",
+        desc: "Ideales para acompañar tu merienda.",
+        items: [
+          { name: "Pincho de carne", price: 1.00, file: "pincho-carne.webp" },
+          { name: "Pincho de pollo", price: 1.00, file: "pincho-pollo.webp" },
+		  { name: "Pincho completo", price: 2.5, file: "pincho-completo.webp" },
+        ],
+      },
+    ];
+
+    /***********************
+     * HELPERS
+     ***********************/
+    function formatPrice(p) {
+      if (p === null || p === undefined || p === "") return "";
+      return "$" + Number(p).toFixed(2).replace(".", ",");
+    }
+
+    function waLink(message) {
+      const base = "https://wa.me/" + WHATSAPP_NUMBER;
+      return base + "?text=" + encodeURIComponent(message);
+    }
+
+    function waForItem(itemName, priceText) {
+      const msg = WHATSAPP_PREFIX + "Quiero pedir: " + itemName + (priceText ? " (" + priceText + ")" : "") + ".";
+      return waLink(msg);
+    }
+
+    function findItem(categoryTitle, itemName) {
+      const cat = MENU.find(c => c.title.toLowerCase() === categoryTitle.toLowerCase());
+      if (!cat) return null;
+      return cat.items.find(i => i.name.toLowerCase() === itemName.toLowerCase()) || null;
+    }
+
+    function itemHTML(it) {
+      const priceText = it.price != null ? formatPrice(it.price) : "";
+      const imgBlock = it.file
+        ? `<img src="${IMG_BASE + it.file}" alt="${it.name}" class="item-img" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-img&quot;>Sin foto</div>'">`
+        : `<div class="no-img">Sin foto</div>`;
+
+      const note = it.price == null
+        ? "Consultar precio"
+        : "Pídelo por WhatsApp";
+
+      return `
+        <article class="item" data-name="${it.name.toLowerCase()}">
+          ${imgBlock}
+          <div class="item-body">
+            <div class="item-header-line">
+              <div class="item-name">${it.name}</div>
+              <div class="item-price">${priceText || "—"}</div>
+            </div>
             <div class="item-note">${note}</div>
             <div class="item-actions">
               <a class="mini wa" href="${waForItem(it.name, priceText)}" target="_blank" rel="noopener">Pedir este</a>
@@ -929,70 +1147,6 @@
       </div>
     </div>
   </footer>
-
-
-<script>
-  // Categorías: botón flotante abre/cierra panel
-  document.addEventListener('DOMContentLoaded', () => {
-    const menu = document.getElementById('catMenu');
-    const btn  = document.getElementById('catFloat');
-    if (!menu || !btn) return;
-
-    let backdrop = null;
-    const chev = btn.querySelector('.fab-chev');
-
-    const closeMenu = () => {
-      menu.hidden = true;
-      btn.setAttribute('aria-expanded', 'false');
-      if (chev) chev.textContent = '▾';
-      if (backdrop) { backdrop.remove(); backdrop = null; }
-      document.removeEventListener('keydown', onKeyDown);
-    };
-
-    const openMenu = () => {
-      menu.hidden = false;
-      btn.setAttribute('aria-expanded', 'true');
-      if (chev) chev.textContent = '▴';
-
-      if (!backdrop) {
-        backdrop = document.createElement('div');
-        backdrop.className = 'catmenu-backdrop';
-        backdrop.addEventListener('click', closeMenu);
-        document.body.appendChild(backdrop);
-      }
-      // Cierra al seleccionar una categoría
-      menu.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', closeMenu, { once: true });
-      });
-
-      document.addEventListener('keydown', onKeyDown);
-    };
-
-    const toggleMenu = () => {
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      if (isOpen) closeMenu(); else openMenu();
-    };
-
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') closeMenu();
-    };
-
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      toggleMenu();
-    });
-
-    // Si el usuario hace scroll mucho, cerramos el panel (evita que quede abierto)
-    let lastY = window.scrollY;
-    window.addEventListener('scroll', () => {
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      if (!isOpen) return;
-      const dy = Math.abs(window.scrollY - lastY);
-      lastY = window.scrollY;
-      if (dy > 120) closeMenu();
-    }, { passive: true });
-  });
-</script>
 
 </body>
 </html>
