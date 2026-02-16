@@ -930,10 +930,15 @@ header.std-header .actions{
   </main>
 <!-- Floating buttons -->
   <div class="wa-float" aria-label="Acciones rápidas">
-    
-    <button class="float-btn float-cat" id="catFloat" type="button" aria-label="Abrir categorías">Categorías</button>
-<a class="top" href="#top" title="Volver arriba">↑ Arriba</a>
-</div>
+    <button class="float-btn float-cat" id="catFloat" type="button" aria-label="Abrir categorías" aria-haspopup="true" aria-expanded="false">
+      <span class="float-cat__label">Categorías</span>
+      <span class="float-cat__icon" aria-hidden="true">☰</span>
+      <span class="chev" aria-hidden="true">▾</span>
+    </button>
+    <a class="float-btn float-top" href="#top" title="Volver arriba" aria-label="Volver arriba">
+      <span aria-hidden="true">↑</span> Arriba
+    </a>
+  </div>
 
   <script>
     /***********************
@@ -1251,10 +1256,27 @@ header.std-header .actions{
 
     let backdrop = null;
 
+    const setChevron = (open) => {
+      const chev = floatBtn.querySelector('.chev');
+      if (chev) chev.textContent = open ? '▴' : '▾';
+    };
+
+    const unlockScroll = () => {
+      document.documentElement.classList.remove('no-scroll');
+      document.body.classList.remove('no-scroll');
+    };
+
+    const lockScroll = () => {
+      document.documentElement.classList.add('no-scroll');
+      document.body.classList.add('no-scroll');
+    };
+
     const closeMenu = () => {
       menu.hidden = true;
       menu.classList.remove('catmenu--overlay');
       floatBtn.setAttribute('aria-expanded', 'false');
+      setChevron(false);
+      unlockScroll();
       if (backdrop) { backdrop.remove(); backdrop = null; }
     };
 
@@ -1262,6 +1284,8 @@ header.std-header .actions{
       menu.hidden = false;
       menu.classList.add('catmenu--overlay');
       floatBtn.setAttribute('aria-expanded', 'true');
+      setChevron(true);
+      lockScroll();
 
       if (!backdrop) {
         backdrop = document.createElement('div');
@@ -1277,13 +1301,31 @@ header.std-header .actions{
       else openMenu();
     };
 
-    floatBtn.setAttribute('aria-haspopup', 'true');
-    floatBtn.setAttribute('aria-expanded', 'false');
+    // estado inicial
+    setChevron(false);
 
     floatBtn.addEventListener('click', (e) => {
       e.preventDefault();
       toggleMenu();
     });
+
+    // Cierra al elegir una categoría
+    menu.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      closeMenu();
+    });
+
+    // ESC para cerrar (desktop)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    // Si cambia el tamaño a desktop, cierra overlay para evitar estados raros
+    window.addEventListener('resize', () => {
+      if (floatBtn.getAttribute('aria-expanded') === 'true') closeMenu();
+    });
+  });
 
     // Cierra al elegir una categoría
     menu.addEventListener('click', (e) => {
