@@ -105,6 +105,12 @@
 /* Categorías (dropdown) - usado en menudigital.html */
 .catbar{position:relative;margin:10px 0 14px;}
 .catbtn{font-size:14px;width:auto;min-width:210px;max-width:260px;margin:0 auto;padding:10px 12px;border-radius:16px;border:1px solid rgba(15,61,46,.12);background:rgba(255,255,255,.92);font-weight:900;color:var(--verde-oscuro);box-shadow:0 6px 18px rgba(0,0,0,.06);cursor:pointer;}
-.catmenu{position:absolute;left:0;right:0;top:calc(100% + 8px);background:rgba(10,10,10,.88);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:10px;box-shadow:0 18px 40px rgba(0,0,0,.35);backdrop-filter:blur(10px);z-index:999;}
-.catmenu a{display:block;padding:12px 14px;border-radius:12px;color:#fff;text-decoration:none;font-weight:800;}
+.catmenu{display:grid;gap:8px;background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:16px;padding:10px;}
+
+.catmenu a{display:block;padding:12px 14px;border-radius:12px;text-decoration:none;color:var(--ink);font-weight:800;}
+
 .catmenu a:hover{background:rgba(255,255,255,.10);}
+
+/* Overlay categorías (si se abre desde botón flotante) */
+.catmenu.catmenu--overlay{position:fixed;left:16px;right:16px;bottom:108px;max-height:62vh;overflow:auto;border-radius:18px;padding:10px;background:#fff;border:1px solid rgba(0,0,0,.12);box-shadow:0 18px 50px rgba(0,0,0,.22);z-index:9998;}
+.catmenu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:9997;}
