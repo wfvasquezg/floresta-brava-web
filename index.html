@@ -95,7 +95,7 @@
 
   .hero {
     position: relative;
-    min-height: 80vh;
+    min-height: 70vh;
     display: flex;
     align-items: center;
     color: #fff;
@@ -167,6 +167,24 @@
   }
   .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
 
+  .hero-secondary-links{
+    margin-top: 10px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px;
+    font-size: 13px;
+    color: rgba(255,255,255,.88);
+  }
+  .hero-secondary-links .secondary-link{
+    color: rgba(255,255,255,.92);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .hero-secondary-links .secondary-link:hover{ color: #fff; }
+  .hero-secondary-links .sep{ opacity:.75; }
+
+
   .section { padding: 56px 0; }
   .section.alt { background: #ffffff; }
   .section.soft { background: var(--crema); }
@@ -177,13 +195,14 @@
 
   .hero-logo { margin-bottom: 24px; text-align: center; }
   .hero-logo img {
-    height: 180px;
+    height: 150px;
     width: auto;
     filter: drop-shadow(0 10px 18px rgba(0,0,0,0.55));
   }
 
   @media (min-width: 768px) {
-    .hero-logo img { height: 240px; }
+    .hero { min-height: 80vh; }
+    .hero-logo img { height: 220px; }
     .hero h1 { font-size: 40px; }
     .grid-3 { grid-template-columns: repeat(3, 1fr); }
     .grid-2 { grid-template-columns: repeat(2, 1fr); }
@@ -222,7 +241,7 @@
     padding: 16px;
     border-left: 4px solid var(--madera);
     box-shadow: 0 6px 18px rgba(0,0,0,0.04);
-    margin-bottom: 16px;
+    margin-bottom: calc(16px + env(safe-area-inset-bottom));
   }
   .highlight h3 { font-size: 16px; margin-bottom: 4px; color: var(--madera-oscura); }
   .highlight p { font-size: 13px; color: #555; }
@@ -283,7 +302,7 @@
     .nav-menu ul {
       display: none;
       position: absolute;
-      right: 16px;
+      right: calc(16px + env(safe-area-inset-right));
       top: 64px;
       width: min(320px, calc(100vw - 32px));
       background: rgba(10,10,10,.88);
@@ -300,8 +319,8 @@
 
   .floating-ctas {
     position: fixed;
-    right: 16px;
-    bottom: 16px;
+    right: calc(16px + env(safe-area-inset-right));
+    bottom: calc(16px + env(safe-area-inset-bottom));
     display: grid;
     gap: 10px;
     z-index: 999;
@@ -380,7 +399,7 @@
     margin: 24px auto 0;
   }
   .section-menudiario .menudiario-left .highlight{
-    margin-bottom: 16px;
+    margin-bottom: calc(16px + env(safe-area-inset-bottom));
   }
   .section-menudiario .menudiario-right{
     display: flex;
@@ -430,7 +449,7 @@
   }
 
   /* Espacio inferior para que los botones flotantes no tapen precios/texto */
-  body { padding-bottom: 120px; }
+  body { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
 
   /* Un toque de brillo en fotos (mejor apetito visual) */
   .card img { filter: brightness(1.05) contrast(1.02); }
@@ -537,10 +556,11 @@
         </p>
 
         <div class="hero-badges">
+          <a class="badge" href="#menudiario">Menú del día desde $2.75</a>
           <a class="badge" href="#menudiario">Desayunos y almuerzos</a>
           <a class="badge" href="#empresas">Pedidos para empresas</a>
           <a class="badge" href="#ubicacion">Ubícanos</a>
-          <a class="badge" href="#resenas">Reseñas</a>
+          <a class="badge" href="https://g.page/r/CWs8Hr-H1g4jEBM" target="_blank" rel="noopener">Ver reseñas en Google</a>
         </div>
 
         <div class="btn-group">
@@ -551,8 +571,13 @@
           </a>
 
           <a class="btn btn-ghost" href="menudigital.html">Ver menú completo</a>
-          <a class="btn btn-ghost" href="#platos">Ver platos estrella</a>
-          <a class="btn btn-ghost" href="#ubicacion">Cómo llegar</a>
+
+        </div>
+
+        <div class="hero-secondary-links" aria-label="Accesos rápidos">
+          <a class="secondary-link" href="#platos">Ver platos estrella</a>
+          <span class="sep">•</span>
+          <a class="secondary-link" href="#ubicacion">Cómo llegar</a>
         </div>
       </div>
     </section>
@@ -659,9 +684,7 @@
 			  <p><strong>Precio llevar:</strong> <span id="menu-preciollevar">$3.25</span></p>
 			  <p><strong>Bebida:</strong> <span id="menu-bebida">Jugo del Día</span></p>
 
-			  <a class="btn btn-primary" href="https://wa.me/593983603626" target="_blank" rel="noopener">
-				Pedir por WhatsApp
-			  </a>
+			  <a class="btn btn-primary" href="https://wa.me/593983603626?text=Hola%2C%20quiero%20el%20men%C3%BA%20del%20d%C3%ADa%20(sopa%20%2B%20segundo%20%2B%20bebida)%20de%20Floresta%20Brava.%20%C2%BFQu%C3%A9%20hay%20hoy%3F" target="_blank" rel="noopener">Pedir menú del día por WhatsApp</a>
 			</div>
 		  </div>
 
