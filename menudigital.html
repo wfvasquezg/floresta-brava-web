@@ -632,7 +632,80 @@
 .wrap{ padding-bottom: 120px; }
 
 
-  </style>
+  
+/* --- Categorías (dropdown) --- */
+.catbar{
+  margin-top:14px;
+  position:relative;
+}
+.catbtn{
+  width:100%;
+  padding:12px 14px;
+  border-radius: 16px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.92);
+  color: var(--ink);
+  font-weight: 1000;
+  letter-spacing:.2px;
+  box-shadow: 0 10px 22px rgba(0,0,0,.08);
+  cursor:pointer;
+}
+.catmenu{
+  position:absolute;
+  left:0; right:0;
+  top: calc(100% + 8px);
+  background: rgba(10,10,10,.88);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.35);
+  backdrop-filter: blur(10px);
+  z-index: 90;
+}
+.catmenu a{
+  display:block;
+  padding: 12px 14px;
+  border-radius: 12px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:900;
+}
+.catmenu a:hover{ background: rgba(255,255,255,.10); }
+
+.catquick{
+  margin-top:10px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.catpill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.85);
+  color: var(--ink);
+  font-weight: 900;
+  font-size: 12.5px;
+  text-decoration:none;
+}
+.catpill.wa{
+  border:0;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color:#fff;
+  box-shadow: 0 14px 30px rgba(34,197,94,.20);
+}
+
+/* En escritorio, la barra de categorías puede ser más compacta */
+@media (min-width: 900px){
+  .catbar{ max-width: 520px; }
+  .catmenu{ width: 360px; right:auto; }
+}
+
+</style>
 </head>
 
 <body>
@@ -677,7 +750,6 @@
           <div class="hero-badges">
             <div class="badge"><strong>Listo en minutos</strong></div>
             <div class="badge"><strong>Porciones que llenan</strong></div>
-            <div class="badge"><strong>Sabor costeño y tradicional</strong></div>
           </div>
         </div>
 
@@ -689,18 +761,29 @@
       </div>
     </section>
 
-    <!-- QUICK NAV -->
-    <nav class="chips" aria-label="Categorías">
-      <a class="chip" href="#almuerzos">Almuerzos <small>desde $2,75</small></a>
-      <a class="chip" href="#desayunos">Desayunos</a>
-      <a class="chip" href="#mariscos">Mariscos</a>
-      <a class="chip" href="#carnes">Carnes</a>
-      <a class="chip" href="#pollos">Pollos</a>
-      <a class="chip" href="#gaseosas">Bebidas</a>
-      <a class="chip" href="#pinchos">Pinchos</a>
+    <!-- CATEGORÍAS (más simple en móvil) -->
+    <nav class="catbar" aria-label="Categorías">
+      <button class="catbtn" id="catBtn" type="button" aria-expanded="false" aria-controls="catMenu">
+        Categorías ☰
+      </button>
+
+      <div class="catmenu" id="catMenu" hidden>
+        <a href="#almuerzos">Almuerzos</a>
+        <a href="#desayunos">Desayunos</a>
+        <a href="#mariscos">Mariscos</a>
+        <a href="#carnes">Carnes</a>
+        <a href="#pollos">Pollos</a>
+        <a href="#gaseosas">Bebidas</a>
+        <a href="#pinchos">Pinchos</a>
+      </div>
+
+      <div class="catquick" aria-label="Accesos rápidos">
+        <a class="catpill" href="#destacados">Ver destacados</a>
+        <a class="catpill wa" id="waCat" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+      </div>
     </nav>
 
-    <!-- FEATURED -->
+<!-- FEATURED -->
     <section class="featured" id="destacados" aria-label="Destacados">
       <div class="section-title">
         <h3>Destacados</h3>
@@ -1051,7 +1134,7 @@
       const generalMsg = WHATSAPP_PREFIX + "Quiero hacer un pedido. ¿Me ayudas por favor?";
       const href = waLink(generalMsg);
 
-      const ids = ["waTop", "waHero", "waFloat"];
+      const ids = ["waTop", "waHero", "waFloat", "waCat"];
       ids.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.href = href;
@@ -1100,6 +1183,36 @@
     renderFeatured();
     setupWhatsAppButtons();
     setupSearch();
+  </script>
+
+
+  <script>
+    // Dropdown categorías (móvil)
+    (function(){
+      const btn = document.getElementById('catBtn');
+      const menu = document.getElementById('catMenu');
+      if(!btn || !menu) return;
+
+      btn.addEventListener('click', () => {
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        menu.hidden = isOpen;
+      });
+
+      menu.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (!a) return;
+        btn.setAttribute('aria-expanded','false');
+        menu.hidden = true;
+      });
+
+      document.addEventListener('click', (e) => {
+        if (menu.hidden) return;
+        if (e.target === btn || btn.contains(e.target) || menu.contains(e.target)) return;
+        btn.setAttribute('aria-expanded','false');
+        menu.hidden = true;
+      });
+    })();
   </script>
 
   <footer class="site-footer">
