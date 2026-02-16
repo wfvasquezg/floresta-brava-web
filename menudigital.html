@@ -44,6 +44,7 @@
 
 
   <style>
+
     :root{
       /* Colores base (mismo lenguaje visual que index.html) */
       --madera:#7a4b1f;
@@ -560,13 +561,7 @@
       font-weight:1000;
       box-shadow: 0 14px 30px rgba(34,197,94,.22);
     }
-    .wa-float .top{
-      background: rgba(255,255,255,.92);
-      color: var(--brand);
-      border: 1px solid var(--line);
-      box-shadow: 0 14px 30px rgba(0,0,0,.12);
-      font-weight:1000;
-    }
+    .wa-float .top{ color: var(--brand); }
 
     /* Small helpers */
     .hide{ display:none !important; }
@@ -758,26 +753,58 @@ header.std-header .actions{
   margin: 0;
 }
 
-/* --- Botón flotante de Categorías --- */
-.float-cat{
-  position: fixed;
-  right: 16px;
-  bottom: 96px; /* deja espacio para "Arriba" */
-  z-index: 120;
+
+/* --- Botones flotantes unificados --- */
+.wa-float .float-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
   padding: 11px 14px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: rgba(255,255,255,.92);
-  color: var(--ink);
-  font-weight: 1000;
-  font-size: 13px;
   box-shadow: 0 14px 30px rgba(0,0,0,.12);
   backdrop-filter: blur(8px);
-  cursor: pointer;
+  font-weight: 1000;
+  font-size: 13px;
+  text-decoration:none;
+  cursor:pointer;
 }
+.wa-float .float-btn:active{ transform: translateY(1px); }
+.wa-float .float-btn:focus{ outline: 2px solid rgba(31,182,201,.35); outline-offset: 2px; }
+
+/* --- Botón flotante de Categorías --- */
+.float-cat{ color: var(--ink); }
 @media (min-width: 900px){
   .float-cat{ bottom: 24px; }
 }
+
+
+/* --- Overlay de Categorías (cuando se abre desde el botón flotante) --- */
+.catmenu.catmenu--overlay{
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 140px;
+  top: auto;
+  max-height: 60vh;
+  overflow: auto;
+  border-radius: 16px;
+  padding: 10px;
+  background: rgba(255,255,255,.96);
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px rgba(0,0,0,.18);
+  z-index: 220;
+  backdrop-filter: blur(10px);
+}
+.catmenu-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.25);
+  z-index: 210;
+}
+
 
 </style>
 </head>
@@ -954,16 +981,11 @@ header.std-header .actions{
       Nota: Las imágenes se cargan desde la carpeta <strong>img/</strong>. Los platos sin archivo no muestran foto.
     </p>
   </main>
-
-
-
-
-  <button class="float-cat" id="catFloat" type="button" aria-label="Abrir categorías">Categorías</button>
-
-
-  <!-- Floating buttons -->
+<!-- Floating buttons -->
   <div class="wa-float" aria-label="Acciones rápidas">
-    <a class="top" href="#top" title="Volver arriba">↑ Arriba</a>
+    
+    <button class="float-btn float-cat" id="catFloat" type="button" aria-label="Abrir categorías">Categorías</button>
+<a class="top" href="#top" title="Volver arriba">↑ Arriba</a>
 </div>
 
   <script>
@@ -1259,47 +1281,77 @@ header.std-header .actions{
 
 
   <script>
-    // Dropdown categorías + botón flotante (robusto)
-    document.addEventListener('DOMContentLoaded', () => {
-      const btn  = document.getElementById('catBtn');
-      const menu = document.getElementById('catMenu');
-      if (!btn || !menu) return;
+  // Dropdown categorías + botón flotante (overlay)
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn  = document.getElementById('catBtn');
+    const menu = document.getElementById('catMenu');
+    const floatBtn = document.getElementById('catFloat');
+    if (!btn || !menu) return;
 
-      const toggle = (forceOpen = null) => {
-        const isOpen = btn.getAttribute('aria-expanded') === 'true';
-        const nextOpen = (forceOpen === null) ? !isOpen : forceOpen;
-        btn.setAttribute('aria-expanded', String(nextOpen));
-        menu.hidden = !nextOpen;
-      };
+    let backdrop = null;
 
-      btn.addEventListener('click', () => toggle());
-
-      // Cierra al elegir una opción
-      menu.addEventListener('click', (e) => {
-        const a = e.target.closest('a');
-        if (!a) return;
-        toggle(false);
-      });
-
-      // Cierra al click afuera
-      document.addEventListener('click', (e) => {
-        if (menu.hidden) return;
-        if (e.target === btn || btn.contains(e.target) || menu.contains(e.target)) return;
-        toggle(false);
-      });
-
-      // Botón flotante de categorías (si existe)
-      const floatBtn = document.getElementById('catFloat');
-      if (floatBtn) {
-        floatBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          // Abre y trae el menú a la vista
-          toggle(true);
-          btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
+    const setOverlay = (on) => {
+      if (on) {
+        menu.classList.add('catmenu--overlay');
+        if (!backdrop) {
+          backdrop = document.createElement('div');
+          backdrop.className = 'catmenu-backdrop';
+          backdrop.addEventListener('click', () => toggle(false));
+          document.body.appendChild(backdrop);
+        }
+      } else {
+        menu.classList.remove('catmenu--overlay');
+        if (backdrop) {
+          backdrop.remove();
+          backdrop = null;
+        }
       }
+    };
+
+    const toggle = (forceOpen = null, fromFloat = false) => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      const nextOpen = (forceOpen === null) ? !isOpen : forceOpen;
+
+      btn.setAttribute('aria-expanded', String(nextOpen));
+      menu.hidden = !nextOpen;
+
+      // si se abre desde el flotante, lo mostramos como overlay
+      if (nextOpen && fromFloat) setOverlay(true);
+      if (!nextOpen) setOverlay(false);
+    };
+
+    // Botón normal (abre debajo del botón)
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      // abrir como dropdown normal
+      setOverlay(false);
+      toggle(null, false);
     });
-  </script>
+
+    // Cierra al elegir una opción
+    menu.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      toggle(false);
+    });
+
+    // Cierra al click afuera (solo cuando NO es overlay)
+    document.addEventListener('click', (e) => {
+      if (menu.hidden) return;
+      if (menu.classList.contains('catmenu--overlay')) return;
+      if (e.target === btn || btn.contains(e.target) || menu.contains(e.target)) return;
+      toggle(false);
+    });
+
+    // Botón flotante: abre overlay con la lista visible (almuerzos, mariscos, etc.)
+    if (floatBtn) {
+      floatBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggle(true, true);
+      });
+    }
+  });
+</script>
 
   <footer class="site-footer">
     <div class="footer-inner">
