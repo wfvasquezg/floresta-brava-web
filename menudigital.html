@@ -538,8 +538,8 @@
     /* Floating WhatsApp */
     .wa-float{
       position: fixed;
-      right: 16px;
-      bottom: 16px;
+      right: calc(16px + env(safe-area-inset-right));
+      bottom: calc(16px + env(safe-area-inset-bottom));
       z-index: 80;
       display:flex;
       flex-direction:column;
