@@ -639,13 +639,17 @@
   position:relative;
 }
 .catbtn{
-  width:100%;
-  padding:12px 14px;
+  width:auto;
+  min-width:210px;
+  max-width:260px;
+  margin:0 auto;
+  padding:10px 12px;
   border-radius: 16px;
   border:1px solid var(--line);
   background: rgba(255,255,255,.92);
   color: var(--ink);
   font-weight: 1000;
+  font-size: 14px;
   letter-spacing:.2px;
   box-shadow: 0 10px 22px rgba(0,0,0,.08);
   cursor:pointer;
@@ -764,7 +768,7 @@
     <!-- CATEGORÍAS (más simple en móvil) -->
     <nav class="catbar" aria-label="Categorías">
       <button class="catbtn" id="catBtn" type="button" aria-expanded="false" aria-controls="catMenu">
-        Categorías ☰
+        Categorías ▾
       </button>
 
       <div class="catmenu" id="catMenu" hidden>
@@ -776,8 +780,7 @@
         <a href="#gaseosas">Bebidas</a>
         <a href="#pinchos">Pinchos</a>
       </div>
-
-	</nav>
+    </nav>
 
 <!-- FEATURED -->
     <section class="featured" id="destacados" aria-label="Destacados">
@@ -1130,7 +1133,7 @@
       const generalMsg = WHATSAPP_PREFIX + "Quiero hacer un pedido. ¿Me ayudas por favor?";
       const href = waLink(generalMsg);
 
-      const ids = ["waTop", "waHero", "waFloat", "waCat"];
+      const ids = ["waTop", "waHero", "waFloat"];
       ids.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.href = href;
