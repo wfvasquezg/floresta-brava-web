@@ -562,7 +562,25 @@
       font-weight:1000;
       box-shadow: 0 14px 30px rgba(34,197,94,.22);
     }
-    .wa-float .top{ color: var(--brand); }
+    
+    /* Botones flotantes: aplicar estilo también a <button> */
+    .wa-float .float-btn{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:12px 14px;
+      border-radius:999px;
+      background: rgba(255,255,255,.92);
+      border:1px solid rgba(0,0,0,.10);
+      color: var(--ink);
+      text-decoration:none;
+      font-weight:900;
+      box-shadow:0 12px 28px rgba(0,0,0,.18);
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .wa-float .float-btn:active{ transform: translateY(1px); }
+.wa-float .top{ color: var(--brand); }
 
     /* Small helpers */
     .hide{ display:none !important; }
@@ -935,10 +953,7 @@ header.std-header .actions{
       <span class="float-cat__icon" aria-hidden="true">☰</span>
       <span class="chev" aria-hidden="true">▾</span>
     </button>
-    <a class="float-btn float-top" href="#top" title="Volver arriba" aria-label="Volver arriba">
-      <span aria-hidden="true">↑</span> Arriba
-    </a>
-  </div>
+</div>
 
   <script>
     /***********************
@@ -1275,7 +1290,9 @@ header.std-header .actions{
       menu.hidden = true;
       menu.classList.remove('catmenu--overlay');
       floatBtn.setAttribute('aria-expanded', 'false');
-      setChevron(false);
+            const chev = floatBtn.querySelector('.chev');
+      if (chev) chev.textContent = '▾';
+setChevron(false);
       unlockScroll();
       if (backdrop) { backdrop.remove(); backdrop = null; }
     };
