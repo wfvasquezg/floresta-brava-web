@@ -458,6 +458,29 @@
   /* Un toque de brillo en fotos (mejor apetito visual) */
   .card img { filter: brightness(1.05) contrast(1.02); }
 
+/* Evita redundancia: en escritorio ya existe el menú del header */
+@media (min-width: 900px){
+  .hero-secondary-links{ display: none !important; }
+}
+
+/* En móvil sí ayuda como acceso rápido */
+@media (max-width: 899px){
+  .hero-secondary-links{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center; /* o flex-start si lo prefieres */
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .hero-secondary-links .secondary-link{
+    font-size: 13px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .hero-secondary-links .sep{ opacity: .65; }
+}
+
 
 </style>
 
