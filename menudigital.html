@@ -1263,7 +1263,7 @@ header.std-header .actions{
   </footer>
 
 <script>
-  // Categorías: solo botón flotante (abre overlay)
+  // Categorías: botón flotante (abre overlay)
   document.addEventListener('DOMContentLoaded', () => {
     const menu = document.getElementById('catMenu');
     const floatBtn = document.getElementById('catFloat');
@@ -1290,9 +1290,7 @@ header.std-header .actions{
       menu.hidden = true;
       menu.classList.remove('catmenu--overlay');
       floatBtn.setAttribute('aria-expanded', 'false');
-            const chev = floatBtn.querySelector('.chev');
-      if (chev) chev.textContent = '▾';
-setChevron(false);
+      setChevron(false);
       unlockScroll();
       if (backdrop) { backdrop.remove(); backdrop = null; }
     };
@@ -1318,7 +1316,8 @@ setChevron(false);
       else openMenu();
     };
 
-    // estado inicial
+    floatBtn.setAttribute('aria-haspopup', 'true');
+    floatBtn.setAttribute('aria-expanded', 'false');
     setChevron(false);
 
     floatBtn.addEventListener('click', (e) => {
@@ -1338,22 +1337,9 @@ setChevron(false);
       if (e.key === 'Escape') closeMenu();
     });
 
-    // Si cambia el tamaño a desktop, cierra overlay para evitar estados raros
+    // Evita estados raros al cambiar tamaño
     window.addEventListener('resize', () => {
       if (floatBtn.getAttribute('aria-expanded') === 'true') closeMenu();
-    });
-  });
-
-    // Cierra al elegir una categoría
-    menu.addEventListener('click', (e) => {
-      const a = e.target.closest('a');
-      if (!a) return;
-      closeMenu();
-    });
-
-    // ESC para cerrar (desktop)
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeMenu();
     });
   });
 </script>
