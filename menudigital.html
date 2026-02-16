@@ -738,6 +738,47 @@ header.std-header .actions{
   margin-left:auto;
 }
 
+
+/* --- Menú por + Categorías centrado --- */
+.cathead{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:14px;
+}
+.catlabel{
+  font-weight: 1000;
+  color: var(--ink);
+  font-size: 14px;
+  opacity: .9;
+  white-space: nowrap;
+}
+.cathead .catbtn{
+  margin: 0;
+}
+
+/* --- Botón flotante de Categorías --- */
+.float-cat{
+  position: fixed;
+  right: 16px;
+  bottom: 96px; /* deja espacio para "Arriba" */
+  z-index: 120;
+  padding: 11px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.92);
+  color: var(--ink);
+  font-weight: 1000;
+  font-size: 13px;
+  box-shadow: 0 14px 30px rgba(0,0,0,.12);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+}
+@media (min-width: 900px){
+  .float-cat{ bottom: 24px; }
+}
+
 </style>
 </head>
 
@@ -791,9 +832,12 @@ header.std-header .actions{
 
     <!-- CATEGORÍAS (más simple en móvil) -->
     <nav class="catbar" aria-label="Categorías">
+      <div class="cathead" aria-label="Menú por categorías">
+      <span class="catlabel">Menú por:</span>
       <button class="catbtn" id="catBtn" type="button" aria-expanded="false" aria-controls="catMenu">
         Categorías ▾
       </button>
+    </div>
 
       <div class="catmenu" id="catMenu" hidden>
         <a href="#almuerzos">Almuerzos</a>
@@ -1213,6 +1257,14 @@ header.std-header .actions{
     (function(){
       const btn = document.getElementById('catBtn');
       const menu = document.getElementById('catMenu');
+
+      const floatBtn = document.getElementById('catFloat');
+      if (floatBtn) {
+        floatBtn.addEventListener('click', () => {
+          btn.click();
+        });
+      }
+
       if(!btn || !menu) return;
 
       btn.addEventListener('click', () => {
@@ -1249,6 +1301,9 @@ header.std-header .actions{
       </div>
     </div>
   </footer>
+
+
+  <button class="float-cat" id="catFloat" type="button" aria-label="Abrir categorías">Categorías</button>
 
 </body>
 </html>
