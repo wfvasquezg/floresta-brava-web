@@ -955,6 +955,12 @@ header.std-header .actions{
     </p>
   </main>
 
+
+
+
+  <button class="float-cat" id="catFloat" type="button" aria-label="Abrir categorías">Categorías</button>
+
+
   <!-- Floating buttons -->
   <div class="wa-float" aria-label="Acciones rápidas">
     <a class="top" href="#top" title="Volver arriba">↑ Arriba</a>
@@ -1253,40 +1259,46 @@ header.std-header .actions{
 
 
   <script>
-    // Dropdown categorías (móvil)
-    (function(){
-      const btn = document.getElementById('catBtn');
+    // Dropdown categorías + botón flotante (robusto)
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn  = document.getElementById('catBtn');
       const menu = document.getElementById('catMenu');
+      if (!btn || !menu) return;
 
-      const floatBtn = document.getElementById('catFloat');
-      if (floatBtn) {
-        floatBtn.addEventListener('click', () => {
-          btn.click();
-        });
-      }
-
-      if(!btn || !menu) return;
-
-      btn.addEventListener('click', () => {
+      const toggle = (forceOpen = null) => {
         const isOpen = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!isOpen));
-        menu.hidden = isOpen;
-      });
+        const nextOpen = (forceOpen === null) ? !isOpen : forceOpen;
+        btn.setAttribute('aria-expanded', String(nextOpen));
+        menu.hidden = !nextOpen;
+      };
 
+      btn.addEventListener('click', () => toggle());
+
+      // Cierra al elegir una opción
       menu.addEventListener('click', (e) => {
         const a = e.target.closest('a');
         if (!a) return;
-        btn.setAttribute('aria-expanded','false');
-        menu.hidden = true;
+        toggle(false);
       });
 
+      // Cierra al click afuera
       document.addEventListener('click', (e) => {
         if (menu.hidden) return;
         if (e.target === btn || btn.contains(e.target) || menu.contains(e.target)) return;
-        btn.setAttribute('aria-expanded','false');
-        menu.hidden = true;
+        toggle(false);
       });
-    })();
+
+      // Botón flotante de categorías (si existe)
+      const floatBtn = document.getElementById('catFloat');
+      if (floatBtn) {
+        floatBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          // Abre y trae el menú a la vista
+          toggle(true);
+          btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      }
+    });
   </script>
 
   <footer class="site-footer">
@@ -1301,9 +1313,5 @@ header.std-header .actions{
       </div>
     </div>
   </footer>
-
-
-  <button class="float-cat" id="catFloat" type="button" aria-label="Abrir categorías">Categorías</button>
-
 </body>
 </html>
