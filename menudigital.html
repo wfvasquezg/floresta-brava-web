@@ -632,31 +632,33 @@
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-  <!-- TOPBAR -->
-  <header class="topbar" id="top">
-    <div class="topbar-inner">
-      <div class="brand">
-        <a aria-label="Ir al inicio" class="logo" href="index.html">
-          <img alt="Floresta Brava" decoding="async" height="42" loading="eager" src="img/logoflorestatransparente.png" width="42"/>
-        </a>
-        <div>
-          <h1>Floresta Brava</h1>
-          <small>La excelencia del sabor</small>
-        </div>
-      </div>
+<!-- TOPBAR -->
+<header class="topbar std-header" id="top">
+  <div class="topbar-inner">
+    <div class="brand">
+      <a class="brand-link" href="index.html" aria-label="Ir al inicio">
+        <img class="brand-mark"
+             src="img/letrasflorestabrava.png"
+             alt="Floresta Brava"
+             width="210" height="44"
+             loading="eager" decoding="async">
+      </a>
+    </div>
 
-      <div class="search-wrap">
-        <div class="search">
-          <input autocomplete="off" id="q" placeholder="Buscar: encebollado, ceviche, bolón..." type="search"/>
-          <button id="clear" title="Limpiar búsqueda" type="button">✕</button>
-        </div>
-      </div>
-
-      <div class="actions">
-        <a class="btn btn-primary" href="#" id="waTop" rel="noopener" target="_blank" aria-label="Pedir por WhatsApp">WhatsApp</a>
+    <div class="search-wrap">
+      <div class="search">
+        <input id="q" type="search" placeholder="Buscar: encebollado, ceviche, bolón..." autocomplete="off" />
+        <button id="clear" type="button" title="Limpiar búsqueda">✕</button>
       </div>
     </div>
-  </header>
+
+    <div class="actions">
+      <a class="btn btn-primary" id="waTop" href="#" target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">WhatsApp</a>
+      <a class="btn btn-call" href="tel:+593983603626" aria-label="Llamar a Floresta Brava">Llamar</a>
+    </div>
+  </div>
+</header>
+
 
   <main class="wrap" id="contenido">
     <!-- HERO / IMAN -->
