@@ -951,26 +951,11 @@
   <div aria-label="Acciones rápidas" class="wa-float">
     <a class="float-call" href="tel:+593983603626" aria-label="Llamar a Floresta Brava" title="Llamar">Llamar</a>
   
-    <button
-      aria-label="Abrir categorías"
-      aria-controls="catMenu"
-      class="float-btn float-cat"
-      id="catFloat"
-      type="button">
-      <span class="label">Categorías</span><span aria-hidden="true" class="chev">▾</span>
-    </button>
+    <a class="float-call" id="waFloat" href="#" target="_blank" rel="noopener"
+       aria-label="Pedir por WhatsApp" title="WhatsApp">WhatsApp</a>
   </div>
 
 
-  <nav aria-label="Categorías" class="catmenu" hidden id="catMenu">
-    <a href="#almuerzos">Almuerzos</a>
-    <a href="#desayunos">Desayunos</a>
-    <a href="#mariscos">Mariscos</a>
-    <a href="#carnes">Carnes</a>
-    <a href="#pollos">Pollos</a>
-    <a href="#gaseosas">Bebidas</a>
-    <a href="#pinchos">Pinchos</a>
-  </nav>
 
   <script>
     /***********************
@@ -1195,12 +1180,13 @@
     function setupWhatsAppButtons() {
       const generalMsg = WHATSAPP_PREFIX + "Quiero hacer un pedido. ¿Me ayudas por favor?";
       const href = waLink(generalMsg);
-
-      ["waTop", "waHero"].forEach(id => {
+    
+      ["waTop", "waHero", "waFloat"].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.href = href;
       });
     }
+
 
     function setupSearch() {
       const q = document.getElementById("q");
@@ -1253,66 +1239,7 @@
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const menu = document.getElementById('catMenu');
-      const btn = document.getElementById('catFloat');
-      if (!menu || !btn) return;
-
-      let backdrop = null;
-
-      const setChev = (open) => {
-        const chev = btn.querySelector('.chev');
-        if (chev) chev.textContent = open ? '▴' : '▾';
-      };
-
-      const onKey = (e) => {
-        if (e.key === 'Escape') closeMenu();
-      };
-
-      const closeMenu = () => {
-        menu.hidden = true;
-        btn.setAttribute('aria-expanded', 'false');
-        setChev(false);
-        if (backdrop) { backdrop.remove(); backdrop = null; }
-        document.removeEventListener('keydown', onKey);
-      };
-
-      const openMenu = () => {
-        menu.hidden = false;
-        btn.setAttribute('aria-expanded', 'true');
-        setChev(true);
-
-        if (!backdrop) {
-          backdrop = document.createElement('div');
-          backdrop.className = 'catmenu-backdrop';
-          backdrop.addEventListener('click', closeMenu);
-          document.body.appendChild(backdrop);
-        }
-        document.addEventListener('keydown', onKey);
-      };
-
-      const toggle = () => {
-        const open = btn.getAttribute('aria-expanded') === 'true';
-        open ? closeMenu() : openMenu();
-      };
-
-      btn.setAttribute('aria-haspopup', 'true');
-      btn.setAttribute('aria-expanded', 'false');
-      setChev(false);
-
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        toggle();
-      });
-
-      menu.addEventListener('click', (e) => {
-        const link = e.target.closest('a');
-        if (!link) return;
-        closeMenu();
-      });
-
-      window.addEventListener('hashchange', closeMenu);
-    });
+   
   </script>
 </body>
 </html>
