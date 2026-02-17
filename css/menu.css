@@ -7,7 +7,7 @@
 .topbar{
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 3000;
   backdrop-filter: blur(10px);
   background: rgba(245,243,238,.85);
   border-bottom: 1px solid rgba(15,61,46,.10);
@@ -102,89 +102,15 @@
 }
 
 
-/* Categorías (dropdown) - usado en menudigital.html */
-.catbar{position:relative;margin:10px 0 14px;}
-.catbtn{font-size:14px;width:auto;min-width:210px;max-width:260px;margin:0 auto;padding:10px 12px;border-radius:16px;border:1px solid rgba(15,61,46,.12);background:rgba(255,255,255,.92);font-weight:900;color:var(--verde-oscuro);box-shadow:0 6px 18px rgba(0,0,0,.06);cursor:pointer;}
-.catmenu{display:grid;gap:8px;background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:16px;padding:10px;}
-
-.catmenu a{display:block;padding:12px 14px;border-radius:12px;text-decoration:none;color:var(--ink);font-weight:800;}
-
-.catmenu a:hover{background:rgba(255,255,255,.10);}
-
-/* Overlay categorías (si se abre desde botón flotante) */
-.catmenu.catmenu--overlay{position:fixed;left:16px;right:16px;bottom:108px;max-height:62vh;overflow:auto;border-radius:18px;padding:10px;background:#fff;border:1px solid rgba(0,0,0,.12);box-shadow:0 18px 50px rgba(0,0,0,.22);z-index:9998;}
-.catmenu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:9997;}
-
-/* FIX: Header siempre por encima del contenido */
-.topbar{
-  position: sticky;
-  top: 0;
-  z-index: 10000;          /* súbelo fuerte */
-  background: rgba(16, 73, 73, .92);  /* evita “transparencias raras” */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-/* Asegura que el contenido no tape al header */
-main, section, .section, .cards, .card, .card-media, .card img{
-  position: relative;
-  z-index: 1;
-}
-
-/* ===== Categorías: comportamiento móvil (modal) ===== */
-#catMenu.catmenu--overlay{
-  position: fixed;
-  left: 14px;
-  right: 14px;
-  top: 120px;
-  max-width: 520px;
-  margin: 0 auto;
-  max-height: min(70vh, 520px);
-  overflow: auto;
-  z-index: 10050;
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 18px 45px rgba(0,0,0,.20);
-}
-
-/* Fondo oscuro detrás (móvil) */
-.catmenu-backdrop{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.35);
-  z-index: 10040;
-}
-
-/* ===== Desktop: dropdown anclado al botón flotante ===== */
-@media (min-width: 900px){
-  #catMenu.catmenu--overlay{
-    left: auto;
-    right: 24px;
-    top: auto;
-    bottom: 110px;              /* queda encima del floating */
-    margin: 0;
-    width: 320px;
-    max-width: 320px;
-    max-height: 420px;
-    border-radius: 16px;
-  }
-
-  /* En desktop el backdrop puede ser más suave (o puedes ocultarlo) */
-  .catmenu-backdrop{
-    background: rgba(0,0,0,.18);
-  }
-}
-
-/* Texto y links del menú (para que no se vea “blanco sobre blanco”) */
-#catMenu a{
-  display: block;
-  padding: 12px 14px;
-  color: #123;
-  font-weight: 700;
-  text-decoration: none;
-  border-radius: 12px;
-}
-
-#catMenu a:hover{
-  background: rgba(0,0,0,.06);
-}
+/* Floating Categorías overlay (menudigital) */
+.wa-float{position:fixed;right:16px;bottom:16px;z-index:9999;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.float-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 14px;border-radius:999px;border:2px solid rgba(0,0,0,.08);background:rgba(255,255,255,.92);backdrop-filter:blur(6px);box-shadow:0 10px 24px rgba(0,0,0,.18);font-weight:800}
+.float-cat__label{white-space:nowrap}
+.float-cat__icon{display:inline-flex;align-items:center;justify-content:center;opacity:.85}
+.float-cat .chev{font-weight:900;opacity:.75;transform:translateY(1px)}
+.catmenu{position:fixed;right:16px;bottom:78px;width:min(320px,calc(100vw - 32px));max-height:60vh;overflow:auto;background:rgba(255,255,255,.98);border-radius:18px;padding:10px;box-shadow:0 18px 40px rgba(0,0,0,.25);z-index:10000}
+.catmenu__item{display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:14px;color:#0f1f20;text-decoration:none;font-weight:800}
+.catmenu__item:hover{background:rgba(0,0,0,.05)}
+.catmenu__item:active{transform:scale(.99)}
+.catmenu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:9000}
+a.top{display:none!important}
