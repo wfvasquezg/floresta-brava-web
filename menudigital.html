@@ -1,22 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b2a2b" />
-  <title>Menú Digital | Floresta Brava</title>
-  <meta name="description" content="Menú digital de Floresta Brava. Almuerzos, desayunos, mariscos, carnes, pollos y bebidas. Pide por WhatsApp." />
-
-<link rel="canonical" href="https://www.florestabrava.com/menudigital.html" />
-
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#0b2a2b" name="theme-color"/>
+<title>Menú Digital | Floresta Brava</title>
+<meta content="Menú digital de Floresta Brava. Almuerzos, desayunos, mariscos, carnes, pollos y bebidas. Pide por WhatsApp." name="description"/>
+<link href="https://www.florestabrava.com/menudigital.html" rel="canonical"/>
 <!-- Open Graph / redes sociales -->
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Menú Digital | Floresta Brava" />
-<meta property="og:description" content="Menú digital de Floresta Brava. Pide por WhatsApp." />
-<meta property="og:url" content="https://www.florestabrava.com/menudigital.html" />
-<meta property="og:image" content="https://www.florestabrava.com/img/hero-encebollado-1600.webp" />
-<meta name="twitter:card" content="summary_large_image" />
-
+<meta content="website" property="og:type"/>
+<meta content="Menú Digital | Floresta Brava" property="og:title"/>
+<meta content="Menú digital de Floresta Brava. Pide por WhatsApp." property="og:description"/>
+<meta content="https://www.florestabrava.com/menudigital.html" property="og:url"/>
+<meta content="https://www.florestabrava.com/img/hero-encebollado-1600.webp" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
 <!-- Datos estructurados para SEO local -->
 <script type="application/ld+json">
 {
@@ -38,13 +36,9 @@
   }
 }
 </script>
-
 <!-- Preload logo -->
-<link rel="preload" as="image" href="img/logoflorestatransparente.png" fetchpriority="high">
-
-
-  <style>
-    :root{
+<link as="image" fetchpriority="high" href="img/logoflorestatransparente.png" rel="preload"/>
+<style>:root{
       /* Colores base (mismo lenguaje visual que index.html) */
       --madera:#7a4b1f;
       --madera-oscura:#4b2a12;
@@ -97,9 +91,13 @@
 .skip-link:focus{ left:12px; }
 
 /* Top bar */
-    
+    .topbar{
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+  height: 68px;
   background: linear-gradient(90deg, var(--madera-oscura), var(--verde));
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
 }
     .topbar-inner{
   max-width:1120px;
@@ -630,208 +628,242 @@
 
 
   
-/* Floating Categorías */
-.wa-float{position:fixed;right:16px;bottom:16px;z-index:9999;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
-.float-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 14px;border-radius:999px;border:2px solid rgba(0,0,0,.08);background:rgba(255,255,255,.92);backdrop-filter:blur(6px);box-shadow:0 10px 24px rgba(0,0,0,.18);font-weight:800}
-.float-cat__label{white-space:nowrap}
-.float-cat__icon{display:inline-flex;align-items:center;justify-content:center;opacity:.85}
-.float-cat .chev{font-weight:900;opacity:.75;transform:translateY(1px)}
-.float-cat[aria-expanded="true"] .chev{content:"";}
 
-.catmenu{position:fixed;right:16px;bottom:78px;width:min(320px,calc(100vw - 32px));max-height:60vh;overflow:auto;background:rgba(255,255,255,.98);border-radius:18px;padding:10px;box-shadow:0 18px 40px rgba(0,0,0,.25);z-index:10000}
-.catmenu__item{display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:14px;color:#0f1f20;text-decoration:none;font-weight:800}
-.catmenu__item:hover{background:rgba(0,0,0,.05)}
-.catmenu__item:active{transform:scale(.99)}
-.catmenu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:9000}
-@media (min-width: 900px){
-  .catmenu{bottom:92px}
+.topbar .wrap{
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
+/* Floating categories button */
+.wa-float{
+  position: fixed;
+  right: 18px;
+  bottom: 22px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.float-btn{
+  appearance: none;
+  border: 1px solid rgba(12,107,115,.25);
+  background: rgba(255,255,255,.92);
+  color: #0b2c2f;
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.float-btn .chev{ font-weight: 900; opacity: .9; }
+.float-btn:active{ transform: translateY(1px); }
+
+/* Categories overlay */
+.catmenu{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(520px, calc(100vh - 140px));
+  overflow: auto;
+  background: rgba(255,255,255,.96);
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 24px 60px rgba(0,0,0,.25);
+  z-index: 2100;
+}
+
+.catmenu a{
+  display: block;
+  padding: 14px 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #0b2c2f;
+  font-weight: 800;
+}
+
+.catmenu a:hover{ background: rgba(12,107,115,.08); }
+.catmenu a:active{ background: rgba(12,107,115,.14); }
+
+.catmenu-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.22);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 2050;
+}
 </style>
 </head>
-
 <body>
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
-  <!-- TOPBAR -->
-  <header class="topbar" id="top">
-    <div class="topbar-inner">
-      <div class="brand">
-        <a class="logo" href="index.html" aria-label="Ir al inicio">
-          <img src="img/logoflorestatransparente.png" alt="Floresta Brava" width="42" height="42" loading="eager" decoding="async">
-        </a>
-        <div>
-          <h1>Floresta Brava</h1>
-          <small>La excelencia del sabor</small>
-        </div>
-      </div>
-
-      <div class="search-wrap">
-        <div class="search">
-          <input id="q" type="search" placeholder="Buscar: encebollado, ceviche, bolón..." autocomplete="off" />
-          <button id="clear" type="button" title="Limpiar búsqueda">✕</button>
-        </div>
-      </div>
-
-      <div class="actions">
-<a class="btn btn-primary" id="waTop" href="#" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
-  </header>
-
-  <main class="wrap" id="contenido">
-    <!-- HERO / IMAN -->
-    <section class="hero" aria-label="Promoción principal">
-      <div class="hero-inner">
-        <div>
-          <h2>Menú del día desde <span style="color:var(--gold)">$2,75</span></h2>
-          <p>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<!-- TOPBAR -->
+<header class="topbar" id="top">
+<div class="topbar-inner">
+<div class="brand">
+<a aria-label="Ir al inicio" class="logo" href="index.html">
+<img alt="Floresta Brava" decoding="async" height="42" loading="eager" src="img/logoflorestatransparente.png" width="42"/>
+</a>
+<div>
+<h1>Floresta Brava</h1>
+<small>La excelencia del sabor</small>
+</div>
+</div>
+<div class="search-wrap">
+<div class="search">
+<input autocomplete="off" id="q" placeholder="Buscar: encebollado, ceviche, bolón..." type="search"/>
+<button id="clear" title="Limpiar búsqueda" type="button">✕</button>
+</div>
+</div>
+<div class="actions">
+<a class="btn btn-primary" href="#" id="waTop" rel="noopener" target="_blank">WhatsApp</a>
+</div>
+</div>
+</header>
+<main class="wrap" id="contenido">
+<!-- HERO / IMAN -->
+<section aria-label="Promoción principal" class="hero">
+<div class="hero-inner">
+<div>
+<h2>Menú del día desde <span style="color:var(--gold)">$2,75</span></h2>
+<p>
             Sazón casera, porciones generosas y atención rápida.
             Pide por WhatsApp y te lo tenemos listo.
           </p>
-          <div class="hero-badges">
-            <div class="badge"><strong>Listo en minutos</strong></div>
-            <div class="badge"><strong>Porciones que llenan</strong></div>
-            <div class="badge"><strong>Sabor costeño y tradicional</strong></div>
-          </div>
-        </div>
-
-        <div class="hero-cta">
-          <a class="btn btn-primary" id="waHero" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-          <a class="btn btn-light" href="#destacados">Ver destacados</a>
-          <a class="btn btn-light" href="#mariscos">Ir a mariscos</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- QUICK NAV -->
+<div class="hero-badges">
+<div class="badge"><strong>Listo en minutos</strong></div>
+<div class="badge"><strong>Porciones que llenan</strong></div>
+<div class="badge"><strong>Sabor costeño y tradicional</strong></div>
+</div>
+</div>
+<div class="hero-cta">
+<a class="btn btn-primary" href="#" id="waHero" rel="noopener" target="_blank">Pedir por WhatsApp</a>
+<a class="btn btn-light" href="#destacados">Ver destacados</a>
+<a class="btn btn-light" href="#mariscos">Ir a mariscos</a>
+</div>
+</div>
+</section>
+<!-- QUICK NAV -->
+<nav aria-label="Categorías" class="chips">
+<a class="chip" href="#almuerzos">Almuerzos <small>desde $2,75</small></a>
+<a class="chip" href="#desayunos">Desayunos</a>
+<a class="chip" href="#mariscos">Mariscos</a>
+<a class="chip" href="#carnes">Carnes</a>
+<a class="chip" href="#pollos">Pollos</a>
+<a class="chip" href="#gaseosas">Bebidas</a>
+<a class="chip" href="#pinchos">Pinchos</a>
+</nav>
 <!-- FEATURED -->
-    <section class="featured" id="destacados" aria-label="Destacados">
-      <div class="section-title">
-        <h3>Destacados</h3>
-        <span>Lo más pedido</span>
-      </div>
-      <div class="featured-grid" id="featuredGrid"></div>
-    </section>
-
-    <!-- CATEGORIES (render dinámico) -->
-    <section class="category" id="almuerzos">
-      <div class="category-header">
-        <h3 class="category-title">Almuerzos</h3>
-        <div class="category-tag">Menú del día</div>
-      </div>
-      <p class="category-description">
+<section aria-label="Destacados" class="featured" id="destacados">
+<div class="section-title">
+<h3>Destacados</h3>
+<span>Lo más pedido</span>
+</div>
+<div class="featured-grid" id="featuredGrid"></div>
+</section>
+<!-- CATEGORIES (render dinámico) -->
+<section class="category" id="almuerzos">
+<div class="category-header">
+<h3 class="category-title">Almuerzos</h3>
+<div class="category-tag">Menú del día</div>
+</div>
+<p class="category-description">
         Opciones completas y económicas para todos los días.
       </p>
-      <div class="items" data-category="Almuerzos"></div>
-    </section>
-
-    <section class="category" id="carnes">
-      <div class="category-header">
-        <h3 class="category-title">Carnes</h3>
-        <div class="category-tag">Platos fuertes</div>
-      </div>
-      <p class="category-description">
+<div class="items" data-category="Almuerzos"></div>
+</section>
+<section class="category" id="carnes">
+<div class="category-header">
+<h3 class="category-title">Carnes</h3>
+<div class="category-tag">Platos fuertes</div>
+</div>
+<p class="category-description">
         Cortes a la plancha o apanados, con acompañantes completos.
       </p>
-      <div class="items" data-category="Carnes"></div>
-    </section>
-
-    <section class="category" id="desayunos">
-      <div class="category-header">
-        <h3 class="category-title">Desayunos</h3>
-        <div class="category-tag">Desde las 08h00</div>
-      </div>
-      <p class="category-description">
+<div class="items" data-category="Carnes"></div>
+</section>
+<section class="category" id="desayunos">
+<div class="category-header">
+<h3 class="category-title">Desayunos</h3>
+<div class="category-tag">Desde las 08h00</div>
+</div>
+<p class="category-description">
         Desayunos típicos para arrancar el día con energía.
       </p>
-      <div class="items" data-category="Desayunos"></div>
-    </section>
-
-    <section class="category" id="mariscos">
-      <div class="category-header">
-        <h3 class="category-title">Mariscos</h3>
-        <div class="category-tag">Sabores de la costa</div>
-      </div>
-      <p class="category-description">
+<div class="items" data-category="Desayunos"></div>
+</section>
+<section class="category" id="mariscos">
+<div class="category-header">
+<h3 class="category-title">Mariscos</h3>
+<div class="category-tag">Sabores de la costa</div>
+</div>
+<p class="category-description">
         Ceviches, arroces y platos calientes con mariscos frescos.
       </p>
-      <div class="items" data-category="Mariscos"></div>
-    </section>
-
-    <section class="category" id="pollos">
-      <div class="category-header">
-        <h3 class="category-title">Pollos</h3>
-        <div class="category-tag">A la carta</div>
-      </div>
-      <p class="category-description">
+<div class="items" data-category="Mariscos"></div>
+</section>
+<section class="category" id="pollos">
+<div class="category-header">
+<h3 class="category-title">Pollos</h3>
+<div class="category-tag">A la carta</div>
+</div>
+<p class="category-description">
         Platos de pollo bien sazonados y servidos con acompañantes.
       </p>
-      <div class="items" data-category="Pollos"></div>
-    </section>
-
-    <section class="category" id="gaseosas">
-      <div class="category-header">
-        <h3 class="category-title">Bebidas</h3>
-        <div class="category-tag">Frías</div>
-      </div>
-      <p class="category-description">
+<div class="items" data-category="Pollos"></div>
+</section>
+<section class="category" id="gaseosas">
+<div class="category-header">
+<h3 class="category-title">Bebidas</h3>
+<div class="category-tag">Frías</div>
+</div>
+<p class="category-description">
         Gaseosas y cervezas para acompañar tu comida.
       </p>
-
-      <div class="divider"></div>
-      <div class="section-title" style="margin:0 0 10px;">
-        <h3 style="margin:0;font-size:14px;">Gaseosa</h3>
-        <span></span>
-      </div>
-      <div class="items" data-category="Gaseosa"></div>
-
-      <div class="divider"></div>
-      <div class="section-title" style="margin:0 0 10px;">
-        <h3 style="margin:0;font-size:14px;">Cerveza</h3>
-        <span></span>
-      </div>
-      <div class="items" data-category="Cerveza"></div>
-    </section>
-
-    <section class="category" id="pinchos">
-      <div class="category-header">
-        <h3 class="category-title">Pinchos</h3>
-        <div class="category-tag">A la parrilla</div>
-      </div>
-      <p class="category-description">
+<div class="divider"></div>
+<div class="section-title" style="margin:0 0 10px;">
+<h3 style="margin:0;font-size:14px;">Gaseosa</h3>
+<span></span>
+</div>
+<div class="items" data-category="Gaseosa"></div>
+<div class="divider"></div>
+<div class="section-title" style="margin:0 0 10px;">
+<h3 style="margin:0;font-size:14px;">Cerveza</h3>
+<span></span>
+</div>
+<div class="items" data-category="Cerveza"></div>
+</section>
+<section class="category" id="pinchos">
+<div class="category-header">
+<h3 class="category-title">Pinchos</h3>
+<div class="category-tag">A la parrilla</div>
+</div>
+<p class="category-description">
         Ideales para acompañar tu merienda.
       </p>
-      <div class="items" data-category="Pinchos"></div>
-    </section>
-
-    <p class="muted" style="margin:16px 6px 0;font-weight:700;font-size:12px;">
+<div class="items" data-category="Pinchos"></div>
+</section>
+<p class="muted" style="margin:16px 6px 0;font-weight:700;font-size:12px;">
       Nota: Las imágenes se cargan desde la carpeta <strong>img/</strong>. Los platos sin archivo no muestran foto.
     </p>
-  </main>
-
-  <!-- Floating button: Categorías -->
-  <div class="wa-float" aria-label="Acciones rápidas">
-    <button class="float-btn float-cat" id="catFloat" type="button" aria-label="Abrir categorías">
-      <span class="float-cat__label">Categorías</span>
-      <span class="float-cat__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true">
-          <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </span>
-      <span class="chev" aria-hidden="true">▾</span>
-    </button>
-  </div>
-
-  <nav id="catMenu" class="catmenu" hidden aria-label="Categorías del menú">
-    <a class="catmenu__item" href="#almuerzos">Almuerzos</a>
-    <a class="catmenu__item" href="#desayunos">Desayunos</a>
-    <a class="catmenu__item" href="#mariscos">Mariscos</a>
-    <a class="catmenu__item" href="#carnes">Carnes</a>
-    <a class="catmenu__item" href="#pollos">Pollos</a>
-    <a class="catmenu__item" href="#gaseosas">Bebidas</a>
-    <a class="catmenu__item" href="#pinchos">Pinchos</a>
-  </nav>
-
+</main>
+<!-- Floating buttons -->
+<div aria-label="Acciones rápidas" class="wa-float">
+<a href="#" id="waFloat" rel="noopener" target="_blank" title="Pedir por WhatsApp">WhatsApp</a>
+<button aria-label="Abrir categorías" class="float-btn float-cat" id="catFloat" type="button"><span class="label">Categorías</span><span aria-hidden="true" class="chev">▾</span></button></div><nav aria-label="Categorías" class="catmenu" hidden="" id="catMenu"><a href="#almuerzos">Almuerzos</a><a href="#desayunos">Desayunos</a><a href="#mariscos">Mariscos</a><a href="#carnes">Carnes</a><a href="#pollos">Pollos</a><a href="#gaseosas">Bebidas</a><a href="#pinchos">Pinchos</a></nav>
 <script>
     /***********************
      * CONFIG PRODUCCION
@@ -1122,23 +1154,19 @@
     setupWhatsAppButtons();
     setupSearch();
   </script>
-
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div>
-        <strong>Floresta Brava</strong> · Av. Coruña y Guipúzcoa · Quito
+<footer class="site-footer">
+<div class="footer-inner">
+<div>
+<strong>Floresta Brava</strong> · Av. Coruña y Guipúzcoa · Quito
       </div>
-      <div class="footer-links">
-        <a href="index.html">Inicio</a>
-        <a href="menudigital.html" aria-current="page">Menú digital</a>
-        <a href="#top">Subir</a>
-      </div>
-    </div>
-  </footer>
-
-
+<div class="footer-links">
+<a href="index.html">Inicio</a>
+<a aria-current="page" href="menudigital.html">Menú digital</a>
+<a href="#top">Subir</a>
+</div>
+</div>
+</footer>
 <script>
-/* Categorías: botón flotante abre/cierra overlay */
 document.addEventListener('DOMContentLoaded', () => {
   const menu = document.getElementById('catMenu');
   const btn = document.getElementById('catFloat');
@@ -1146,58 +1174,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let backdrop = null;
 
-  const setChevron = (open) => {
+  const setChev = (open) => {
     const chev = btn.querySelector('.chev');
     if (chev) chev.textContent = open ? '▴' : '▾';
   };
 
   const closeMenu = () => {
     menu.hidden = true;
+    menu.classList.remove('catmenu--overlay');
     btn.setAttribute('aria-expanded', 'false');
-    setChevron(false);
+    setChev(false);
     if (backdrop) { backdrop.remove(); backdrop = null; }
+    document.removeEventListener('keydown', onKey);
   };
 
   const openMenu = () => {
     menu.hidden = false;
+    menu.classList.add('catmenu--overlay');
     btn.setAttribute('aria-expanded', 'true');
-    setChevron(true);
+    setChev(true);
+
     if (!backdrop) {
       backdrop = document.createElement('div');
       backdrop.className = 'catmenu-backdrop';
       backdrop.addEventListener('click', closeMenu);
       document.body.appendChild(backdrop);
     }
+    document.addEventListener('keydown', onKey);
   };
 
-  const toggleMenu = () => {
-    const isOpen = btn.getAttribute('aria-expanded') === 'true';
-    if (isOpen) closeMenu(); else openMenu();
+  const onKey = (e) => {
+    if (e.key === 'Escape') closeMenu();
+  };
+
+  const toggle = () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    open ? closeMenu() : openMenu();
   };
 
   btn.setAttribute('aria-haspopup', 'true');
   btn.setAttribute('aria-expanded', 'false');
-  setChevron(false);
+  setChev(false);
 
   btn.addEventListener('click', (e) => {
     e.preventDefault();
-    toggleMenu();
+    toggle();
   });
 
-  // Cerrar con ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMenu();
+  // Close after selecting a category (and scroll)
+  menu.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    closeMenu();
   });
 
-  // Cerrar al seleccionar categoría
-  menu.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => closeMenu());
-  });
-
-  // Si cambia de tamaño, cierra para evitar overlays raros
-  window.addEventListener('resize', () => closeMenu());
+  // If the hash changes (e.g., user clicks other links), close menu
+  window.addEventListener('hashchange', closeMenu);
 });
-</script>
-
-</body>
+</script></body>
 </html>
