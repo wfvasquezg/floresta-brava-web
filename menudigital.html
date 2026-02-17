@@ -716,6 +716,65 @@
     /* Ajuste del alto real del header para que NO tape contenido */
     :root{ --topbar-h: 118px; }     /* puedes subir/bajar según tu gusto */
 
+      /* ===== Header: base (móvil / por defecto) ===== */
+    .topbar-inner.topbar-stack{
+      height: auto;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .topbar-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    
+    .topbar-search .search{
+      max-width: none;
+    }
+    
+    .topbar-search .search input{
+      width: 100%;
+    }
+    
+    /* Altura base para móvil (porque son 2 filas) */
+    :root{ --topbar-h: 118px; }
+    
+    /* ===== Desktop: 1 sola línea ===== */
+    @media (min-width: 900px){
+      .topbar-inner.topbar-stack{
+        flex-direction: row;          /* una sola línea */
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        height: var(--topbar-h);      /* vuelve a altura fija */
+        padding: 0 16px;
+      }
+    
+      /* En desktop, la fila 1 y fila 2 se vuelven "bloques" en la misma línea */
+      .topbar-row{
+        flex: 0 0 auto;
+        gap: 14px;
+      }
+    
+      .topbar-search{
+        flex: 1;                      /* el buscador ocupa el centro */
+        display:flex;
+        justify-content:center;
+      }
+    
+      .topbar-search .search{
+        width: 100%;
+        max-width: 520px;             /* como lo tenías */
+      }
+    
+      /* Ajusta altura de header en desktop (1 sola línea) */
+      :root{ --topbar-h: 68px; }
+    }
+
     
   </style>
 </head>
