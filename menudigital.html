@@ -39,7 +39,8 @@
   </script>
 
   <!-- Preload logo -->
-  <link as="image" fetchpriority="high" href="img/logoflorestatransparente.png" rel="preload"/>
+  <link as="image" fetchpriority="high" href="img/letrasflorestabrava.png" rel="preload"/>
+
 
   <style>
     :root{
@@ -115,11 +116,16 @@
       padding-top: env(safe-area-inset-top);
     }
     .topbar-inner{
-    height: var(--topbar-h);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-  }
+      max-width:1120px;
+      margin:0 auto;
+      padding: 0 16px;
+      height: var(--topbar-h);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+
 
     .brand{
       display:flex;
@@ -613,7 +619,7 @@
       .brand{ min-width:auto; }
       .search-wrap{ display:none; }
       .featured-grid{ grid-template-columns: repeat(2, 1fr); }
-      .items{ grid-template-columns: 1fr); }
+      .items{ grid-template-columns: 1fr; }      
       .topbar-inner{ padding:10px 12px; }
       .wrap{ padding:14px 12px 120px; }
       .hero-inner{ padding:16px 14px 14px; }
@@ -622,6 +628,26 @@
       .actions{ flex-wrap:wrap; justify-content:flex-end; }
       .btn{ padding:9px 10px; font-size:12.5px; }
     }
+    .brand-link{
+      display:flex;
+      align-items:center;
+      text-decoration:none;
+    }
+    .brand-mark{
+      display:block;
+      height:44px;
+      width:auto;
+      object-fit:contain;
+    }
+    .btn-call{
+      border:0;
+      background: rgba(255,255,255,.92);
+      color: var(--brand);
+      box-shadow: 0 14px 30px rgba(0,0,0,.10);
+      font-weight:1000;
+    }
+    .btn-call:hover{ transform: translateY(-1px); }
+
   </style>
 </head>
 
