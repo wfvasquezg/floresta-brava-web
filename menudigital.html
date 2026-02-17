@@ -1,44 +1,51 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<meta content="#0b2a2b" name="theme-color"/>
-<title>Menú Digital | Floresta Brava</title>
-<meta content="Menú digital de Floresta Brava. Almuerzos, desayunos, mariscos, carnes, pollos y bebidas. Pide por WhatsApp." name="description"/>
-<link href="https://www.florestabrava.com/menudigital.html" rel="canonical"/>
-<!-- Open Graph / redes sociales -->
-<meta content="website" property="og:type"/>
-<meta content="Menú Digital | Floresta Brava" property="og:title"/>
-<meta content="Menú digital de Floresta Brava. Pide por WhatsApp." property="og:description"/>
-<meta content="https://www.florestabrava.com/menudigital.html" property="og:url"/>
-<meta content="https://www.florestabrava.com/img/hero-encebollado-1600.webp" property="og:image"/>
-<meta content="summary_large_image" name="twitter:card"/>
-<!-- Datos estructurados para SEO local -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "name": "Floresta Brava",
-  "url": "https://www.florestabrava.com/",
-  "hasMenu": "https://www.florestabrava.com/menudigital.html",
-  "sameAs": ["https://g.page/r/CWs8Hr-H1g4jEBM"],
-  "telephone": "+593983603626",
-  "servesCuisine": ["Comida ecuatoriana", "Comida típica", "Desayunos", "Almuerzos"],
-  "priceRange": "$$",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Av. Coruña y Guipúzcoa",
-    "addressLocality": "Quito",
-    "addressRegion": "Pichincha",
-    "addressCountry": "EC"
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="#0b2a2b" name="theme-color"/>
+  <title>Menú Digital | Floresta Brava</title>
+  <meta content="Menú digital de Floresta Brava. Almuerzos, desayunos, mariscos, carnes, pollos y bebidas. Pide por WhatsApp." name="description"/>
+  <link href="https://www.florestabrava.com/menudigital.html" rel="canonical"/>
+
+  <!-- Open Graph / redes sociales -->
+  <meta content="website" property="og:type"/>
+  <meta content="Menú Digital | Floresta Brava" property="og:title"/>
+  <meta content="Menú digital de Floresta Brava. Pide por WhatsApp." property="og:description"/>
+  <meta content="https://www.florestabrava.com/menudigital.html" property="og:url"/>
+  <meta content="https://www.florestabrava.com/img/hero-encebollado-1600.webp" property="og:image"/>
+  <meta content="summary_large_image" name="twitter:card"/>
+
+  <!-- Datos estructurados para SEO local -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Floresta Brava",
+    "url": "https://www.florestabrava.com/",
+    "hasMenu": "https://www.florestabrava.com/menudigital.html",
+    "sameAs": ["https://g.page/r/CWs8Hr-H1g4jEBM"],
+    "telephone": "+593983603626",
+    "servesCuisine": ["Comida ecuatoriana", "Comida típica", "Desayunos", "Almuerzos"],
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Av. Coruña y Guipúzcoa",
+      "addressLocality": "Quito",
+      "addressRegion": "Pichincha",
+      "addressCountry": "EC"
+    }
   }
-}
-</script>
-<!-- Preload logo -->
-<link as="image" fetchpriority="high" href="img/logoflorestatransparente.png" rel="preload"/>
-<style>:root{
+  </script>
+
+  <!-- Preload logo -->
+  <link as="image" fetchpriority="high" href="img/logoflorestatransparente.png" rel="preload"/>
+
+  <style>
+    :root{
+      /* Header tokens */
+      --topbar-h: 68px;
+
       /* Colores base (mismo lenguaje visual que index.html) */
       --madera:#7a4b1f;
       --madera-oscura:#4b2a12;
@@ -65,9 +72,17 @@
       --line: rgba(0,0,0,0.10);
       --ok:#22c55e;
       --warn:#f59e0b;
-    }*{box-sizing:border-box}
-    html,body{height:100%}
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
+    /* Evita que anclas queden tapadas por el header fijo */
+    html{ scroll-padding-top: calc(var(--topbar-h) + env(safe-area-inset-top) + 10px); }
+
     body{
+      /* Compensa el header fijo + notch */
+      padding-top: calc(var(--topbar-h) + env(safe-area-inset-top));
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--ink);
@@ -78,57 +93,59 @@
     }
 
     .skip-link{
-  position:absolute;
-  left:-999px;
-  top:8px;
-  background:#fff;
-  color:#000;
-  padding:10px 14px;
-  border-radius:10px;
-  z-index:9999;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.20);
-}
-.skip-link:focus{ left:12px; }
+      position:absolute;
+      left:-999px;
+      top:8px;
+      background:#fff;
+      color:#000;
+      padding:10px 14px;
+      border-radius:10px;
+      z-index:99999;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.20);
+    }
+    .skip-link:focus{ left:12px; }
 
-/* Top bar */
+    /* Top bar (FIJO ROBUSTO) */
     .topbar{
-  position: sticky;
-  top: 0;
-  z-index: 1100;
-  height: 68px;
-  background: linear-gradient(90deg, var(--madera-oscura), var(--verde));
-  box-shadow: 0 10px 24px rgba(0,0,0,.18);
-}
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: linear-gradient(90deg, var(--madera-oscura), var(--verde));
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+      padding-top: env(safe-area-inset-top);
+    }
     .topbar-inner{
-  max-width:1120px;
-  margin:0 auto;
-  padding:12px 16px;
-  display:flex;
-  gap:12px;
-  align-items:center;
-  justify-content:space-between;
-}
+      max-width:1120px;
+      margin:0 auto;
+      height: var(--topbar-h);
+      padding: 12px 16px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+    }
+
     .brand{
       display:flex;
       gap:10px;
       align-items:center;
       min-width: 200px;
     }
+
     .logo{
-  width:42px;height:42px;border-radius:14px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.18);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-  display:grid;place-items:center;
-  user-select:none;
-  flex:0 0 auto;
-  overflow:hidden;
-}
-.logo img{ width:100%; height:100%; object-fit:contain; display:block; }
+      width:42px;height:42px;border-radius:14px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+      display:grid;place-items:center;
+      user-select:none;
+      flex:0 0 auto;
+      overflow:hidden;
+    }
+    .logo img{ width:100%; height:100%; object-fit:contain; display:block; }
+
     .brand h1{margin:0;font-size:15px;line-height:1.1;color:#fff;}
-
     .brand small{display:block;margin-top:2px;color:rgba(255,255,255,0.85);font-weight:600;font-size:12px;}
-
 
     .search-wrap{
       flex:1;
@@ -143,30 +160,30 @@
       position:relative;
     }
     .search input{
-  width:100%;
-  padding:12px 42px 12px 14px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.28);
-  background: rgba(255,255,255,0.92);
-  outline:none;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  font-size:14px;
-}
+      width:100%;
+      padding:12px 42px 12px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.28);
+      background: rgba(255,255,255,0.92);
+      outline:none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      font-size:14px;
+    }
     .search input:focus{
       border-color: rgba(21,91,79,.40);
       box-shadow: 0 4px 14px rgba(21,91,79,.18);
     }
     .search button{
-  position:absolute;
-  right:6px; top:50%;
-  transform: translateY(-50%);
-  width:34px; height:34px;
-  border:0;
-  border-radius:999px;
-  cursor:pointer;
-  background: rgba(11,39,49,0.10);
-  color: var(--verde-oscuro);
-}
+      position:absolute;
+      right:6px; top:50%;
+      transform: translateY(-50%);
+      width:34px; height:34px;
+      border:0;
+      border-radius:999px;
+      cursor:pointer;
+      background: rgba(11,39,49,0.10);
+      color: var(--verde-oscuro);
+    }
 
     .actions{
       display:flex;
@@ -177,36 +194,34 @@
     }
     .btn{
       transition: transform .1s ease, box-shadow .15s ease, background .15s ease;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:10px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.35);
-  background: rgba(255,255,255,0.10);
-  color:#fff;
-  text-decoration:none;
-  font-weight:800;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
-  cursor:pointer;
-}
-    .btn-primary{
-  border:0;
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-  color:#fff;
-  box-shadow: 0 14px 30px rgba(34,197,94,0.22);
-}
-    .btn-ghost{
-      background: rgba(255,255,255,.75);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.10);
+      color:#fff;
+      text-decoration:none;
+      font-weight:800;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+      cursor:pointer;
     }
+    .btn-primary{
+      border:0;
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      color:#fff;
+      box-shadow: 0 14px 30px rgba(34,197,94,0.22);
+    }
+    .btn-ghost{ background: rgba(255,255,255,.75); }
 
     /* Layout */
     .wrap{
       max-width:1100px;
       margin:0 auto;
-      padding:18px 16px 90px;
+      padding:18px 16px 120px;
     }
 
     /* Hero */
@@ -218,6 +233,7 @@
       box-shadow: var(--shadow);
       overflow:hidden;
       position:relative;
+      scroll-margin-top: calc(var(--topbar-h) + env(safe-area-inset-top) + 18px);
     }
     .hero::before{
       content:"";
@@ -234,11 +250,7 @@
       gap:16px;
       align-items:center;
     }
-    .hero h2{
-      margin:0 0 6px;
-      font-size:20px;
-      letter-spacing:.2px;
-    }
+    .hero h2{ margin:0 0 6px; font-size:20px; letter-spacing:.2px; }
     .hero p{
       margin:0;
       color: rgba(255,255,255,.88);
@@ -246,12 +258,7 @@
       line-height:1.45;
       max-width: 680px;
     }
-    .hero-badges{
-      margin-top:10px;
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
+    .hero-badges{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
     .badge{
       display:inline-flex;
       align-items:center;
@@ -263,9 +270,7 @@
       font-size:12px;
       font-weight:700;
     }
-    .badge strong{
-      color:#fff;
-    }
+    .badge strong{ color:#fff; }
     .hero-cta{
       display:flex;
       gap:10px;
@@ -273,12 +278,8 @@
       justify-content:flex-end;
       align-items:center;
     }
-    .hero-cta .btn{
-      box-shadow:none;
-    }
-    .hero-cta .btn-primary{
-      background: linear-gradient(135deg, #16a34a, #22c55e);
-    }
+    .hero-cta .btn{ box-shadow:none; }
+    .hero-cta .btn-primary{ background: linear-gradient(135deg, #16a34a, #22c55e); }
     .hero-cta .btn-light{
       background: rgba(255,255,255,.92);
       color: var(--brand);
@@ -286,13 +287,7 @@
     }
 
     /* Quick nav chips */
-    .chips{
-      margin-top:14px;
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
+    .chips{ margin-top:14px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
     .chip{
       display:inline-flex;
       align-items:center;
@@ -307,15 +302,10 @@
       text-decoration:none;
     }
     .chip:hover{ background:#fff; }
-    .chip small{
-      font-weight:800;
-      color: var(--muted);
-    }
+    .chip small{ font-weight:800; color: var(--muted); }
 
     /* Featured */
-    .featured{
-      margin-top:16px;
-    }
+    .featured{ margin-top:16px; scroll-margin-top: calc(var(--topbar-h) + env(safe-area-inset-top) + 18px); }
     .section-title{
       display:flex;
       justify-content:space-between;
@@ -323,16 +313,9 @@
       gap:10px;
       margin:18px 0 10px;
     }
-    .section-title h3{
-      margin:0;
-      font-size:16px;
-      letter-spacing:.2px;
-    }
-    .section-title span{
-      color:var(--muted);
-      font-weight:700;
-      font-size:12px;
-    }
+    .section-title h3{ margin:0; font-size:16px; letter-spacing:.2px; }
+    .section-title span{ color:var(--muted); font-weight:700; font-size:12px; }
+
     .featured-grid{
       display:grid;
       grid-template-columns: repeat(6, 1fr);
@@ -364,11 +347,7 @@
       gap:6px;
       flex:1;
     }
-    .feat .name{
-      font-weight:900;
-      font-size:13px;
-      line-height:1.2;
-    }
+    .feat .name{ font-weight:900; font-size:13px; line-height:1.2; }
     .feat .meta{
       display:flex;
       justify-content:space-between;
@@ -385,11 +364,7 @@
       border: 1px solid rgba(217,164,65,.30);
       font-size:12px;
     }
-    .feat .tag{
-      font-weight:800;
-      color:var(--muted);
-      font-size:11.5px;
-    }
+    .feat .tag{ font-weight:800; color:var(--muted); font-size:11.5px; }
 
     /* Categories */
     .category{
@@ -399,6 +374,7 @@
       background: rgba(255,255,255,.82);
       border: 1px solid var(--line);
       box-shadow: 0 8px 22px rgba(0,0,0,.06);
+      scroll-margin-top: calc(var(--topbar-h) + env(safe-area-inset-top) + 18px);
     }
     .category-header{
       display:flex;
@@ -408,12 +384,7 @@
       flex-wrap:wrap;
       margin-bottom:8px;
     }
-    .category-title{
-      font-size:16px;
-      font-weight:1000;
-      letter-spacing:.2px;
-      margin:0;
-    }
+    .category-title{ font-size:16px; font-weight:1000; letter-spacing:.2px; margin:0; }
     .category-tag{
       font-size:12px;
       font-weight:900;
@@ -432,11 +403,7 @@
       line-height:1.45;
     }
 
-    .items{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
+    .items{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; }
     .item{
       background: rgba(255,255,255,.95);
       border:1px solid var(--line);
@@ -453,6 +420,7 @@
       object-fit:cover;
       background:#eee;
       display:block;
+      filter: brightness(1.05) contrast(1.02);
     }
     .no-img{
       width:100%;
@@ -479,11 +447,7 @@
       align-items:flex-start;
       gap:10px;
     }
-    .item-name{
-      font-weight:1000;
-      font-size:14px;
-      line-height:1.2;
-    }
+    .item-name{ font-weight:1000; font-size:14px; line-height:1.2; }
     .item-price{
       font-weight:1000;
       color: var(--brand);
@@ -530,12 +494,12 @@
       color:#fff;
     }
 
-    /* Floating WhatsApp */
+    /* Floating buttons (WhatsApp + Categorías) */
     .wa-float{
       position: fixed;
       right: calc(16px + env(safe-area-inset-right));
       bottom: calc(16px + env(safe-area-inset-bottom));
-      z-index: 80;
+      z-index: 2000;
       display:flex;
       flex-direction:column;
       gap:10px;
@@ -553,12 +517,58 @@
       font-weight:1000;
       box-shadow: 0 14px 30px rgba(34,197,94,.22);
     }
-    .wa-float .top{
+    .float-btn{
+      appearance: none;
+      border: 1px solid rgba(12,107,115,.25);
       background: rgba(255,255,255,.92);
-      color: var(--brand);
-      border: 1px solid var(--line);
-      box-shadow: 0 14px 30px rgba(0,0,0,.12);
-      font-weight:1000;
+      color: #0b2c2f;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-weight: 800;
+      letter-spacing: .2px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.12);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .float-btn .chev{ font-weight: 900; opacity: .9; }
+    .float-btn:active{ transform: translateY(1px); }
+
+    /* Categories overlay */
+    .catmenu{
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      width: min(360px, calc(100vw - 32px));
+      max-height: min(520px, calc(100vh - 140px));
+      overflow: auto;
+      background: rgba(255,255,255,.96);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 24px 60px rgba(0,0,0,.25);
+      z-index: 2100;
+    }
+    .catmenu a{
+      display: block;
+      padding: 14px 14px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: #0b2c2f;
+      font-weight: 800;
+    }
+    .catmenu a:hover{ background: rgba(12,107,115,.08); }
+    .catmenu a:active{ background: rgba(12,107,115,.14); }
+
+    .catmenu-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.22);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      z-index: 2050;
     }
 
     /* Small helpers */
@@ -567,35 +577,35 @@
     .divider{ height:1px; background: var(--line); margin:12px 0; }
 
     /* Footer (consistente con index.html) */
-.site-footer{
-  background: var(--madera-oscura);
-  color: #eee;
-  padding: 22px 0;
-  font-size: 13px;
-  border-top: 3px solid var(--naranja);
-  margin-top: 24px;
-}
-.footer-inner{
-  max-width:1120px;
-  margin:0 auto;
-  padding:0 16px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  justify-content:space-between;
-}
-.footer-links a{
-  color:#eee;
-  text-decoration:none;
-  margin-right:12px;
-  font-weight:700;
-}
-.footer-links a:hover{ color: var(--turquesa); }
-@media (min-width: 640px){
-  .footer-inner{ flex-direction:row; align-items:center; }
-}
+    .site-footer{
+      background: var(--madera-oscura);
+      color: #eee;
+      padding: 22px 0;
+      font-size: 13px;
+      border-top: 3px solid var(--naranja);
+      margin-top: 24px;
+    }
+    .footer-inner{
+      max-width:1120px;
+      margin:0 auto;
+      padding:0 16px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      justify-content:space-between;
+    }
+    .footer-links a{
+      color:#eee;
+      text-decoration:none;
+      margin-right:12px;
+      font-weight:700;
+    }
+    .footer-links a:hover{ color: var(--turquesa); }
+    @media (min-width: 640px){
+      .footer-inner{ flex-direction:row; align-items:center; }
+    }
 
-/* Responsive */
+    /* Responsive */
     @media (max-width: 980px){
       .featured-grid{ grid-template-columns: repeat(3, 1fr); }
       .items{ grid-template-columns: repeat(2, 1fr); }
@@ -607,277 +617,198 @@
       .brand{ min-width:auto; }
       .search-wrap{ display:none; }
       .featured-grid{ grid-template-columns: repeat(2, 1fr); }
-      .items{ grid-template-columns: 1fr; }
+      .items{ grid-template-columns: 1fr); }
       .topbar-inner{ padding:10px 12px; }
-      .wrap{ padding:14px 12px 90px; }
+      .wrap{ padding:14px 12px 120px; }
       .hero-inner{ padding:16px 14px 14px; }
       .category{ padding:12px; }
       .item{ min-height: 280px; }
+      .actions{ flex-wrap:wrap; justify-content:flex-end; }
+      .btn{ padding:9px 10px; font-size:12.5px; }
     }
-/* --- Ajustes PRO (mobile + conversión) --- */
-/* Evita que el header tape secciones al navegar por anclas */
-.hero, .featured, .category { scroll-margin-top: 92px; }
-@media (max-width:560px){
-  .actions{ flex-wrap:wrap; justify-content:flex-end; }
-  .btn{ padding:9px 10px; font-size:12.5px; }
-}
-/* Un poco más de brillo en fotos para móvil (sin exagerar) */
-.item-img, .feat img{ filter: brightness(1.05) contrast(1.02); }
-/* Espacio inferior extra para que el botón flotante no tape contenido */
-.wrap{ padding-bottom: 120px; }
-
-
-  
-
-.topbar .wrap{
-  max-width: 1200px;
-  margin: 0 auto;
-  height: 100%;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* Floating categories button */
-.wa-float{
-  position: fixed;
-  right: 18px;
-  bottom: 22px;
-  z-index: 2000;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.float-btn{
-  appearance: none;
-  border: 1px solid rgba(12,107,115,.25);
-  background: rgba(255,255,255,.92);
-  color: #0b2c2f;
-  border-radius: 999px;
-  padding: 12px 16px;
-  font-weight: 800;
-  letter-spacing: .2px;
-  box-shadow: 0 10px 24px rgba(0,0,0,.12);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.float-btn .chev{ font-weight: 900; opacity: .9; }
-.float-btn:active{ transform: translateY(1px); }
-
-/* Categories overlay */
-.catmenu{
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  width: min(360px, calc(100vw - 32px));
-  max-height: min(520px, calc(100vh - 140px));
-  overflow: auto;
-  background: rgba(255,255,255,.96);
-  border-radius: 18px;
-  padding: 12px;
-  box-shadow: 0 24px 60px rgba(0,0,0,.25);
-  z-index: 2100;
-}
-
-.catmenu a{
-  display: block;
-  padding: 14px 14px;
-  border-radius: 14px;
-  text-decoration: none;
-  color: #0b2c2f;
-  font-weight: 800;
-}
-
-.catmenu a:hover{ background: rgba(12,107,115,.08); }
-.catmenu a:active{ background: rgba(12,107,115,.14); }
-
-.catmenu-backdrop{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.22);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  z-index: 2050;
-}
-</style>
+  </style>
 </head>
+
 <body>
-<a class="skip-link" href="#contenido">Saltar al contenido</a>
-<!-- TOPBAR -->
-<header class="topbar" id="top">
-<div class="topbar-inner">
-<div class="brand">
-<a aria-label="Ir al inicio" class="logo" href="index.html">
-<img alt="Floresta Brava" decoding="async" height="42" loading="eager" src="img/logoflorestatransparente.png" width="42"/>
-</a>
-<div>
-<h1>Floresta Brava</h1>
-<small>La excelencia del sabor</small>
-</div>
-</div>
-<div class="search-wrap">
-<div class="search">
-<input autocomplete="off" id="q" placeholder="Buscar: encebollado, ceviche, bolón..." type="search"/>
-<button id="clear" title="Limpiar búsqueda" type="button">✕</button>
-</div>
-</div>
-<div class="actions">
-<a class="btn btn-primary" href="#" id="waTop" rel="noopener" target="_blank">WhatsApp</a>
-</div>
-</div>
-</header>
-<main class="wrap" id="contenido">
-<!-- HERO / IMAN -->
-<section aria-label="Promoción principal" class="hero">
-<div class="hero-inner">
-<div>
-<h2>Menú del día desde <span style="color:var(--gold)">$2,75</span></h2>
-<p>
-            Sazón casera, porciones generosas y atención rápida.
-            Pide por WhatsApp y te lo tenemos listo.
-          </p>
-<div class="hero-badges">
-<div class="badge"><strong>Listo en minutos</strong></div>
-<div class="badge"><strong>Porciones que llenan</strong></div>
-<div class="badge"><strong>Sabor costeño y tradicional</strong></div>
-</div>
-</div>
-<div class="hero-cta">
-<a class="btn btn-primary" href="#" id="waHero" rel="noopener" target="_blank">Pedir por WhatsApp</a>
-<a class="btn btn-light" href="#destacados">Ver destacados</a>
-<a class="btn btn-light" href="#mariscos">Ir a mariscos</a>
-</div>
-</div>
-</section>
-<!-- QUICK NAV -->
-<nav aria-label="Categorías" class="chips">
-<a class="chip" href="#almuerzos">Almuerzos <small>desde $2,75</small></a>
-<a class="chip" href="#desayunos">Desayunos</a>
-<a class="chip" href="#mariscos">Mariscos</a>
-<a class="chip" href="#carnes">Carnes</a>
-<a class="chip" href="#pollos">Pollos</a>
-<a class="chip" href="#gaseosas">Bebidas</a>
-<a class="chip" href="#pinchos">Pinchos</a>
-</nav>
-<!-- FEATURED -->
-<section aria-label="Destacados" class="featured" id="destacados">
-<div class="section-title">
-<h3>Destacados</h3>
-<span>Lo más pedido</span>
-</div>
-<div class="featured-grid" id="featuredGrid"></div>
-</section>
-<!-- CATEGORIES (render dinámico) -->
-<section class="category" id="almuerzos">
-<div class="category-header">
-<h3 class="category-title">Almuerzos</h3>
-<div class="category-tag">Menú del día</div>
-</div>
-<p class="category-description">
-        Opciones completas y económicas para todos los días.
-      </p>
-<div class="items" data-category="Almuerzos"></div>
-</section>
-<section class="category" id="carnes">
-<div class="category-header">
-<h3 class="category-title">Carnes</h3>
-<div class="category-tag">Platos fuertes</div>
-</div>
-<p class="category-description">
-        Cortes a la plancha o apanados, con acompañantes completos.
-      </p>
-<div class="items" data-category="Carnes"></div>
-</section>
-<section class="category" id="desayunos">
-<div class="category-header">
-<h3 class="category-title">Desayunos</h3>
-<div class="category-tag">Desde las 08h00</div>
-</div>
-<p class="category-description">
-        Desayunos típicos para arrancar el día con energía.
-      </p>
-<div class="items" data-category="Desayunos"></div>
-</section>
-<section class="category" id="mariscos">
-<div class="category-header">
-<h3 class="category-title">Mariscos</h3>
-<div class="category-tag">Sabores de la costa</div>
-</div>
-<p class="category-description">
-        Ceviches, arroces y platos calientes con mariscos frescos.
-      </p>
-<div class="items" data-category="Mariscos"></div>
-</section>
-<section class="category" id="pollos">
-<div class="category-header">
-<h3 class="category-title">Pollos</h3>
-<div class="category-tag">A la carta</div>
-</div>
-<p class="category-description">
-        Platos de pollo bien sazonados y servidos con acompañantes.
-      </p>
-<div class="items" data-category="Pollos"></div>
-</section>
-<section class="category" id="gaseosas">
-<div class="category-header">
-<h3 class="category-title">Bebidas</h3>
-<div class="category-tag">Frías</div>
-</div>
-<p class="category-description">
-        Gaseosas y cervezas para acompañar tu comida.
-      </p>
-<div class="divider"></div>
-<div class="section-title" style="margin:0 0 10px;">
-<h3 style="margin:0;font-size:14px;">Gaseosa</h3>
-<span></span>
-</div>
-<div class="items" data-category="Gaseosa"></div>
-<div class="divider"></div>
-<div class="section-title" style="margin:0 0 10px;">
-<h3 style="margin:0;font-size:14px;">Cerveza</h3>
-<span></span>
-</div>
-<div class="items" data-category="Cerveza"></div>
-</section>
-<section class="category" id="pinchos">
-<div class="category-header">
-<h3 class="category-title">Pinchos</h3>
-<div class="category-tag">A la parrilla</div>
-</div>
-<p class="category-description">
-        Ideales para acompañar tu merienda.
-      </p>
-<div class="items" data-category="Pinchos"></div>
-</section>
-<p class="muted" style="margin:16px 6px 0;font-weight:700;font-size:12px;">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <!-- TOPBAR -->
+  <header class="topbar" id="top">
+    <div class="topbar-inner">
+      <div class="brand">
+        <a aria-label="Ir al inicio" class="logo" href="index.html">
+          <img alt="Floresta Brava" decoding="async" height="42" loading="eager" src="img/logoflorestatransparente.png" width="42"/>
+        </a>
+        <div>
+          <h1>Floresta Brava</h1>
+          <small>La excelencia del sabor</small>
+        </div>
+      </div>
+
+      <div class="search-wrap">
+        <div class="search">
+          <input autocomplete="off" id="q" placeholder="Buscar: encebollado, ceviche, bolón..." type="search"/>
+          <button id="clear" title="Limpiar búsqueda" type="button">✕</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="#" id="waTop" rel="noopener" target="_blank" aria-label="Pedir por WhatsApp">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="contenido">
+    <!-- HERO / IMAN -->
+    <section aria-label="Promoción principal" class="hero">
+      <div class="hero-inner">
+        <div>
+          <h2>Menú del día desde <span style="color:var(--gold)">$2,75</span></h2>
+          <p>Sazón casera, porciones generosas y atención rápida. Pide por WhatsApp y te lo tenemos listo.</p>
+
+          <div class="hero-badges">
+            <div class="badge"><strong>Listo en minutos</strong></div>
+            <div class="badge"><strong>Porciones que llenan</strong></div>
+            <div class="badge"><strong>Sabor costeño y tradicional</strong></div>
+          </div>
+        </div>
+
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#" id="waHero" rel="noopener" target="_blank">Pedir por WhatsApp</a>
+          <a class="btn btn-light" href="#destacados">Ver destacados</a>
+          <a class="btn btn-light" href="#mariscos">Ir a mariscos</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK NAV -->
+    <nav aria-label="Categorías" class="chips">
+      <a class="chip" href="#almuerzos">Almuerzos <small>desde $2,75</small></a>
+      <a class="chip" href="#desayunos">Desayunos</a>
+      <a class="chip" href="#mariscos">Mariscos</a>
+      <a class="chip" href="#carnes">Carnes</a>
+      <a class="chip" href="#pollos">Pollos</a>
+      <a class="chip" href="#gaseosas">Bebidas</a>
+      <a class="chip" href="#pinchos">Pinchos</a>
+    </nav>
+
+    <!-- FEATURED -->
+    <section aria-label="Destacados" class="featured" id="destacados">
+      <div class="section-title">
+        <h3>Destacados</h3>
+        <span>Lo más pedido</span>
+      </div>
+      <div class="featured-grid" id="featuredGrid"></div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="category" id="almuerzos">
+      <div class="category-header">
+        <h3 class="category-title">Almuerzos</h3>
+        <div class="category-tag">Menú del día</div>
+      </div>
+      <p class="category-description">Opciones completas y económicas para todos los días.</p>
+      <div class="items" data-category="Almuerzos"></div>
+    </section>
+
+    <section class="category" id="carnes">
+      <div class="category-header">
+        <h3 class="category-title">Carnes</h3>
+        <div class="category-tag">Platos fuertes</div>
+      </div>
+      <p class="category-description">Cortes a la plancha o apanados, con acompañantes completos.</p>
+      <div class="items" data-category="Carnes"></div>
+    </section>
+
+    <section class="category" id="desayunos">
+      <div class="category-header">
+        <h3 class="category-title">Desayunos</h3>
+        <div class="category-tag">Desde las 08h00</div>
+      </div>
+      <p class="category-description">Desayunos típicos para arrancar el día con energía.</p>
+      <div class="items" data-category="Desayunos"></div>
+    </section>
+
+    <section class="category" id="mariscos">
+      <div class="category-header">
+        <h3 class="category-title">Mariscos</h3>
+        <div class="category-tag">Sabores de la costa</div>
+      </div>
+      <p class="category-description">Ceviches, arroces y platos calientes con mariscos frescos.</p>
+      <div class="items" data-category="Mariscos"></div>
+    </section>
+
+    <section class="category" id="pollos">
+      <div class="category-header">
+        <h3 class="category-title">Pollos</h3>
+        <div class="category-tag">A la carta</div>
+      </div>
+      <p class="category-description">Platos de pollo bien sazonados y servidos con acompañantes.</p>
+      <div class="items" data-category="Pollos"></div>
+    </section>
+
+    <section class="category" id="gaseosas">
+      <div class="category-header">
+        <h3 class="category-title">Bebidas</h3>
+        <div class="category-tag">Frías</div>
+      </div>
+      <p class="category-description">Gaseosas y cervezas para acompañar tu comida.</p>
+
+      <div class="divider"></div>
+      <div class="section-title" style="margin:0 0 10px;">
+        <h3 style="margin:0;font-size:14px;">Gaseosa</h3>
+        <span></span>
+      </div>
+      <div class="items" data-category="Gaseosa"></div>
+
+      <div class="divider"></div>
+      <div class="section-title" style="margin:0 0 10px;">
+        <h3 style="margin:0;font-size:14px;">Cerveza</h3>
+        <span></span>
+      </div>
+      <div class="items" data-category="Cerveza"></div>
+    </section>
+
+    <section class="category" id="pinchos">
+      <div class="category-header">
+        <h3 class="category-title">Pinchos</h3>
+        <div class="category-tag">A la parrilla</div>
+      </div>
+      <p class="category-description">Ideales para acompañar tu merienda.</p>
+      <div class="items" data-category="Pinchos"></div>
+    </section>
+
+    <p class="muted" style="margin:16px 6px 0;font-weight:700;font-size:12px;">
       Nota: Las imágenes se cargan desde la carpeta <strong>img/</strong>. Los platos sin archivo no muestran foto.
     </p>
-</main>
-<!-- Floating buttons -->
-<div aria-label="Acciones rápidas" class="wa-float">
-<a href="#" id="waFloat" rel="noopener" target="_blank" title="Pedir por WhatsApp">WhatsApp</a>
-<button aria-label="Abrir categorías" class="float-btn float-cat" id="catFloat" type="button"><span class="label">Categorías</span><span aria-hidden="true" class="chev">▾</span></button></div><nav aria-label="Categorías" class="catmenu" hidden="" id="catMenu"><a href="#almuerzos">Almuerzos</a><a href="#desayunos">Desayunos</a><a href="#mariscos">Mariscos</a><a href="#carnes">Carnes</a><a href="#pollos">Pollos</a><a href="#gaseosas">Bebidas</a><a href="#pinchos">Pinchos</a></nav>
-<script>
+  </main>
+
+  <!-- Floating buttons -->
+  <div aria-label="Acciones rápidas" class="wa-float">
+    <a href="#" id="waFloat" rel="noopener" target="_blank" title="Pedir por WhatsApp">WhatsApp</a>
+    <button aria-label="Abrir categorías" class="float-btn float-cat" id="catFloat" type="button">
+      <span class="label">Categorías</span><span aria-hidden="true" class="chev">▾</span>
+    </button>
+  </div>
+
+  <nav aria-label="Categorías" class="catmenu" hidden id="catMenu">
+    <a href="#almuerzos">Almuerzos</a>
+    <a href="#desayunos">Desayunos</a>
+    <a href="#mariscos">Mariscos</a>
+    <a href="#carnes">Carnes</a>
+    <a href="#pollos">Pollos</a>
+    <a href="#gaseosas">Bebidas</a>
+    <a href="#pinchos">Pinchos</a>
+  </nav>
+
+  <script>
     /***********************
      * CONFIG PRODUCCION
      ***********************/
-    // 1) Carpeta de imágenes
     const IMG_BASE = "img/";
-
-    // 2) Número WhatsApp (formato internacional sin +)
     const WHATSAPP_NUMBER = "593983603626";
-
-    // 3) Texto base para WhatsApp
     const WHATSAPP_PREFIX = "Hola, vengo del menú QR de Floresta Brava. ";
 
-    // 4) Destacados (máximo 6 recomendado)
     const FEATURED = [
       { category: "Mariscos", name: "Encebollado", tag: "Clásico" },
       { category: "Mariscos", name: "Ceviche mixto", tag: "Top" },
@@ -887,11 +818,6 @@
       { category: "Desayunos", name: "Tigrillo", tag: "Desayuno" },
     ];
 
-    /***********************
-     * DATA MENU (EXCEL)
-     * Si file = "" => sin imagen
-     * Si price = null => sin precio (por ejemplo, aún por definir)
-     ***********************/
     const MENU = [
       {
         id: "almuerzos",
@@ -1000,14 +926,11 @@
         items: [
           { name: "Pincho de carne", price: 1.00, file: "pincho-carne.webp" },
           { name: "Pincho de pollo", price: 1.00, file: "pincho-pollo.webp" },
-		  { name: "Pincho completo", price: 2.5, file: "pincho-completo.webp" },
+          { name: "Pincho completo", price: 2.50, file: "pincho-completo.webp" }
         ],
       },
     ];
 
-    /***********************
-     * HELPERS
-     ***********************/
     function formatPrice(p) {
       if (p === null || p === undefined || p === "") return "";
       return "$" + Number(p).toFixed(2).replace(".", ",");
@@ -1035,9 +958,7 @@
         ? `<img src="${IMG_BASE + it.file}" alt="${it.name}" class="item-img" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-img&quot;>Sin foto</div>'">`
         : `<div class="no-img">Sin foto</div>`;
 
-      const note = it.price == null
-        ? "Consultar precio"
-        : "Pídelo por WhatsApp";
+      const note = it.price == null ? "Consultar precio" : "Pídelo por WhatsApp";
 
       return `
         <article class="item" data-name="${it.name.toLowerCase()}">
@@ -1104,8 +1025,7 @@
       const generalMsg = WHATSAPP_PREFIX + "Quiero hacer un pedido. ¿Me ayudas por favor?";
       const href = waLink(generalMsg);
 
-      const ids = ["waTop", "waHero", "waFloat"];
-      ids.forEach(id => {
+      ["waTop", "waHero", "waFloat"].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.href = href;
       });
@@ -1124,14 +1044,12 @@
           else card.classList.add("hide");
         });
 
-        // Si no hay resultados en una categoría, ocultar el bloque de categoría (solo visual)
         document.querySelectorAll(".category").forEach(cat => {
           const visible = cat.querySelectorAll(".item:not(.hide)").length;
           if (term && visible === 0) cat.classList.add("hide");
           else cat.classList.remove("hide");
         });
 
-        // Mantener visibles hero y destacados
         const hero = document.querySelector(".hero");
         const featured = document.getElementById("destacados");
         if (hero) hero.classList.remove("hide");
@@ -1146,90 +1064,84 @@
       });
     }
 
-    /***********************
-     * INIT
-     ***********************/
     renderAll();
     renderFeatured();
     setupWhatsAppButtons();
     setupSearch();
   </script>
-<footer class="site-footer">
-<div class="footer-inner">
-<div>
-<strong>Floresta Brava</strong> · Av. Coruña y Guipúzcoa · Quito
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div><strong>Floresta Brava</strong> · Av. Coruña y Guipúzcoa · Quito</div>
+      <div class="footer-links">
+        <a href="index.html">Inicio</a>
+        <a aria-current="page" href="menudigital.html">Menú digital</a>
+        <a href="#top">Subir</a>
       </div>
-<div class="footer-links">
-<a href="index.html">Inicio</a>
-<a aria-current="page" href="menudigital.html">Menú digital</a>
-<a href="#top">Subir</a>
-</div>
-</div>
-</footer>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const menu = document.getElementById('catMenu');
-  const btn = document.getElementById('catFloat');
-  if (!menu || !btn) return;
+    </div>
+  </footer>
 
-  let backdrop = null;
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menu = document.getElementById('catMenu');
+      const btn = document.getElementById('catFloat');
+      if (!menu || !btn) return;
 
-  const setChev = (open) => {
-    const chev = btn.querySelector('.chev');
-    if (chev) chev.textContent = open ? '▴' : '▾';
-  };
+      let backdrop = null;
 
-  const closeMenu = () => {
-    menu.hidden = true;
-    menu.classList.remove('catmenu--overlay');
-    btn.setAttribute('aria-expanded', 'false');
-    setChev(false);
-    if (backdrop) { backdrop.remove(); backdrop = null; }
-    document.removeEventListener('keydown', onKey);
-  };
+      const setChev = (open) => {
+        const chev = btn.querySelector('.chev');
+        if (chev) chev.textContent = open ? '▴' : '▾';
+      };
 
-  const openMenu = () => {
-    menu.hidden = false;
-    menu.classList.add('catmenu--overlay');
-    btn.setAttribute('aria-expanded', 'true');
-    setChev(true);
+      const onKey = (e) => {
+        if (e.key === 'Escape') closeMenu();
+      };
 
-    if (!backdrop) {
-      backdrop = document.createElement('div');
-      backdrop.className = 'catmenu-backdrop';
-      backdrop.addEventListener('click', closeMenu);
-      document.body.appendChild(backdrop);
-    }
-    document.addEventListener('keydown', onKey);
-  };
+      const closeMenu = () => {
+        menu.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+        setChev(false);
+        if (backdrop) { backdrop.remove(); backdrop = null; }
+        document.removeEventListener('keydown', onKey);
+      };
 
-  const onKey = (e) => {
-    if (e.key === 'Escape') closeMenu();
-  };
+      const openMenu = () => {
+        menu.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+        setChev(true);
 
-  const toggle = () => {
-    const open = btn.getAttribute('aria-expanded') === 'true';
-    open ? closeMenu() : openMenu();
-  };
+        if (!backdrop) {
+          backdrop = document.createElement('div');
+          backdrop.className = 'catmenu-backdrop';
+          backdrop.addEventListener('click', closeMenu);
+          document.body.appendChild(backdrop);
+        }
+        document.addEventListener('keydown', onKey);
+      };
 
-  btn.setAttribute('aria-haspopup', 'true');
-  btn.setAttribute('aria-expanded', 'false');
-  setChev(false);
+      const toggle = () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        open ? closeMenu() : openMenu();
+      };
 
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    toggle();
-  });
+      btn.setAttribute('aria-haspopup', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+      setChev(false);
 
-  // Close after selecting a category (and scroll)
-  menu.addEventListener('click', (e) => {
-    const link = e.target.closest('a');
-    if (!link) return;
-    closeMenu();
-  });
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggle();
+      });
 
-  // If the hash changes (e.g., user clicks other links), close menu
-  window.addEventListener('hashchange', closeMenu);
-});
-</script></body>
+      menu.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+        closeMenu();
+      });
+
+      window.addEventListener('hashchange', closeMenu);
+    });
+  </script>
+</body>
 </html>
