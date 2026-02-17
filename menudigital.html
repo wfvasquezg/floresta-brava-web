@@ -1294,6 +1294,87 @@
       });
     }
 
+    function setupCategoriesMenu(){
+      const menu = document.getElementById("catMenu");
+      const btn  = document.getElementById("catFloat");
+      if (!menu || !btn) return;
+  
+      let backdrop = null;
+  
+      const setChev = (open) => {
+        // Mantiene tu texto original "Categorías ▾" / "Categorías ▴"
+        btn.textContent = open ? "Categorías ▴" : "Categorías ▾";
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      };
+  
+      const openMenu = () => {
+        if (!backdrop){
+          backdrop = document.createElement("div");
+          backdrop.className = "catmenu-backdrop";
+          backdrop.addEventListener("click", closeMenu);
+          document.body.appendChild(backdrop);
+        } else {
+          backdrop.classList.remove("hide");
+          backdrop.hidden = false;
+        }
+  
+        menu.hidden = false;
+        setChev(true);
+  
+        // Cierra con ESC
+        document.addEventListener("keydown", onKey);
+  
+        // Opcional: enfoca el primer link para accesibilidad
+        const firstLink = menu.querySelector("a");
+        if (firstLink) firstLink.focus({ preventScroll: true });
+      };
+  
+      const closeMenu = () => {
+        menu.hidden = true;
+        if (backdrop){
+          backdrop.hidden = true;          // lo ocultamos
+          backdrop.classList.add("hide");  // y aseguramos display none
+        }
+        setChev(false);
+        document.removeEventListener("keydown", onKey);
+      };
+  
+      const toggleMenu = () => {
+        const isOpen = !menu.hidden;
+        if (isOpen) closeMenu();
+        else openMenu();
+      };
+  
+      const onKey = (e) => {
+        if (e.key === "Escape") closeMenu();
+      };
+  
+      // Click en el botón
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleMenu();
+      });
+  
+      // Si haces click en una categoría, que cierre el menú
+      menu.addEventListener("click", (e) => {
+        const a = e.target.closest("a[href^='#']");
+        if (!a) return;
+  
+        // Cierra primero
+        closeMenu();
+  
+        // Scroll suave y confiable
+        const id = a.getAttribute("href").slice(1);
+        const target = document.getElementById(id);
+        if (target){
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+  
+      // Estado inicial accesible
+      btn.setAttribute("aria-expanded", "false");
+      setChev(false);
+    }
 
 
     renderAll();
@@ -1301,6 +1382,7 @@
     setupWhatsAppButtons();
     setupSearch();
     setupIngredientsModal();
+    setupCategoriesMenu(); 
   </script>
 
   <footer class="site-footer">
