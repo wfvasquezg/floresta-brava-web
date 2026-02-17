@@ -647,7 +647,19 @@
       font-weight:1000;
     }
     .btn-call:hover{ transform: translateY(-1px); }
+    .btn-light{
+      background: rgba(255,255,255,.92);
+      color: var(--brand);
+      border:0;
+    }
 
+    .float-cat{
+      border-color: rgba(12,107,115,.35);
+    }
+
+
+
+    
   </style>
 </head>
 
@@ -809,7 +821,12 @@
   <!-- Floating buttons -->
   <div aria-label="Acciones rápidas" class="wa-float">
     <a href="#" id="waFloat" rel="noopener" target="_blank" title="Pedir por WhatsApp">WhatsApp</a>
-    <button aria-label="Abrir categorías" class="float-btn float-cat" id="catFloat" type="button">
+    <button aria-label="Abrir categorías"
+        aria-controls="catMenu"
+        class="float-btn float-cat"
+        id="catFloat"
+        type="button">
+      
       <span class="label">Categorías</span><span aria-hidden="true" class="chev">▾</span>
     </button>
   </div>
