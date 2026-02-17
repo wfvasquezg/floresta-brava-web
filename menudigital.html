@@ -775,6 +775,40 @@
       :root{ --topbar-h: 68px; }
     }
 
+     /* ---- Botones flotantes: más visibles y seleccionables ---- */
+    .fab a{
+      background: #25D366;          /* verde WhatsApp */
+      color: #fff;
+      border: 2px solid rgba(255,255,255,.35);
+    }
+    
+    .fab button{
+      background: #ff7a00;          /* naranja Categorías */
+      color: #fff;
+      border: 2px solid rgba(255,255,255,.35);
+    }
+    
+    /* Hover + “tap feedback” */
+    .fab a:hover, .fab button:hover{
+      filter: brightness(1.06);
+    }
+    
+    .fab a:active, .fab button:active{
+      transform: translateY(1px);
+    }
+    
+    /* Accesibilidad: cuando navegan con teclado */
+    .fab a:focus-visible, .fab button:focus-visible{
+      outline: 3px solid rgba(255,255,255,.85);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 4px rgba(0,0,0,.25);
+    }
+    
+    /* Cursor de “esto se puede tocar” */
+    .fab a, .fab button{
+      cursor: pointer;
+    }
+   
     
   </style>
 </head>
