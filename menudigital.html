@@ -97,10 +97,7 @@
 .skip-link:focus{ left:12px; }
 
 /* Top bar */
-    .topbar{
-  position: sticky;
-  top: 0;
-  z-index: 50;
+    
   background: linear-gradient(90deg, var(--madera-oscura), var(--verde));
   box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
@@ -633,24 +630,23 @@
 
 
   
+/* Floating Categorías */
+.wa-float{position:fixed;right:16px;bottom:16px;z-index:9999;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.float-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 14px;border-radius:999px;border:2px solid rgba(0,0,0,.08);background:rgba(255,255,255,.92);backdrop-filter:blur(6px);box-shadow:0 10px 24px rgba(0,0,0,.18);font-weight:800}
+.float-cat__label{white-space:nowrap}
+.float-cat__icon{display:inline-flex;align-items:center;justify-content:center;opacity:.85}
+.float-cat .chev{font-weight:900;opacity:.75;transform:translateY(1px)}
+.float-cat[aria-expanded="true"] .chev{content:"";}
 
-/* --- Categorías overlay + botones flotantes --- */
-header{position:sticky;top:0;z-index:2000}
-.wa-float{position:fixed;right:14px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:2200}
-.float-btn{border:0;border-radius:999px;padding:12px 16px;font-weight:800;font-size:16px;line-height:1;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 10px 25px rgba(0,0,0,.18);backdrop-filter: blur(10px);}
-.float-cat{background:rgba(255,255,255,.92);color:#0b2b2b;border:1px solid rgba(0,0,0,.08)}
-.float-top{background:rgba(255,255,255,.92);color:#0b2b2b;border:1px solid rgba(0,0,0,.08)}
-.float-btn:active{transform:translateY(1px)}
-.float-btn .chev{font-weight:900;opacity:.8}
-.catmenu{position:fixed;right:14px;bottom:74px;width:min(86vw,320px);max-height:min(60vh,520px);overflow:auto;background:rgba(255,255,255,.96);border:1px solid rgba(0,0,0,.10);border-radius:18px;box-shadow:0 18px 40px rgba(0,0,0,.22);padding:10px;z-index:3000}
-.catmenu a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px;border-radius:14px;color:#0b2b2b;text-decoration:none;font-weight:800}
-.catmenu a:hover{background:rgba(16,128,96,.08)}
-.catmenu a:active{background:rgba(16,128,96,.14)}
-.catmenu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.28);backdrop-filter: blur(2px);z-index:2500}
+.catmenu{position:fixed;right:16px;bottom:78px;width:min(320px,calc(100vw - 32px));max-height:60vh;overflow:auto;background:rgba(255,255,255,.98);border-radius:18px;padding:10px;box-shadow:0 18px 40px rgba(0,0,0,.25);z-index:10000}
+.catmenu__item{display:flex;align-items:center;justify-content:space-between;padding:14px 14px;border-radius:14px;color:#0f1f20;text-decoration:none;font-weight:800}
+.catmenu__item:hover{background:rgba(0,0,0,.05)}
+.catmenu__item:active{transform:scale(.99)}
+.catmenu-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:9000}
 @media (min-width: 900px){
-  .wa-float{right:22px;bottom:22px}
-  .catmenu{right:22px;bottom:82px}
+  .catmenu{bottom:92px}
 }
+
 </style>
 </head>
 
@@ -708,17 +704,7 @@ header{position:sticky;top:0;z-index:2000}
     </section>
 
     <!-- QUICK NAV -->
-    <nav class="chips" aria-label="Categorías">
-      <a class="chip" href="#almuerzos">Almuerzos <small>desde $2,75</small></a>
-      <a class="chip" href="#desayunos">Desayunos</a>
-      <a class="chip" href="#mariscos">Mariscos</a>
-      <a class="chip" href="#carnes">Carnes</a>
-      <a class="chip" href="#pollos">Pollos</a>
-      <a class="chip" href="#gaseosas">Bebidas</a>
-      <a class="chip" href="#pinchos">Pinchos</a>
-    </nav>
-
-    <!-- FEATURED -->
+<!-- FEATURED -->
     <section class="featured" id="destacados" aria-label="Destacados">
       <div class="section-title">
         <h3>Destacados</h3>
@@ -823,27 +809,29 @@ header{position:sticky;top:0;z-index:2000}
     </p>
   </main>
 
-  
-  <!-- Categorías (overlay) -->
+  <!-- Floating button: Categorías -->
+  <div class="wa-float" aria-label="Acciones rápidas">
+    <button class="float-btn float-cat" id="catFloat" type="button" aria-label="Abrir categorías">
+      <span class="float-cat__label">Categorías</span>
+      <span class="float-cat__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" focusable="false" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="chev" aria-hidden="true">▾</span>
+    </button>
+  </div>
+
   <nav id="catMenu" class="catmenu" hidden aria-label="Categorías del menú">
-    <a href="#destacados">Destacados</a>
-    <a href="#almuerzos">Almuerzos</a>
-    <a href="#desayunos">Desayunos</a>
-    <a href="#mariscos">Mariscos</a>
-    <a href="#carnes">Carnes</a>
-    <a href="#pollos">Pollos</a>
-    <a href="#gaseosas">Bebidas</a>
-    <a href="#pinchos">Pinchos</a>
+    <a class="catmenu__item" href="#almuerzos">Almuerzos</a>
+    <a class="catmenu__item" href="#desayunos">Desayunos</a>
+    <a class="catmenu__item" href="#mariscos">Mariscos</a>
+    <a class="catmenu__item" href="#carnes">Carnes</a>
+    <a class="catmenu__item" href="#pollos">Pollos</a>
+    <a class="catmenu__item" href="#gaseosas">Bebidas</a>
+    <a class="catmenu__item" href="#pinchos">Pinchos</a>
   </nav>
 
-
-<!-- Floating buttons -->
-  <div class="wa-float" aria-label="Acciones rápidas">
-    <button class="float-btn float-cat" id="catFloat" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Abrir categorías">
-      Categorías <span class="chev" aria-hidden="true">▾</span>
-    </button>
-    <a class="float-btn float-top" href="#top" title="Volver arriba" aria-label="Volver arriba">↑ Arriba</a>
-  </div>
 <script>
     /***********************
      * CONFIG PRODUCCION
@@ -1147,6 +1135,69 @@ header{position:sticky;top:0;z-index:2000}
       </div>
     </div>
   </footer>
+
+
+<script>
+/* Categorías: botón flotante abre/cierra overlay */
+document.addEventListener('DOMContentLoaded', () => {
+  const menu = document.getElementById('catMenu');
+  const btn = document.getElementById('catFloat');
+  if (!menu || !btn) return;
+
+  let backdrop = null;
+
+  const setChevron = (open) => {
+    const chev = btn.querySelector('.chev');
+    if (chev) chev.textContent = open ? '▴' : '▾';
+  };
+
+  const closeMenu = () => {
+    menu.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+    setChevron(false);
+    if (backdrop) { backdrop.remove(); backdrop = null; }
+  };
+
+  const openMenu = () => {
+    menu.hidden = false;
+    btn.setAttribute('aria-expanded', 'true');
+    setChevron(true);
+    if (!backdrop) {
+      backdrop = document.createElement('div');
+      backdrop.className = 'catmenu-backdrop';
+      backdrop.addEventListener('click', closeMenu);
+      document.body.appendChild(backdrop);
+    }
+  };
+
+  const toggleMenu = () => {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    if (isOpen) closeMenu(); else openMenu();
+  };
+
+  btn.setAttribute('aria-haspopup', 'true');
+  btn.setAttribute('aria-expanded', 'false');
+  setChevron(false);
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleMenu();
+  });
+
+  // Cerrar con ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // Cerrar al seleccionar categoría
+  menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => closeMenu());
+  });
+
+  // Si cambia de tamaño, cierra para evitar overlays raros
+  window.addEventListener('resize', () => closeMenu());
+});
+</script>
 
 </body>
 </html>
