@@ -957,6 +957,17 @@
 
 
 
+  <!-- Menú de categorías (overlay) -->
+  <nav aria-label="Categorías" class="catmenu" hidden id="catMenu">
+    <a href="#almuerzos">Almuerzos</a>
+    <a href="#desayunos">Desayunos</a>
+    <a href="#mariscos">Mariscos</a>
+    <a href="#carnes">Carnes</a>
+    <a href="#pollos">Pollos</a>
+    <a href="#gaseosas">Bebidas</a>
+    <a href="#pinchos">Pinchos</a>
+  </nav>
+
   <script>
     /***********************
      * CONFIG PRODUCCION
@@ -1127,7 +1138,7 @@
             <div class="item-note">${note}</div>
             <div class="item-actions">
               <a class="mini wa" href="${waForItem(it.name, priceText)}" target="_blank" rel="noopener">Pedir este</a>
-              <a class="mini" href="#top">Inicio</a>
+              <button class="mini-btn" type="button" data-ingredients-for="${it.name}">Ingredientes</button>
             </div>
           </div>
         </article>
@@ -1221,10 +1232,75 @@
       });
     }
 
+    function getIngredientsFor(itemName){
+      // Busca el plato en todas las categorías del array MENU
+      const n = (itemName || "").toLowerCase();
+      for (const cat of MENU){
+        if (!cat.items) continue;
+        const it = cat.items.find(x => (x.name || "").toLowerCase() === n);
+        if (it && it.ingredients) return it.ingredients;
+      }
+      return null;
+    }
+
+    function setupIngredientsModal(){
+      const modal = document.getElementById("ingModal");
+      const backdrop = document.getElementById("ingBackdrop");
+      const title = document.getElementById("ingTitle");
+      const body = document.getElementById("ingBody");
+      const closeBtn = document.getElementById("ingClose");
+      const waBtn = document.getElementById("ingWa");
+      if (!modal || !backdrop || !title || !body || !closeBtn || !waBtn) return;
+
+      const close = () => {
+        modal.hidden = true;
+        backdrop.hidden = true;
+        document.removeEventListener("keydown", onKey);
+      };
+
+      const onKey = (e) => {
+        if (e.key === "Escape") close();
+      };
+
+      const open = (itemName) => {
+        const ing = getIngredientsFor(itemName);
+        title.textContent = "Ingredientes · " + itemName;
+
+        if (Array.isArray(ing) && ing.length){
+          body.textContent = "Ingredientes: " + ing.join(", ") + ".";
+        } else if (typeof ing === "string" && ing.trim()){
+          body.textContent = "Ingredientes: " + ing.trim();
+        } else {
+          body.textContent = "Ingredientes no registrados todavía. Si tienes alergias, escríbenos y te confirmamos los ingredientes antes de preparar tu pedido.";
+        }
+
+        const msg = WHATSAPP_PREFIX + "¿Me confirmas los ingredientes de: " + itemName + "? Tengo una alergia y quiero asegurarme. Gracias.";
+        waBtn.href = waLink(msg);
+
+        modal.hidden = false;
+        backdrop.hidden = false;
+        document.addEventListener("keydown", onKey);
+      };
+
+      backdrop.addEventListener("click", close);
+      closeBtn.addEventListener("click", close);
+
+      document.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-ingredients-for]");
+        if (!btn) return;
+        e.preventDefault();
+        const itemName = btn.getAttribute("data-ingredients-for");
+        if (itemName) open(itemName);
+      });
+    }
+
+
+
     renderAll();
     renderFeatured();
     setupWhatsAppButtons();
     setupSearch();
+    setupIngredientsModal();
   </script>
 
   <footer class="site-footer">
