@@ -900,26 +900,7 @@
     .item-price{
       flex: 0 0 auto;               /* el precio nunca se comprime */
     }
-
-    /* CTA más grande y claro (mejor conversión) */
-    .item-actions .mini.wa{
-      flex: 1 1 160px;
-      justify-content: center;
-    }
     
-    /* En móviles, apila acciones para que no se vean apretadas */
-    @media (max-width: 560px){
-      .item-actions{
-        flex-direction: column;
-        align-items: stretch;
-      }
-      .item-actions .mini,
-      .item-actions .mini-btn{
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
   .top-badge{
     display:inline-flex;
     margin-left:8px;
@@ -931,6 +912,38 @@
     border: 1px solid rgba(245,124,34,.28);
     color: var(--brand);
     white-space: nowrap;
+  }
+
+  /* Acciones: layout estable (no se deforma en móvil) */
+  .item-actions{
+    margin-top:auto;
+    display:grid;
+    grid-template-columns: 1fr auto;  /* WhatsApp grande + Ingredientes compacto */
+    gap:8px;
+    align-items:center;
+  }
+  
+  /* Botón principal */
+  .item-actions .mini.wa{
+    width:100%;
+    justify-content:center;
+    padding:10px 14px;
+    border-radius:14px;              /* evita “círculos” raros */
+    line-height:1.1;
+  }
+  
+  /* Botón ingredientes */
+  .item-actions .mini-btn{
+    padding:10px 12px;
+    border-radius:14px;
+    line-height:1.1;
+  }
+  
+  /* En móvil: apila bonito y normal */
+  @media (max-width:560px){
+    .item-actions{
+      grid-template-columns: 1fr;
+    }
   }
 
     
@@ -1312,9 +1325,22 @@
 
     function itemHTML(it, categoryTitle) {
       const priceText = it.price != null ? formatPrice(it.price) : "";
-      const note = it.price == null ? "Consultar precio" : "Listo en minutos · Porciones que llenan";
-    
-      const isTop = FEATURED_SET.has(it.name.toLowerCase());
+
+      // Categorías donde NO queremos bloque "Sin foto"
+      const noPhotoCategories = ["Jugos","Gaseosa", "Cerveza"];
+      const isNoPhotoCat = noPhotoCategories.includes(categoryTitle);
+      
+      // Nota de venta por tipo (comida vs bebidas)
+      let note = "";
+      if (it.price == null) {
+        note = "Consultar precio";
+      } else if (isNoPhotoCat) {
+        note = "Bien fría · Ideal para acompañar";
+      } else {
+        note = "Listo en minutos · Porciones que llenan";
+      }
+
+      const isTop = !isNoPhotoCat && FEATURED_SET.has(it.name.toLowerCase());
       const topBadge = isTop ? `<span class="top-badge">Más pedido</span>` : "";
       
       // Categorías donde NO queremos bloque "Sin foto"
