@@ -1001,6 +1001,13 @@
 
       <div class="divider"></div>
       <div class="section-title" style="margin:0 0 10px;">
+        <h3 style="margin:0;font-size:14px;">Jugos</h3>
+        <span></span>
+      </div>
+      <div class="items" data-category="Jugos"></div>
+      
+      <div class="divider"></div>
+      <div class="section-title" style="margin:0 0 10px;">
         <h3 style="margin:0;font-size:14px;">Gaseosa</h3>
         <span></span>
       </div>
@@ -1145,6 +1152,15 @@
         ],
       },
       {
+        id: "jugos",
+        title: "Jugos",
+        desc: "Opciones individuales y jarras.",
+        items: [
+          { name: "Vaso de Jugo", price: 2.00, file: "" },
+          { name: "Jarra de Jugo", price: 6.00, file: "" },
+        ],
+      },      
+      {
         id: "gaseosas",
         title: "Gaseosa",
         desc: "Opciones individuales y familiares.",
@@ -1203,7 +1219,7 @@
       const note = it.price == null ? "Consultar precio" : "Pídelo por WhatsApp";
     
       // Categorías donde NO queremos bloque "Sin foto"
-      const noPhotoCategories = ["Gaseosa", "Cerveza"];
+      const noPhotoCategories = ["Jugos","Gaseosa", "Cerveza"];
       const isNoPhotoCat = noPhotoCategories.includes(categoryTitle);
     
       // Si es comida y no hay file, sí mostramos "Sin foto" (como antes).
