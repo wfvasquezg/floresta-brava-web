@@ -1000,7 +1000,31 @@
   /* Si no hay imagen y es "no-img", igual funciona */
   .item-media .no-img{ position: relative; }
 
-    
+  /* ===== Fix bebidas compactas ===== */
+  .item.item--compact{
+    min-height: auto;          /* quita el alto grande */
+  }
+  
+  .item.item--compact .item-body{
+    gap: 10px;
+  }
+  
+  .item.item--compact .item-actions{
+    margin-top: 8px;           /* NO empujar al fondo */
+  }
+
+  /* Precio inline solo para bebidas compactas */
+  .item-price-inline{
+    font-weight:1000;
+    color: var(--brand);
+    background: rgba(217,164,65,.18);
+    border: 1px solid rgba(217,164,65,.30);
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:13px;
+    white-space:nowrap;
+  }
+
   </style>
 </head>
 
@@ -1427,20 +1451,25 @@
     }
   }
 
-
+  
   // En bebidas no mostramos botón Ingredientes
   const showIngredients = !isNoPhotoCat;
-
+  
+  // Si es bebida compacta (sin imagen), mostramos precio en la cabecera
+  const headerPrice = isNoPhotoCat
+    ? `<span class="item-price-inline">${priceText || "—"}</span>`
+    : ``;
+  
   return `
     <article class="item${extraClass}" data-name="${(it.name || "").toLowerCase()}">
       ${imgBlock}
       <div class="item-body">
-
         <div class="item-header-line">
           <div class="item-name">${it.name}</div>
+          ${headerPrice}
         </div>
-        ${topBadge ? `<div class="top-badge-wrap">${topBadge}</div>` : ``}
-
+        ${!isNoPhotoCat ? `<div class="top-badge-wrap">${topBadge || ""}</div>` : ``}
+        ${!isNoPhotoCat ? `<div class="item-note">${note}</div>` : ``}
         <div class="item-actions">
           <a class="mini wa" href="${waForItem(it.name, priceText)}" target="_blank" rel="noopener">Pedir ahora</a>
           ${
@@ -1452,6 +1481,7 @@
       </div>
     </article>
   `;
+
 }
 
 
