@@ -808,7 +808,29 @@
     .fab a, .fab button{
       cursor: pointer;
     }
-   
+
+    /* ===== Items compactos (sin imagen) para bebidas ===== */
+    .item.item--compact{
+      min-height: auto;
+    }
+    
+    .item.item--compact .item-body{
+      padding: 12px;
+    }
+    
+    .item.item--compact .item-note{
+      min-height: 0;
+    }
+    
+    .item.item--compact .item-actions{
+      margin-top: 8px;
+    }
+    
+    /* opcional: alinear mejor en compactos */
+    .item.item--compact .item-header-line{
+      align-items: center;
+    }
+
     
   </style>
 </head>
@@ -1108,7 +1130,8 @@
         items: [
           { name: "Mediana", price: 1.00, file: "" },
           { name: "Personal", price: 0.65, file: "" },
-          { name: "1.35 ml", price: 2.25, file: "" },
+          { name: "1.35 L", price: 2.25, file: "" },
+
         ],
       },
       {
@@ -1153,16 +1176,36 @@
       return cat.items.find(i => i.name.toLowerCase() === itemName.toLowerCase()) || null;
     }
 
-    function itemHTML(it) {
+
+    function itemHTML(it, categoryTitle) {
       const priceText = it.price != null ? formatPrice(it.price) : "";
-      const imgBlock = it.file
-        ? `<img src="${IMG_BASE + it.file}" alt="${it.name}" class="item-img" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-img&quot;>Sin foto</div>'">`
-        : `<div class="no-img">Sin foto</div>`;
-
       const note = it.price == null ? "Consultar precio" : "Pídelo por WhatsApp";
-
+    
+      // Categorías donde NO queremos bloque "Sin foto"
+      const noPhotoCategories = ["Gaseosa", "Cerveza"];
+      const isNoPhotoCat = noPhotoCategories.includes(categoryTitle);
+    
+      // Si es comida y no hay file, sí mostramos "Sin foto" (como antes).
+      // Si es bebida (gaseosa/cerveza) y no hay file, hacemos tarjeta compacta sin imagen.
+      let imgBlock = "";
+      let extraClass = "";
+    
+      if (it.file) {
+        imgBlock = `<img src="${IMG_BASE + it.file}" alt="${it.name}" class="item-img" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-img&quot;>Sin foto</div>'">`;
+      } else {
+        if (!isNoPhotoCat) {
+          imgBlock = `<div class="no-img">Sin foto</div>`;
+        } else {
+          extraClass = " item--compact";
+          imgBlock = ""; // no renderiza nada
+        }
+      }
+    
+      // En bebidas no mostramos botón Ingredientes
+      const showIngredients = !isNoPhotoCat;
+    
       return `
-        <article class="item" data-name="${it.name.toLowerCase()}">
+        <article class="item${extraClass}" data-name="${it.name.toLowerCase()}">
           ${imgBlock}
           <div class="item-body">
             <div class="item-header-line">
@@ -1172,17 +1215,22 @@
             <div class="item-note">${note}</div>
             <div class="item-actions">
               <a class="mini wa" href="${waForItem(it.name, priceText)}" target="_blank" rel="noopener">Pedir este</a>
-              <button class="mini-btn" type="button" data-ingredients-for="${it.name}">Ingredientes</button>
+              ${
+                showIngredients
+                  ? `<button class="mini-btn" type="button" data-ingredients-for="${it.name}">Ingredientes</button>`
+                  : ``
+              }
             </div>
           </div>
         </article>
       `;
     }
 
+
     function renderCategory(categoryTitle, container) {
       const cat = MENU.find(c => c.title === categoryTitle);
       if (!cat) return;
-      container.innerHTML = cat.items.map(itemHTML).join("");
+      container.innerHTML = cat.items.map(it => itemHTML(it, categoryTitle)).join("");
     }
 
     function renderAll() {
