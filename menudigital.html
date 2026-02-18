@@ -908,10 +908,25 @@
     }
     
     .item-name{
+      font-weight:1000;
+      font-size:14px;
+      line-height:1.2;
+    
       flex: 1 1 auto;
-      min-width: 0;                 /* CLAVE: permite que el texto se ajuste */
-      overflow-wrap: anywhere;      /* rompe palabras largas si hace falta */
+      min-width: 0;
+    
+      /* NO cortar dentro de palabras */
+      overflow-wrap: break-word;  /* en vez de anywhere */
+      word-break: normal;
+      hyphens: auto;
+    
+      /* Opcional recomendado: máximo 2 líneas (se ve PRO en móvil) */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
+
     
     .item-price{
       flex: 0 0 auto;               /* el precio nunca se comprime */
