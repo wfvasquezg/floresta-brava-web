@@ -496,6 +496,22 @@
       color:#fff;
     }
 
+    .mini-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border: 1px solid var(--line);
+      background:#fff;
+      color: var(--ink);
+      text-decoration:none;
+      font-weight:900;
+      font-size:12px;
+      cursor:pointer;
+    }
+    
     /* Floating buttons (WhatsApp + Categorías) */
 
     .floating-ctas{
@@ -1324,69 +1340,68 @@
     const FEATURED_SET = new Set(FEATURED.map(x => x.name.toLowerCase()));
 
     function itemHTML(it, categoryTitle) {
-      const priceText = it.price != null ? formatPrice(it.price) : "";
+  const priceText = it.price != null ? formatPrice(it.price) : "";
 
-      // Categorías donde NO queremos bloque "Sin foto"
-      const noPhotoCategories = ["Jugos","Gaseosa", "Cerveza"];
-      const isNoPhotoCat = noPhotoCategories.includes(categoryTitle);
-      
-      // Nota de venta por tipo (comida vs bebidas)
-      let note = "";
-      if (it.price == null) {
-        note = "Consultar precio";
-      } else if (isNoPhotoCat) {
-        note = "Bien fría · Ideal para acompañar";
-      } else {
-        note = "Listo en minutos · Porciones que llenan";
-      }
+  // Categorías donde NO queremos bloque "Sin foto" + sin botón Ingredientes
+  const noPhotoCategories = ["Jugos", "Gaseosa", "Cerveza"];
+  const isNoPhotoCat = noPhotoCategories.includes(categoryTitle);
 
-      const isTop = !isNoPhotoCat && FEATURED_SET.has(it.name.toLowerCase());
-      const topBadge = isTop ? `<span class="top-badge">Más pedido</span>` : "";
-      
-      // Categorías donde NO queremos bloque "Sin foto"
-      const noPhotoCategories = ["Jugos","Gaseosa", "Cerveza"];
-      const isNoPhotoCat = noPhotoCategories.includes(categoryTitle);
-    
-      // Si es comida y no hay file, sí mostramos "Sin foto" (como antes).
-      // Si es bebida (gaseosa/cerveza) y no hay file, hacemos tarjeta compacta sin imagen.
-      let imgBlock = "";
-      let extraClass = "";
-    
-      if (it.file) {
-        imgBlock = `<img src="${IMG_BASE + it.file}" alt="${it.name}" class="item-img" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-img&quot;>Sin foto</div>'">`;
-      } else {
-        if (!isNoPhotoCat) {
-          imgBlock = `<div class="no-img">Sin foto</div>`;
-        } else {
-          extraClass = " item--compact";
-          imgBlock = ""; // no renderiza nada
-        }
-      }
-    
-      // En bebidas no mostramos botón Ingredientes
-      const showIngredients = !isNoPhotoCat;
-    
-      return `
-        <article class="item${extraClass}" data-name="${it.name.toLowerCase()}">
-          ${imgBlock}
-          <div class="item-body">
-            <div class="item-header-line">
-              <div class="item-name">${it.name} ${topBadge}</div>
-              <div class="item-price">${priceText || "—"}</div>
-            </div>
-            <div class="item-note">${note}</div>
-            <div class="item-actions">
-              <a class="mini wa" href="${waForItem(it.name, priceText)}" target="_blank" rel="noopener">Pedir ahora</a>
-              ${
-                showIngredients
-                  ? `<button class="mini-btn" type="button" data-ingredients-for="${it.name}">Ingredientes</button>`
-                  : ``
-              }
-            </div>
-          </div>
-        </article>
-      `;
+  // Nota de venta por tipo (comida vs bebidas)
+  let note = "";
+  if (it.price == null) {
+    note = "Consultar precio";
+  } else if (categoryTitle === "Jugos") {
+    note = "Natural y refrescante";
+  } else if (categoryTitle === "Gaseosa" || categoryTitle === "Cerveza") {
+    note = "Bien fría · Ideal para acompañar";
+  } else {
+    note = "Listo en minutos · Porciones que llenan";
+  }
+
+  // Badge "Más pedido" solo para comida (no bebidas)
+  const isTop = !isNoPhotoCat && FEATURED_SET.has((it.name || "").toLowerCase());
+  const topBadge = isTop ? `<span class="top-badge">Más pedido</span>` : "";
+
+  // Si es comida y no hay file, mostramos "Sin foto".
+  // Si es bebida y no hay file, hacemos tarjeta compacta sin imagen.
+  let imgBlock = "";
+  let extraClass = "";
+
+  if (it.file) {
+    imgBlock = `<img src="${IMG_BASE + it.file}" alt="${it.name}" class="item-img" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-img&quot;>Sin foto</div>'">`;
+  } else {
+    if (!isNoPhotoCat) {
+      imgBlock = `<div class="no-img">Sin foto</div>`;
+    } else {
+      extraClass = " item--compact";
+      imgBlock = "";
     }
+  }
+
+  // En bebidas no mostramos botón Ingredientes
+  const showIngredients = !isNoPhotoCat;
+
+  return `
+    <article class="item${extraClass}" data-name="${(it.name || "").toLowerCase()}">
+      ${imgBlock}
+      <div class="item-body">
+        <div class="item-header-line">
+          <div class="item-name">${it.name} ${topBadge}</div>
+          <div class="item-price">${priceText || "—"}</div>
+        </div>
+        <div class="item-note">${note}</div>
+        <div class="item-actions">
+          <a class="mini wa" href="${waForItem(it.name, priceText)}" target="_blank" rel="noopener">Pedir ahora</a>
+          ${
+            showIngredients
+              ? `<button class="mini-btn" type="button" data-ingredients-for="${it.name}">Ingredientes</button>`
+              : ``
+          }
+        </div>
+      </div>
+    </article>
+  `;
+}
 
 
     function renderCategory(categoryTitle, container) {
