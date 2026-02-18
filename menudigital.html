@@ -507,6 +507,15 @@
       gap:10px;
       align-items:flex-end;
     }
+
+    .floating-ctas {
+      position: fixed;
+      right: calc(16px + env(safe-area-inset-right));
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      display: grid;
+      gap: 10px;
+      z-index: 999;
+    }    
    
     .float-btn{
       appearance: none;
