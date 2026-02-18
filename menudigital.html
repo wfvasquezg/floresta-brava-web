@@ -462,7 +462,16 @@
       min-width: 68px;
       text-align:center;
     }
-    .item-note{ display:none; }
+     .item-note{
+      color:var(--muted);
+      font-size:12.5px;
+      font-weight:650;
+      line-height:1.35;
+      margin: 0;            /* evita margen raro */
+    }
+    .item-note:empty{ display:none; }  /* si está vacío, no ocupa espacio */
+
+    
     .item-actions{
       margin-top:auto;
       display:flex;
@@ -1469,7 +1478,7 @@
           ${headerPrice}
         </div>
         ${!isNoPhotoCat ? `<div class="top-badge-wrap">${topBadge || ""}</div>` : ``}
-        ${!isNoPhotoCat ? `<div class="item-note">${note}</div>` : ``}
+        ${(!isNoPhotoCat && note) ? `<div class="item-note">${note}</div>` : ``}
         <div class="item-actions">
           <a class="mini wa" href="${waForItem(it.name, priceText)}" target="_blank" rel="noopener">Pedir ahora</a>
           ${
