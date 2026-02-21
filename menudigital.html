@@ -1195,15 +1195,26 @@
 /* Fix mobile: evita que "Limpiar" se corte (mejor layout en pantallas pequeñas) */
 @media (max-width: 480px){
   .cart-panel{ bottom: calc(84px + env(safe-area-inset-bottom)); }
+
   .cart-actions{
     display:grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 0.9fr 1.1fr;
     gap:10px;
   }
-  .cart-clear, .cart-send{
+
+  /* CTA principal (WhatsApp) grande */
+  .cart-send{
     width:100%;
     min-height:44px;
     padding:12px 14px;
+  }
+
+  /* Secundario (Limpiar) más pequeño */
+  .cart-clear{
+    width:100%;
+    min-height:36px;
+    padding:8px 10px;
+    font-size:12px;
   }
 }
 .cart-clear{
