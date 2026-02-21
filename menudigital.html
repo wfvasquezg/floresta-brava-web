@@ -519,6 +519,24 @@
       color:#fff;
     }
 
+    /* Selección / carrito */
+    .mini-select{ user-select:none; }
+    .mini-select.is-selected{
+      background: linear-gradient(135deg, #0b2a2b, #145b6b);
+      border: 0;
+      color:#fff;
+    }
+    .mini-select.is-selected::after{
+      content:" ✓";
+      font-weight:1000;
+    }
+    .fab.disabled{
+      opacity:.55;
+      pointer-events:none;
+      filter: grayscale(.15);
+    }
+
+
     .mini-btn{
       display:inline-flex;
       align-items:center;
@@ -1231,14 +1249,14 @@
 
   <!-- Botones flotantes -->
   <div class="floating-ctas" aria-label="Accesos rápidos">
-    <a class="fab fab-whatsapp"
-       href="https://wa.me/593983603626?text=Hola%20vengo%20desde%20el%20menu%20digital%20de%20Floresta%20Brava%20y%20quiero%20hacer%20un%20pedido"
-       target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">
+    <a class="fab fab-whatsapp" id="waCart"
+       href="#"
+       target="_blank" rel="noopener" aria-label="Enviar pedido por WhatsApp">
       <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
         <path d="M19.11 17.45c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.48-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5 0 1.47 1.08 2.9 1.23 3.1.15.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.71.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/>
         <path d="M16.02 3C8.84 3 3 8.84 3 16.02c0 2.3.6 4.47 1.65 6.36L3 29l6.81-1.63c1.82 1 3.92 1.57 6.21 1.57C23.2 28.94 29 23.2 29 16.02 29 8.84 23.2 3 16.02 3zm0 23.64c-2.06 0-3.97-.6-5.59-1.63l-.4-.25-4.04.97.96-3.93-.26-.41a10.48 10.48 0 0 1-1.64-5.67c0-5.82 4.74-10.56 10.56-10.56 5.82 0 10.56 4.74 10.56 10.56 0 5.82-4.74 10.56-10.56 10.56z"/>
       </svg>
-      <span>Pedir</span>
+      <span>Enviar (0)</span>
     </a>
   
     <a class="fab fab-call" href="tel:+593983603626" aria-label="Llamar">
@@ -1423,6 +1441,113 @@
       return waLink(msg);
     }
 
+    /***********************
+     * CARRITO / SELECCION MULTI-ITEM
+     ***********************/
+    const CART = new Map(); // key: lower(name) -> { name, price, qty }
+
+    function cartKey(name){ return (name || "").toLowerCase().trim(); }
+
+    function addOrToggleItem(name, price){
+      const key = cartKey(name);
+      if (!key) return;
+      if (CART.has(key)){
+        CART.delete(key);
+      } else {
+        const p = (price === "" || price == null) ? null : Number(price);
+        CART.set(key, { name, price: (Number.isFinite(p) ? p : null), qty: 1 });
+      }
+      syncCartUI();
+    }
+
+    function changeQty(name, delta){
+      const key = cartKey(name);
+      const it = CART.get(key);
+      if (!it) return;
+      it.qty = Math.max(1, (it.qty || 1) + delta);
+      CART.set(key, it);
+      syncCartUI();
+    }
+
+    function cartCount(){
+      let n = 0;
+      for (const v of CART.values()) n += (v.qty || 1);
+      return n;
+    }
+
+    function cartTotal(){
+      let t = 0;
+      for (const v of CART.values()){
+        if (typeof v.price === "number") t += v.price * (v.qty || 1);
+      }
+      return t;
+    }
+
+    function buildCartMessage(){
+      if (CART.size === 0){
+        return WHATSAPP_PREFIX + "Quiero hacer un pedido. ¿Me ayudas por favor?";
+      }
+
+      const lines = [];
+      lines.push(WHATSAPP_PREFIX + "Quiero pedir:");
+      for (const v of CART.values()){
+        const qty = v.qty || 1;
+        const priceTxt = (typeof v.price === "number") ? formatPrice(v.price) : "";
+        lines.push("- " + v.name + " x" + qty + (priceTxt ? " (" + priceTxt + " c/u)" : ""));
+      }
+      const total = cartTotal();
+      if (total > 0){
+        lines.push("Total aprox: " + formatPrice(total));
+      }
+      lines.push("Gracias.");
+      return lines.join("
+");
+    }
+
+    function syncCartUI(){
+      // Botón flotante WhatsApp
+      const waBtn = document.getElementById("waCart");
+      if (waBtn){
+        const n = cartCount();
+        const span = waBtn.querySelector("span");
+        if (span) span.textContent = "Enviar (" + n + ")";
+        if (n === 0){
+          waBtn.classList.add("disabled");
+          waBtn.href = "#";
+          waBtn.setAttribute("aria-disabled", "true");
+        } else {
+          waBtn.classList.remove("disabled");
+          waBtn.removeAttribute("aria-disabled");
+          waBtn.href = waLink(buildCartMessage());
+        }
+      }
+
+      // Marca visual en botones "Seleccionar"
+      document.querySelectorAll("[data-add-item]").forEach(btn => {
+        const name = btn.getAttribute("data-add-item") || "";
+        const selected = CART.has(cartKey(name));
+        btn.classList.toggle("is-selected", selected);
+        btn.textContent = selected ? "Seleccionado" : "Seleccionar";
+      });
+    }
+
+    function setupCartSelection(){
+      // Click en Seleccionar
+      document.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-add-item]");
+        if (!btn) return;
+
+        e.preventDefault();
+        const name = btn.getAttribute("data-add-item") || "";
+        const price = btn.getAttribute("data-add-price");
+        addOrToggleItem(name, price);
+      });
+
+      // Inicial
+      syncCartUI();
+    }
+
+
     function findItem(categoryTitle, itemName) {
       const cat = MENU.find(c => c.title.toLowerCase() === categoryTitle.toLowerCase());
       if (!cat) return null;
@@ -1501,7 +1626,7 @@
         ${!isNoPhotoCat ? `<div class="top-badge-wrap">${topBadge || ""}</div>` : ``}
         ${(!isNoPhotoCat && note) ? `<div class="item-note">${note}</div>` : ``}
         <div class="item-actions">
-          <a class="mini wa" href="${waForItem(it.name, priceText)}" target="_blank" rel="noopener">Pedir ahora</a>
+          <button class="mini wa mini-select" type="button" data-add-item="${it.name}" data-add-price="${it.price != null ? it.price : ""}">Seleccionar</button>
           ${
             showIngredients
               ? `<button class="mini-btn" type="button" data-ingredients-for="${it.name}">Ingredientes</button>`
@@ -1752,6 +1877,7 @@
     renderAll();
     renderFeatured();
     setupWhatsAppButtons();
+    setupCartSelection();
     setupSearch();
     setupIngredientsModal();
     setupCategoriesMenu(); 
