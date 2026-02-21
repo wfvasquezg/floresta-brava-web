@@ -1270,13 +1270,13 @@
 
 
 @media (max-width: 480px){
-  /* SOLO Limpiar más pequeño en móvil (sin tocar Enviar) */
   .cart-actions .cart-clear{
-    width: auto !important;
-    min-height: 30px !important;
+    width: auto !important;          /* que no se estire */
+    justify-self: start !important;  /* clave: evita el stretch del grid */
+    border-radius: 14px !important;  /* opcional: se ve más compacto */
     padding: 6px 12px !important;
+    min-height: 30px !important;
     font-size: 12px !important;
-    font-weight: 800 !important;
   }
 }
 </style>
