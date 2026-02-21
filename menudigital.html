@@ -1179,6 +1179,21 @@
 }
 .cart-total{ font-weight:900; color:var(--ink); margin-bottom:10px; }
 .cart-actions{ display:flex; gap:10px; }
+
+/* Fix mobile: evita que "Limpiar" se corte (mejor layout en pantallas pequeñas) */
+@media (max-width: 480px){
+  .cart-panel{ bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .cart-actions{
+    display:grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap:10px;
+  }
+  .cart-clear, .cart-send{
+    width:100%;
+    min-height:44px;
+    padding:12px 14px;
+  }
+}
 .cart-clear{
   flex:1;
   border-radius: 999px;
