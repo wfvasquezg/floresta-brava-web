@@ -1720,8 +1720,9 @@ function buildCartMessage(){
     lines.push("Observaciones: " + notes);
   }
   lines.push("Gracias.");
-  return lines.join("\n");
-}}
+  return lines.join("
+");
+}
 
 function toggleCartPanel(forceOpen){
   const panel = document.getElementById("cartPanel");
