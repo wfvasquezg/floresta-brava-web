@@ -1072,7 +1072,138 @@
     white-space:nowrap;
   }
 
-  </style>
+  
+
+/* Cantidades (+ / -) en tarjetas */
+.qty-ctrl{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 8px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fff;
+}
+.qty-btn{
+  width:28px;
+  height:28px;
+  border-radius:999px;
+  border:1px solid rgba(12,107,115,.25);
+  background:rgba(255,255,255,.92);
+  color:#0b2c2f;
+  font-weight:900;
+  cursor:pointer;
+  line-height:1;
+}
+.qty-val{
+  min-width:18px;
+  text-align:center;
+  font-weight:900;
+  color:var(--ink);
+  font-size:13px;
+}
+
+/* FAB extra: Pedido */
+.fab-cart{
+  background:#0b2c2f;
+}
+
+/* Panel mini carrito */
+.cart-panel{
+  position: fixed;
+  right: calc(16px + env(safe-area-inset-right));
+  bottom: calc(92px + env(safe-area-inset-bottom));
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(55vh, 420px);
+  background: rgba(255,255,255,.98);
+  border:1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.12);
+  z-index: 998;
+  overflow: hidden;
+  display:none;
+}
+.cart-panel.open{ display:block; }
+.cart-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 12px;
+  background: linear-gradient(180deg, rgba(31,179,110,.12), rgba(255,255,255,0));
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+.cart-title{ font-weight:900; color:var(--ink); }
+.cart-close{
+  width:32px; height:32px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  cursor:pointer;
+  font-size:18px;
+  line-height:1;
+}
+.cart-list{
+  padding:10px 12px;
+  overflow:auto;
+  max-height: calc(min(55vh, 420px) - 120px);
+}
+.cart-empty{ color: var(--muted); font-size:13px; padding:10px 2px; }
+.cart-row{
+  display:flex;
+  gap:10px;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px dashed rgba(0,0,0,.08);
+}
+.cart-row:last-child{ border-bottom:none; }
+.cart-row-name{ font-weight:900; color:var(--ink); font-size:13px; }
+.cart-row-sub{ color:var(--muted); font-size:12px; margin-top:2px; }
+.cart-row-right{ text-align:right; }
+.cart-row-total{ font-weight:900; color:var(--ink); font-size:13px; }
+.cart-row-qty{ display:inline-flex; align-items:center; gap:6px; margin-top:6px; }
+.cart-mini-btn{
+  width:26px; height:26px;
+  border-radius:999px;
+  border:1px solid rgba(12,107,115,.25);
+  background:#fff;
+  cursor:pointer;
+  font-weight:900;
+  line-height:1;
+}
+.cart-mini-val{ min-width:16px; text-align:center; font-weight:900; font-size:12px; }
+
+.cart-foot{
+  padding:10px 12px 12px;
+  border-top:1px solid rgba(0,0,0,.06);
+  background:#fff;
+}
+.cart-total{ font-weight:900; color:var(--ink); margin-bottom:10px; }
+.cart-actions{ display:flex; gap:10px; }
+.cart-clear{
+  flex:1;
+  border-radius: 999px;
+  border:1px solid var(--line);
+  background:#fff;
+  padding:10px 12px;
+  font-weight:900;
+  cursor:pointer;
+}
+.cart-send{
+  flex:1.2;
+  border-radius: 999px;
+  border:1px solid rgba(0,0,0,.0);
+  background: var(--wa);
+  color:#fff;
+  text-decoration:none;
+  padding:10px 12px;
+  font-weight:900;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.cart-send.disabled{ opacity:.6; pointer-events:none; }
+</style>
 </head>
 
 <body>
@@ -1258,6 +1389,14 @@
       </svg>
       <span>Enviar (0)</span>
     </a>
+<a class="fab fab-cart" id="cartToggle"
+   href="#"
+   aria-label="Ver pedido">
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.2 6h13.1c.7 0 1.2.7 1 1.4l-1.6 6.1c-.2.6-.8 1-1.4 1H8.1l.3 1.2c.1.4.5.8 1 .8H19v2H9.4c-1.4 0-2.6-1-2.9-2.4L4.3 4H2V2h3.7l1.5 4z"/>
+  </svg>
+  <span>Pedido</span>
+</a>
   
     <a class="fab fab-call" href="tel:+593983603626" aria-label="Llamar">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -1265,7 +1404,23 @@
       </svg>
       <span>Llamar</span>
     </a>
+  </div
+
+<!-- Mini panel de carrito -->
+<aside class="cart-panel empty" id="cartPanel" aria-label="Tu pedido">
+  <div class="cart-head">
+    <div class="cart-title">Tu pedido</div>
+    <button type="button" class="cart-close" id="cartClose" aria-label="Cerrar">×</button>
   </div>
+  <div class="cart-list"></div>
+  <div class="cart-foot">
+    <div class="cart-total">Total: —</div>
+    <div class="cart-actions">
+      <button type="button" class="cart-clear" id="cartClear">Limpiar</button>
+      <a class="cart-send" id="cartSend" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+    </div>
+  </div>
+</aside>>
 
 
   <!-- Menú de categorías (overlay) -->
@@ -1442,112 +1597,218 @@
     }
 
     /***********************
-     * CARRITO / SELECCION MULTI-ITEM
-     ***********************/
-    const CART = new Map(); // key: lower(name) -> { name, price, qty }
+ * CARRITO (CANTIDADES) + PANEL MINI
+ ***********************/
+const CART = new Map(); // key: lower(name) -> { name, price, qty }
 
-    function cartKey(name){ return (name || "").toLowerCase().trim(); }
+function cartKey(name){ return (name || "").toLowerCase().trim(); }
 
-    function addOrToggleItem(name, price){
-      const key = cartKey(name);
-      if (!key) return;
-      if (CART.has(key)){
-        CART.delete(key);
-      } else {
-        const p = (price === "" || price == null) ? null : Number(price);
-        CART.set(key, { name, price: (Number.isFinite(p) ? p : null), qty: 1 });
-      }
-      syncCartUI();
+function normPrice(p){
+  if (p === "" || p == null) return null;
+  const n = Number(String(p).replace(",", "."));
+  return Number.isFinite(n) ? n : null;
+}
+
+function setQty(name, price, qty){
+  const key = cartKey(name);
+  if (!key) return;
+  const q = Math.max(0, Number(qty || 0));
+  if (q === 0){
+    CART.delete(key);
+  } else {
+    CART.set(key, { name, price: normPrice(price), qty: q });
+  }
+  syncCartUI();
+}
+
+function incQty(name, price, delta){
+  const key = cartKey(name);
+  const cur = CART.get(key);
+  const next = Math.max(0, (cur ? (cur.qty || 0) : 0) + delta);
+  setQty(name, price, next);
+}
+
+function cartCount(){
+  let n = 0;
+  for (const v of CART.values()) n += (v.qty || 0);
+  return n;
+}
+
+function cartTotal(){
+  let t = 0;
+  for (const v of CART.values()){
+    if (typeof v.price === "number") t += v.price * (v.qty || 0);
+  }
+  return t;
+}
+
+function buildCartMessage(){
+  if (CART.size === 0){
+    return WHATSAPP_PREFIX + "Quiero hacer un pedido. ¿Me ayudas por favor?";
+  }
+
+  const lines = [];
+  lines.push(WHATSAPP_PREFIX + "Quiero pedir:");
+  for (const v of CART.values()){
+    const qty = v.qty || 0;
+    const priceTxt = (typeof v.price === "number") ? formatPrice(v.price) : "";
+    lines.push("- " + v.name + " x" + qty + (priceTxt ? " (" + priceTxt + " c/u)" : ""));
+  }
+
+  const total = cartTotal();
+  if (total > 0){
+    lines.push("Total aprox: " + formatPrice(total));
+  }
+  lines.push("Gracias.");
+  return lines.join("\n");
+}
+
+function toggleCartPanel(forceOpen){
+  const panel = document.getElementById("cartPanel");
+  if (!panel) return;
+  const open = (typeof forceOpen === "boolean") ? forceOpen : !panel.classList.contains("open");
+  panel.classList.toggle("open", open);
+}
+
+function syncCartUI(){
+  const n = cartCount();
+
+  // Botón flotante WhatsApp (sigue enviando directo)
+  const waBtn = document.getElementById("waCart");
+  if (waBtn){
+    const span = waBtn.querySelector("span");
+    if (span) span.textContent = "Enviar (" + n + ")";
+    if (n === 0){
+      waBtn.classList.add("disabled");
+      waBtn.href = "#";
+      waBtn.setAttribute("aria-disabled", "true");
+    } else {
+      waBtn.classList.remove("disabled");
+      waBtn.removeAttribute("aria-disabled");
+      waBtn.href = waLink(buildCartMessage());
     }
+  }
 
-    function changeQty(name, delta){
-      const key = cartKey(name);
-      const it = CART.get(key);
-      if (!it) return;
-      it.qty = Math.max(1, (it.qty || 1) + delta);
-      CART.set(key, it);
-      syncCartUI();
-    }
+  // Controles de cantidad en tarjetas
+  document.querySelectorAll("[data-qty-name]").forEach(el => {
+    const name = el.getAttribute("data-qty-name") || "";
+    const it = CART.get(cartKey(name));
+    el.textContent = String(it ? (it.qty || 0) : 0);
+  });
 
-    function cartCount(){
-      let n = 0;
-      for (const v of CART.values()) n += (v.qty || 1);
-      return n;
-    }
+  // Panel mini carrito
+  const panel = document.getElementById("cartPanel");
+  if (panel){
+    const list = panel.querySelector(".cart-list");
+    const totalEl = panel.querySelector(".cart-total");
+    const send = panel.querySelector("#cartSend");
+    const clearBtn = panel.querySelector("#cartClear");
 
-    function cartTotal(){
-      let t = 0;
-      for (const v of CART.values()){
-        if (typeof v.price === "number") t += v.price * (v.qty || 1);
-      }
-      return t;
-    }
-
-    function buildCartMessage(){
-      if (CART.size === 0){
-        return WHATSAPP_PREFIX + "Quiero hacer un pedido. ¿Me ayudas por favor?";
-      }
-
-      const lines = [];
-      lines.push(WHATSAPP_PREFIX + "Quiero pedir:");
-      for (const v of CART.values()){
-        const qty = v.qty || 1;
-        const priceTxt = (typeof v.price === "number") ? formatPrice(v.price) : "";
-        lines.push("- " + v.name + " x" + qty + (priceTxt ? " (" + priceTxt + " c/u)" : ""));
+    if (n === 0){
+      panel.classList.remove("open");
+      panel.classList.add("empty");
+      if (list) list.innerHTML = '<div class="cart-empty">Selecciona productos con + para armar tu pedido.</div>';
+      if (totalEl) totalEl.textContent = "Total: —";
+      if (send) { send.classList.add("disabled"); send.href = "#"; }
+      if (clearBtn) clearBtn.disabled = true;
+    } else {
+      panel.classList.remove("empty");
+      if (list){
+        const rows = [];
+        for (const v of CART.values()){
+          const qty = v.qty || 0;
+          const lineTotal = (typeof v.price === "number") ? (v.price * qty) : null;
+          const priceTxt = (typeof v.price === "number") ? formatPrice(v.price) : "—";
+          const lineTxt  = (lineTotal != null) ? formatPrice(lineTotal) : "—";
+          rows.push(
+            `<div class="cart-row">
+               <div class="cart-row-main">
+                 <div class="cart-row-name">${v.name}</div>
+                 <div class="cart-row-sub">${qty} x ${priceTxt}</div>
+               </div>
+               <div class="cart-row-right">
+                 <div class="cart-row-total">${lineTxt}</div>
+                 <div class="cart-row-qty">
+                   <button type="button" class="cart-mini-btn" data-cart-minus="${v.name}" aria-label="Restar">−</button>
+                   <span class="cart-mini-val">${qty}</span>
+                   <button type="button" class="cart-mini-btn" data-cart-plus="${v.name}" data-cart-price="${v.price != null ? v.price : ""}" aria-label="Sumar">+</button>
+                 </div>
+               </div>
+             </div>`
+          );
+        }
+        list.innerHTML = rows.join("");
       }
       const total = cartTotal();
-      if (total > 0){
-        lines.push("Total aprox: " + formatPrice(total));
-      }
-      lines.push("Gracias.");
-      return lines.join("\n");
+      if (totalEl) totalEl.textContent = (total > 0) ? ("Total aprox: " + formatPrice(total)) : "Total: —";
+      if (send) { send.classList.remove("disabled"); send.href = waLink(buildCartMessage()); }
+      if (clearBtn) clearBtn.disabled = false;
     }
+  }
+}
 
-    function syncCartUI(){
-      // Botón flotante WhatsApp
-      const waBtn = document.getElementById("waCart");
-      if (waBtn){
-        const n = cartCount();
-        const span = waBtn.querySelector("span");
-        if (span) span.textContent = "Enviar (" + n + ")";
-        if (n === 0){
-          waBtn.classList.add("disabled");
-          waBtn.href = "#";
-          waBtn.setAttribute("aria-disabled", "true");
-        } else {
-          waBtn.classList.remove("disabled");
-          waBtn.removeAttribute("aria-disabled");
-          waBtn.href = waLink(buildCartMessage());
-        }
-      }
+function setupCartSelection(){
+  // + / - en tarjetas
+  document.addEventListener("click", (e) => {
+    const plus = e.target.closest("[data-plus-item]");
+    const minus = e.target.closest("[data-minus-item]");
+    if (!plus && !minus) return;
 
-      // Marca visual en botones "Seleccionar"
-      document.querySelectorAll("[data-add-item]").forEach(btn => {
-        const name = btn.getAttribute("data-add-item") || "";
-        const selected = CART.has(cartKey(name));
-        btn.classList.toggle("is-selected", selected);
-        btn.textContent = selected ? "Seleccionado" : "Seleccionar";
-      });
+    e.preventDefault();
+    if (plus){
+      const name = plus.getAttribute("data-plus-item") || "";
+      const price = plus.getAttribute("data-plus-price");
+      incQty(name, price, +1);
+      // abrir panel cuando agregan el primer producto
+      if (cartCount() === 1) toggleCartPanel(true);
+    } else if (minus){
+      const name = minus.getAttribute("data-minus-item") || "";
+      const price = minus.getAttribute("data-minus-price");
+      incQty(name, price, -1);
     }
+  });
 
-    function setupCartSelection(){
-      // Click en Seleccionar
-      document.addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-add-item]");
-        if (!btn) return;
+  // Panel: abrir/cerrar, limpiar, ajustar cantidades dentro del panel
+  document.addEventListener("click", (e) => {
+    const openBtn = e.target.closest("#cartToggle");
+    const closeBtn = e.target.closest("#cartClose");
+    const clearBtn = e.target.closest("#cartClear");
+    const plus = e.target.closest("[data-cart-plus]");
+    const minus = e.target.closest("[data-cart-minus]");
 
-        e.preventDefault();
-        const name = btn.getAttribute("data-add-item") || "";
-        const price = btn.getAttribute("data-add-price");
-        addOrToggleItem(name, price);
-      });
+    if (openBtn){ e.preventDefault(); toggleCartPanel(); return; }
+    if (closeBtn){ e.preventDefault(); toggleCartPanel(false); return; }
 
-      // Inicial
+    if (clearBtn){
+      e.preventDefault();
+      CART.clear();
       syncCartUI();
+      return;
     }
 
+    if (plus){
+      e.preventDefault();
+      const name = plus.getAttribute("data-cart-plus") || "";
+      const price = plus.getAttribute("data-cart-price");
+      incQty(name, price, +1);
+      return;
+    }
 
-    function findItem(categoryTitle, itemName) {
+    if (minus){
+      e.preventDefault();
+      const name = minus.getAttribute("data-cart-minus") || "";
+      // precio se toma del carrito actual
+      const it = CART.get(cartKey(name));
+      incQty(name, it ? it.price : null, -1);
+      return;
+    }
+  });
+
+  // Inicial
+  syncCartUI();
+}
+
+function findItemfunction findItem(categoryTitle, itemName) {
       const cat = MENU.find(c => c.title.toLowerCase() === categoryTitle.toLowerCase());
       if (!cat) return null;
       return cat.items.find(i => i.name.toLowerCase() === itemName.toLowerCase()) || null;
@@ -1625,7 +1886,11 @@
         ${!isNoPhotoCat ? `<div class="top-badge-wrap">${topBadge || ""}</div>` : ``}
         ${(!isNoPhotoCat && note) ? `<div class="item-note">${note}</div>` : ``}
         <div class="item-actions">
-          <button class="mini wa mini-select" type="button" data-add-item="${it.name}" data-add-price="${it.price != null ? it.price : ""}">Seleccionar</button>
+          <div class="qty-ctrl" aria-label="Cantidad">
+  <button class="qty-btn" type="button" data-minus-item="${it.name}" data-minus-price="${it.price != null ? it.price : ""}" aria-label="Restar">−</button>
+  <span class="qty-val" data-qty-name="${it.name}">0</span>
+  <button class="qty-btn" type="button" data-plus-item="${it.name}" data-plus-price="${it.price != null ? it.price : ""}" aria-label="Sumar">+</button>
+</div>
           ${
             showIngredients
               ? `<button class="mini-btn" type="button" data-ingredients-for="${it.name}">Ingredientes</button>`
