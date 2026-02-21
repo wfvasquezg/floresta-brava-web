@@ -1808,7 +1808,7 @@ function setupCartSelection(){
   syncCartUI();
 }
 
-function findItemfunction findItem(categoryTitle, itemName) {
+function findItem(categoryTitle, itemName) {
       const cat = MENU.find(c => c.title.toLowerCase() === categoryTitle.toLowerCase());
       if (!cat) return null;
       return cat.items.find(i => i.name.toLowerCase() === itemName.toLowerCase()) || null;
