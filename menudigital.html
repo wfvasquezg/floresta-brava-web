@@ -1307,6 +1307,15 @@
       transparent 100%);
   }
 
+  @media (max-width: 480px){
+  /* Evita que el header fijo tape la X del carrito */
+  .cart-panel.open{
+    top: 92px !important;   /* ajusta a 84–110 según tu header */
+    bottom: auto !important;
+    max-height: calc(100vh - 92px - 84px) !important; /* espacio arriba y para los FAB abajo */
+  }
+}
+
 </style>
 </head>
 
