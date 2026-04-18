@@ -303,13 +303,12 @@
 
   <script>
     const SHEET_CONFIG = {
-      spreadsheetId: '1A7LBK6E_pnmcGnvfushwHClpeC1yc0SEOTOAXyBoVJc',
-      gid: '1748658337',
+      publishedCsvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRYEmb5kfi089waViF4yNTGsSyeQYKDO-KFyuHBZGMXjxjB2fs38FWdHne6387SjEVs9HQq2qJPdh4A/pub?gid=1748658337&single=true&output=csv',
       whatsapp: '593983603626'
     };
 
-    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_CONFIG.spreadsheetId}/export?format=csv&gid=${SHEET_CONFIG.gid}`;
-
+    const CSV_URL = SHEET_CONFIG.publishedCsvUrl;
+    
     const state = {
       menu: null,
       selectedSoupId: null,
