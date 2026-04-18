@@ -4,842 +4,352 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Almuerzos del día | Floresta Brava</title>
-  <meta name="description" content="Arma tu almuerzo del día en Floresta Brava. Elige tu sopa, plato fuerte y envía tu pedido por WhatsApp.">
+  <meta name="description" content="Elige tus combos de almuerzo en Floresta Brava y envía el pedido por WhatsApp.">
   <meta name="theme-color" content="#145b6b">
-  <link rel="canonical" href="https://www.florestabrava.com/almuerzos.html">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Almuerzos del día | Floresta Brava">
-  <meta property="og:description" content="Elige tu sopa, plato fuerte y pide tu almuerzo por WhatsApp.">
-  <meta property="og:url" content="https://www.florestabrava.com/almuerzos.html">
-  <meta property="og:image" content="https://www.florestabrava.com/img/almuerzo.webp">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": "Floresta Brava",
-    "url": "https://www.florestabrava.com/",
-    "hasMenu": "https://www.florestabrava.com/almuerzos.html",
-    "telephone": "+593983603626",
-    "servesCuisine": ["Comida ecuatoriana", "Almuerzos"],
-    "priceRange": "$",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Av. Coruña y Guipúzcoa",
-      "addressLocality": "Quito",
-      "addressRegion": "Pichincha",
-      "addressCountry": "EC"
-    }
-  }
-  </script>
-
   <style>
     :root{
       --madera:#7a4b1f;
       --madera-oscura:#4b2a12;
-      --turquesa:#1fb6c9;
       --naranja:#f57c22;
       --crema:#fff7e8;
       --verde:#145b6b;
       --verde-oscuro:#0b2731;
       --fondo:#f5f3ee;
-      --blanco:#ffffff;
+      --blanco:#fff;
       --texto:#1b1b1b;
-      --muted:#5d646a;
+      --muted:#667085;
       --linea:rgba(0,0,0,.08);
-      --sombra:0 12px 28px rgba(0,0,0,.10);
-      --sombra2:0 8px 20px rgba(0,0,0,.08);
       --wa:#22c55e;
       --wa-hover:#16a34a;
       --radio:20px;
-      --radio2:16px;
+      --sombra:0 12px 30px rgba(0,0,0,.10);
+      --sombra2:0 8px 20px rgba(0,0,0,.08);
     }
-
-    *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
+    *{box-sizing:border-box}
     body{
       margin:0;
       font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       color:var(--texto);
       background:
-        radial-gradient(1200px 500px at 0% -10%, rgba(245,124,34,.14), transparent 50%),
-        radial-gradient(900px 450px at 100% 0%, rgba(20,91,107,.12), transparent 48%),
+        radial-gradient(1000px 400px at 0% -10%, rgba(245,124,34,.12), transparent 50%),
+        radial-gradient(900px 420px at 100% 0%, rgba(20,91,107,.10), transparent 48%),
         var(--fondo);
     }
-
-    a{ text-decoration:none; }
-    img{ max-width:100%; display:block; }
-
-    .container{ max-width:1120px; margin:0 auto; padding:0 16px; }
-
-    .skip-link{
-      position:absolute;
-      left:-999px;
-      top:8px;
-      background:#fff;
-      color:#000;
-      padding:10px 14px;
-      border-radius:12px;
-      z-index:9999;
-      box-shadow:var(--sombra2);
-    }
-    .skip-link:focus{ left:12px; }
-
+    a{text-decoration:none}
+    img{display:block;max-width:100%}
+    .container{max-width:1120px;margin:0 auto;padding:0 16px}
     header{
-      position:sticky;
-      top:0;
-      z-index:1000;
+      position:sticky;top:0;z-index:50;
       background:linear-gradient(90deg,var(--madera-oscura),var(--verde));
-      box-shadow:0 4px 14px rgba(0,0,0,.18);
+      box-shadow:0 4px 14px rgba(0,0,0,.18)
     }
-    .nav{
-      min-height:70px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 0;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      color:#fff;
-      min-width:0;
-    }
-    .brand img{
-      height:42px;
-      width:auto;
-    }
-    .brand-text{
-      min-width:0;
-    }
-    .brand-text strong{
-      display:block;
-      font-size:15px;
-      line-height:1.1;
-    }
-    .brand-text span{
-      display:block;
-      color:rgba(255,255,255,.82);
-      font-size:12px;
-      margin-top:2px;
-    }
-
-    .nav-actions{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
+    .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:12px;color:#fff;min-width:0}
+    .brand img{height:42px;width:auto}
+    .brand strong{display:block;font-size:15px;line-height:1.1}
+    .brand span{display:block;font-size:12px;color:rgba(255,255,255,.84);margin-top:2px}
+    .nav-links{display:flex;gap:10px;flex-wrap:wrap}
     .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:12px 18px;
-      border-radius:999px;
-      font-weight:800;
-      font-size:14px;
-      border:1px solid transparent;
-      transition:transform .12s ease, box-shadow .15s ease, background .15s ease;
-      cursor:pointer;
-    }
-    .btn:hover{ transform:translateY(-1px); }
-    .btn-primary{
-      background:var(--wa);
-      color:#fff;
-      box-shadow:0 10px 22px rgba(34,197,94,.24);
-    }
-    .btn-primary:hover{ background:var(--wa-hover); }
-    .btn-light{
-      background:rgba(255,255,255,.92);
-      color:var(--verde-oscuro);
-      border-color:rgba(255,255,255,.35);
-    }
-    .btn-outline{
-      background:transparent;
-      color:#fff;
-      border-color:rgba(255,255,255,.4);
-    }
-
-    .hero{
-      padding:26px 0 18px;
-    }
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:22px;
-      align-items:stretch;
-    }
-
-    .hero-card,
-    .summary-card,
-    .config-card,
-    .section-card{
-      background:rgba(255,255,255,.92);
-      border:1px solid var(--linea);
-      border-radius:var(--radio);
-      box-shadow:var(--sombra);
-    }
-
-    .hero-card{
-      overflow:hidden;
-    }
-
-    .hero-media{
-      position:relative;
-      min-height:100%;
-      background:#0b2731;
-    }
-    .hero-media img{
-      width:100%;
-      height:100%;
-      min-height:420px;
-      object-fit:cover;
-      filter:brightness(.78);
-    }
-    .hero-overlay{
-      position:absolute;
-      inset:0;
-      background:linear-gradient(135deg, rgba(11,39,49,.92), rgba(122,75,31,.42));
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      padding:26px;
-      color:#fff;
-    }
-    .hero-kicker{
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:#ffe8c6;
-      margin-bottom:8px;
-      font-weight:800;
-    }
-    .hero-overlay h1{
-      margin:0 0 12px;
-      font-size:38px;
-      line-height:1.05;
-      max-width:520px;
-    }
-    .hero-overlay p{
-      margin:0 0 18px;
-      max-width:540px;
-      color:rgba(255,255,255,.9);
-      font-size:15px;
-    }
-    .hero-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-bottom:18px;
-    }
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.24);
-      background:rgba(255,255,255,.12);
-      color:#fff;
-      font-size:12px;
-      font-weight:800;
-    }
-
-    .summary-card{
-      padding:20px;
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-      align-self:stretch;
-      position:relative;
-    }
-    .summary-card h2{
-      margin:0;
-      font-size:24px;
-      color:var(--verde-oscuro);
-    }
-    .summary-sub{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-    }
-    .price-box{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    .price-item{
-      border-radius:16px;
-      background:var(--crema);
-      border:1px solid rgba(245,124,34,.18);
-      padding:14px;
-    }
-    .price-item span{
-      display:block;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:700;
-      margin-bottom:4px;
-    }
-    .price-item strong{
-      font-size:22px;
-      color:var(--madera-oscura);
-    }
-
-    .summary-list{
-      display:grid;
-      gap:10px;
-    }
-    .summary-row{
-      display:flex;
-      justify-content:space-between;
-      gap:14px;
-      align-items:flex-start;
-      padding:12px 14px;
-      border-radius:14px;
-      background:#fff;
-      border:1px solid var(--linea);
-    }
-    .summary-row span{
-      font-size:12px;
-      font-weight:800;
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.06em;
-      flex:0 0 auto;
-    }
-    .summary-row strong{
-      font-size:14px;
-      color:var(--verde-oscuro);
-      text-align:right;
-    }
-
-    .notes-wrap label,
-    .mode-wrap label{
-      display:block;
-      font-size:13px;
-      font-weight:900;
-      color:var(--verde-oscuro);
-      margin-bottom:8px;
-    }
-
-    textarea{
-      width:100%;
-      min-height:92px;
-      resize:vertical;
-      border:1px solid var(--linea);
-      border-radius:16px;
-      padding:12px 14px;
-      font:inherit;
-      outline:none;
-      background:#fff;
-    }
-    textarea:focus{
-      border-color:rgba(20,91,107,.4);
-      box-shadow:0 0 0 4px rgba(20,91,107,.10);
-    }
-
-    .mode-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-    .mode-option input{
-      position:absolute;
-      opacity:0;
-      pointer-events:none;
-    }
-    .mode-card{
-      display:block;
-      padding:14px;
-      border-radius:16px;
-      border:1px solid var(--linea);
-      background:#fff;
-      cursor:pointer;
-      transition:.15s ease;
-    }
-    .mode-card strong{
-      display:block;
-      color:var(--verde-oscuro);
-      margin-bottom:3px;
-    }
-    .mode-card span{
-      color:var(--muted);
-      font-size:12px;
-    }
-    .mode-option input:checked + .mode-card{
-      border-color:rgba(20,91,107,.42);
-      background:rgba(20,91,107,.06);
-      box-shadow:0 0 0 4px rgba(20,91,107,.08);
-    }
-
-    .wa-box{
-      display:grid;
-      gap:10px;
-      margin-top:auto;
-    }
-    .wa-note{
-      font-size:12px;
-      color:var(--muted);
-      text-align:center;
-      margin:0;
-    }
-
-    .main-sections{
-      padding:8px 0 28px;
-    }
-    .section-card{
-      padding:20px;
-      margin-bottom:18px;
-    }
-    .section-head{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
-      flex-wrap:wrap;
-      margin-bottom:14px;
-    }
-    .section-head h3{
-      margin:0;
-      font-size:24px;
-      color:var(--madera-oscura);
-    }
-    .section-head p{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:14px;
-      max-width:700px;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:800;
-      background:rgba(245,124,34,.12);
-      color:var(--madera-oscura);
-      border:1px solid rgba(245,124,34,.18);
-    }
-
-    .options-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-    }
-
-    .option-card input{
-      position:absolute;
-      opacity:0;
-      pointer-events:none;
-    }
-    .option-card label{
-      display:block;
-      height:100%;
-      background:#fff;
-      border:1px solid var(--linea);
-      border-radius:18px;
-      overflow:hidden;
-      cursor:pointer;
-      box-shadow:var(--sombra2);
-      transition:.15s ease;
-      position:relative;
-    }
-    .option-card label:hover{
-      transform:translateY(-2px);
-    }
-    .option-card input:checked + label{
-      border-color:rgba(20,91,107,.44);
-      box-shadow:0 0 0 4px rgba(20,91,107,.08), var(--sombra2);
-    }
-    .option-card input:checked + label .checkmark{
-      opacity:1;
-      transform:scale(1);
-    }
-
-    .option-media{
-      position:relative;
-      height:170px;
-      overflow:hidden;
-      background:linear-gradient(135deg, rgba(11,39,49,.16), rgba(245,124,34,.14));
-    }
-    .option-media img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-    .checkmark{
-      position:absolute;
-      top:12px;
-      right:12px;
-      width:34px;
-      height:34px;
-      border-radius:999px;
-      display:grid;
-      place-items:center;
-      background:var(--wa);
-      color:#fff;
-      font-size:18px;
-      font-weight:900;
-      box-shadow:0 8px 18px rgba(34,197,94,.22);
-      opacity:0;
-      transform:scale(.88);
-      transition:.15s ease;
-    }
-    .option-body{
-      padding:14px;
-    }
-    .option-body h4{
-      margin:0 0 6px;
-      font-size:18px;
-      color:var(--verde-oscuro);
-    }
-    .option-body p{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.45;
-    }
-
-    .jugo-card{
-      display:grid;
-      grid-template-columns:160px 1fr;
-      gap:18px;
-      align-items:center;
-      border:1px solid var(--linea);
-      border-radius:18px;
-      padding:14px;
-      background:#fff;
-      box-shadow:var(--sombra2);
-    }
-    .jugo-card img{
-      width:100%;
-      height:120px;
-      object-fit:cover;
-      border-radius:14px;
-    }
-    .jugo-card h4{
-      margin:0 0 8px;
-      font-size:20px;
-      color:var(--verde-oscuro);
-    }
-    .jugo-card p{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    .config-card{
-      margin-top:4px;
-      padding:18px;
-      background:linear-gradient(135deg, rgba(255,247,232,.96), rgba(255,255,255,.98));
-      border:1px solid rgba(245,124,34,.16);
-    }
-    .config-card h3{
-      margin:0 0 10px;
-      font-size:20px;
-      color:var(--madera-oscura);
-    }
-    .config-card p{
-      margin:0 0 12px;
-      color:var(--muted);
-      font-size:14px;
-    }
-    .config-card code{
-      display:block;
-      white-space:pre-wrap;
-      background:#fff;
-      border:1px solid rgba(0,0,0,.06);
-      border-radius:14px;
-      padding:12px 14px;
-      color:#24323a;
-      font-size:13px;
-      line-height:1.5;
-    }
-
-    footer{
-      background:var(--madera-oscura);
-      color:#eee;
-      padding:24px 0;
-      border-top:3px solid var(--naranja);
-      font-size:13px;
-    }
-    .footer-inner{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .footer-inner a{ color:#fff; }
-
-    .floating-cta{
-      position:fixed;
-      right:16px;
-      bottom:16px;
-      z-index:999;
-    }
-    .floating-cta .btn{
-      box-shadow:0 16px 28px rgba(34,197,94,.24);
-      padding:14px 16px;
-    }
-
-    @media (max-width: 980px){
-      .hero-grid{ grid-template-columns:1fr; }
-      .options-grid{ grid-template-columns:1fr 1fr; }
-    }
-
-    @media (max-width: 680px){
-      .nav{ align-items:flex-start; }
-      .nav-actions{ width:100%; justify-content:flex-start; }
-      .hero-overlay h1{ font-size:30px; }
-      .hero-media img{ min-height:340px; }
-      .price-box,
-      .mode-grid,
-      .options-grid{ grid-template-columns:1fr; }
-      .jugo-card{ grid-template-columns:1fr; }
-      .jugo-card img{ height:180px; }
-      .summary-row{ flex-direction:column; }
-      .summary-row strong{ text-align:left; }
-      .floating-cta .btn span{ display:none; }
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 18px;border-radius:999px;font-weight:800;font-size:14px;
+      border:1px solid transparent;cursor:pointer;transition:.15s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-light{background:rgba(255,255,255,.92);color:var(--verde-oscuro)}
+    .btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.40)}
+    .btn-primary{background:var(--wa);color:#fff;box-shadow:0 12px 24px rgba(34,197,94,.25)}
+    .btn-primary:hover{background:var(--wa-hover)}
+    .hero{padding:24px 0 18px}
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+    .card{background:rgba(255,255,255,.94);border:1px solid var(--linea);border-radius:var(--radio);box-shadow:var(--sombra)}
+    .hero-card{overflow:hidden;position:relative;min-height:420px}
+    .hero-card img{width:100%;height:100%;min-height:420px;object-fit:cover;filter:brightness(.78)}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,39,49,.92),rgba(122,75,31,.42));display:flex;flex-direction:column;justify-content:end;padding:26px;color:#fff}
+    .hero-kicker{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#ffe8c6;font-weight:800;margin-bottom:8px}
+    .hero-title{font-size:38px;line-height:1.04;margin:0 0 12px;max-width:560px}
+    .hero-text{margin:0 0 18px;color:rgba(255,255,255,.92);font-size:15px;max-width:560px}
+    .badges{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);font-size:12px;font-weight:800;color:#fff}
+    .summary{padding:20px;display:flex;flex-direction:column;gap:16px}
+    .summary h2{margin:0;font-size:24px;color:var(--verde-oscuro)}
+    .summary p{margin:0;color:var(--muted);font-size:14px}
+    .status{padding:12px 14px;border-radius:16px;background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8;font-size:13px;font-weight:700}
+    .status.error{background:#fff1f2;border-color:#fecdd3;color:#be123c}
+    .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .price-box{background:var(--crema);border:1px solid rgba(245,124,34,.18);border-radius:16px;padding:14px}
+    .price-box span{display:block;font-size:12px;color:var(--muted);font-weight:800;margin-bottom:4px}
+    .price-box strong{font-size:22px;color:var(--madera-oscura)}
+    .summary-list{display:grid;gap:10px}
+    .summary-row{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:14px;background:#fff;border:1px solid var(--linea)}
+    .summary-row span{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+    .summary-row strong{text-align:right;color:var(--verde-oscuro);font-size:14px}
+    .section{padding:8px 0 28px}
+    .section-card{padding:20px;margin-bottom:18px}
+    .section-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px}
+    .section-head h3{margin:0;font-size:24px;color:var(--madera-oscura)}
+    .section-head p{margin:6px 0 0;color:var(--muted);font-size:14px;max-width:720px}
+    .pill{display:inline-flex;align-items:center;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;background:rgba(245,124,34,.12);border:1px solid rgba(245,124,34,.18);color:var(--madera-oscura)}
+    .options-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .option{border:1px solid var(--linea);border-radius:18px;overflow:hidden;background:#fff;box-shadow:var(--sombra2);cursor:pointer;transition:.15s ease;position:relative}
+    .option:hover{transform:translateY(-2px)}
+    .option.selected{border-color:rgba(20,91,107,.42);box-shadow:0 0 0 4px rgba(20,91,107,.08), var(--sombra2)}
+    .option-media{position:relative;height:170px;background:linear-gradient(135deg, rgba(11,39,49,.16), rgba(245,124,34,.12))}
+    .option-media img{width:100%;height:100%;object-fit:cover}
+    .check{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:999px;background:var(--wa);color:#fff;display:grid;place-items:center;font-weight:900;opacity:0;transform:scale(.9);transition:.15s ease;box-shadow:0 8px 18px rgba(34,197,94,.24)}
+    .option.selected .check{opacity:1;transform:scale(1)}
+    .option-body{padding:14px}
+    .option-body h4{margin:0 0 6px;color:var(--verde-oscuro);font-size:18px}
+    .option-body p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+    .drink-card{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:center;border:1px solid var(--linea);border-radius:18px;padding:14px;background:#fff;box-shadow:var(--sombra2)}
+    .drink-card img{width:100%;height:132px;object-fit:cover;border-radius:14px}
+    .drink-card h4{margin:0 0 6px;font-size:20px;color:var(--verde-oscuro)}
+    .drink-card p{margin:0;color:var(--muted);font-size:14px}
+    .builder{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:end}
+    .mode-wrap label,.notes-wrap label,.cart-wrap h3{display:block;font-size:13px;font-weight:900;color:var(--verde-oscuro);margin-bottom:8px}
+    .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .mode-option{padding:14px;border-radius:16px;border:1px solid var(--linea);background:#fff;cursor:pointer;transition:.15s ease}
+    .mode-option.selected{border-color:rgba(20,91,107,.42);background:rgba(20,91,107,.06);box-shadow:0 0 0 4px rgba(20,91,107,.08)}
+    .mode-option strong{display:block;color:var(--verde-oscuro);margin-bottom:3px}
+    .mode-option span{font-size:12px;color:var(--muted)}
+    textarea{width:100%;min-height:92px;resize:vertical;border:1px solid var(--linea);border-radius:16px;padding:12px 14px;font:inherit;background:#fff;outline:none}
+    textarea:focus{border-color:rgba(20,91,107,.4);box-shadow:0 0 0 4px rgba(20,91,107,.10)}
+    .cart-wrap{padding:20px}
+    .cart-list{display:grid;gap:12px}
+    .cart-empty{padding:16px;border-radius:16px;background:#fff;border:1px dashed rgba(0,0,0,.14);color:var(--muted);font-size:14px}
+    .cart-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding:14px;border:1px solid var(--linea);border-radius:16px;background:#fff}
+    .cart-item h4{margin:0 0 4px;color:var(--verde-oscuro);font-size:16px}
+    .cart-item p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+    .cart-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .qty{display:inline-flex;align-items:center;gap:8px;padding:6px 8px;border-radius:999px;border:1px solid var(--linea);background:#fff}
+    .qty button{width:28px;height:28px;border-radius:999px;border:1px solid rgba(20,91,107,.20);background:#fff;cursor:pointer;font-weight:900}
+    .qty span{min-width:18px;text-align:center;font-weight:900;color:var(--verde-oscuro)}
+    .remove-btn{padding:9px 12px;border-radius:999px;border:1px solid var(--linea);background:#fff;cursor:pointer;font-weight:800;color:var(--verde-oscuro)}
+    .footer-actions{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px}
+    .total{font-size:22px;color:var(--madera-oscura);font-weight:900}
+    .muted-note{font-size:12px;color:var(--muted)}
+    footer{padding:26px 0;background:var(--madera-oscura);color:#eee;font-size:13px;border-top:3px solid var(--naranja)}
+    .footer-inner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .footer-inner a{color:#eee}
+    .floating{position:fixed;right:16px;bottom:16px;z-index:40}
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr}
+      .options-grid{grid-template-columns:repeat(2,1fr)}
+      .builder{grid-template-columns:1fr}
+    }
+    @media (max-width:640px){
+      .nav{align-items:flex-start;flex-direction:column}
+      .nav-links{width:100%}
+      .nav-links .btn{flex:1}
+      .hero-title{font-size:30px}
+      .options-grid{grid-template-columns:1fr}
+      .drink-card{grid-template-columns:1fr}
+      .price-grid,.mode-grid{grid-template-columns:1fr}
+      .summary-row,.cart-item{grid-template-columns:1fr}
+      .cart-actions,.footer-actions{justify-content:flex-start}
     }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
-
   <header>
     <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Ir al inicio de Floresta Brava">
-        <img src="img/letrasflorestabrava.png" alt="Floresta Brava" loading="eager" decoding="async">
-        <div class="brand-text">
+      <div class="brand">
+        <img src="img/letrasflorestabrava.png" alt="Floresta Brava">
+        <div>
           <strong>Floresta Brava</strong>
           <span>Almuerzos del día</span>
         </div>
-      </a>
-
-      <div class="nav-actions">
+      </div>
+      <div class="nav-links">
         <a class="btn btn-light" href="menudigital.html">Menú general</a>
-        <a class="btn btn-outline" href="index.html#contacto">Contacto</a>
+        <a class="btn btn-outline" href="index.html">Contacto</a>
       </div>
     </div>
   </header>
 
-  <main id="contenido">
+  <main class="container">
     <section class="hero">
-      <div class="container hero-grid">
+      <div class="hero-grid">
         <article class="hero-card">
-          <div class="hero-media">
-            <img id="heroImage" src="img/almuerzo.webp" alt="Almuerzo del día de Floresta Brava" loading="eager" decoding="async">
-            <div class="hero-overlay">
-              <div class="hero-kicker">Almuerzo casero · Quito</div>
-              <h1 id="heroTitle">Arma tu almuerzo del día</h1>
-              <p id="heroText">Elige 1 sopa, 1 plato fuerte y disfruta el jugo del día. En pocos segundos tu pedido queda listo para enviar por WhatsApp.</p>
-              <div class="hero-badges">
-                <span class="badge" id="badgeSoups">Hasta 4 sopas</span>
-                <span class="badge" id="badgeMains">Hasta 4 platos fuertes</span>
-                <span class="badge">Disponible hasta agotar stock</span>
-              </div>
-              <div>
-                <a class="btn btn-primary" href="#resumen">Armar pedido</a>
-              </div>
+          <img id="heroImage" src="img/almuerzo.webp" alt="Almuerzo del día">
+          <div class="hero-overlay">
+            <div class="hero-kicker" id="heroDate">Menú cargado desde Google Sheet</div>
+            <h1 class="hero-title" id="heroTitle">Almuerzo del día</h1>
+            <p class="hero-text" id="heroText">Elige tus combinaciones y envía un solo mensaje por WhatsApp.</p>
+            <div class="badges">
+              <span class="badge" id="badgeSoups">0 sopas</span>
+              <span class="badge" id="badgeMains">0 platos fuertes</span>
+              <span class="badge">1 jugo del día</span>
             </div>
           </div>
         </article>
 
-        <aside class="summary-card" id="resumen">
+        <aside class="card summary">
           <div>
-            <h2>Tu pedido</h2>
-            <p class="summary-sub">Selecciona las opciones y la página arma el mensaje automáticamente.</p>
+            <h2>Resumen rápido</h2>
+            <p>Esta versión ya no usa las opciones quemadas de ejemplo. Si la hoja carga bien, aquí verás tu menú real.</p>
           </div>
-
-          <div class="price-box">
-            <div class="price-item">
-              <span>Para servir</span>
-              <strong id="priceServe">$2.75</strong>
-            </div>
-            <div class="price-item">
-              <span>Para llevar</span>
-              <strong id="priceTakeout">$3.25</strong>
-            </div>
+          <div id="sheetStatus" class="status">Cargando menú desde Google Sheet...</div>
+          <div class="price-grid">
+            <div class="price-box"><span>Para servir</span><strong id="priceServe">$0.00</strong></div>
+            <div class="price-box"><span>Para llevar</span><strong id="priceTakeout">$0.00</strong></div>
           </div>
-
-          <div class="mode-wrap">
-            <label>Modalidad</label>
-            <div class="mode-grid">
-              <label class="mode-option">
-                <input type="radio" name="modo" value="Para servir" checked>
-                <span class="mode-card">
-                  <strong>Para servir</strong>
-                  <span>Ideal para mesa en el local</span>
-                </span>
-              </label>
-              <label class="mode-option">
-                <input type="radio" name="modo" value="Para llevar">
-                <span class="mode-card">
-                  <strong>Para llevar</strong>
-                  <span>Listo para retirar o enviar</span>
-                </span>
-              </label>
-            </div>
-          </div>
-
           <div class="summary-list">
-            <div class="summary-row">
-              <span>Sopa</span>
-              <strong id="selectedSoup">Selecciona una sopa</strong>
-            </div>
-            <div class="summary-row">
-              <span>Plato fuerte</span>
-              <strong id="selectedMain">Selecciona un plato fuerte</strong>
-            </div>
-            <div class="summary-row">
-              <span>Jugo</span>
-              <strong id="selectedDrink">Jugo del día</strong>
-            </div>
-            <div class="summary-row">
-              <span>Total referencial</span>
-              <strong id="selectedPrice">$2.75</strong>
-            </div>
+            <div class="summary-row"><span>Última sopa elegida</span><strong id="selectedSoup">Aún no eliges</strong></div>
+            <div class="summary-row"><span>Último plato elegido</span><strong id="selectedMain">Aún no eliges</strong></div>
+            <div class="summary-row"><span>Jugo</span><strong id="selectedDrink">Jugo del día</strong></div>
+            <div class="summary-row"><span>Total actual</span><strong id="selectedTotal">$0.00</strong></div>
           </div>
-
-          <div class="notes-wrap">
-            <label for="notes">Observaciones</label>
-            <textarea id="notes" placeholder="Ejemplo: sin cebolla, poco ají, con funda, enviar cubiertos, etc."></textarea>
-          </div>
-
-          <div class="wa-box">
-            <a id="whatsappBtn" class="btn btn-primary" href="#" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
-            <p class="wa-note">Consejo: puedes compartir esta página en Instagram, Facebook, QR de mesas y WhatsApp Business.</p>
-          </div>
+          <div class="muted-note">Si el cliente quiere varias opciones, agrega varios combos al pedido antes de enviarlo.</div>
         </aside>
       </div>
     </section>
 
-    <section class="main-sections">
-      <div class="container">
-        <section class="section-card">
-          <div class="section-head">
-            <div>
-              <h3>1. Elige tu sopa</h3>
-              <p>Se muestran automáticamente 1, 2, 3 o hasta 4 sopas, según las opciones que existan cargadas.</p>
-            </div>
-            <span class="pill">Obligatorio elegir 1</span>
+    <section class="section">
+      <article class="card section-card">
+        <div class="section-head">
+          <div>
+            <h3>1. Elige tu sopa</h3>
+            <p>Se muestran automáticamente 1, 2, 3 o hasta 4 sopas, según lo que exista cargado en tu hoja.</p>
           </div>
-          <div class="options-grid" id="soupsGrid"></div>
-        </section>
+          <div class="pill">Obligatorio elegir 1</div>
+        </div>
+        <div class="options-grid" id="soupsGrid"></div>
+      </article>
 
-        <section class="section-card">
-          <div class="section-head">
-            <div>
-              <h3>2. Elige tu plato fuerte</h3>
-              <p>La página permite combinar cualquier sopa con cualquier plato fuerte y mostrar hasta 4 opciones cuando existan.</p>
-            </div>
-            <span class="pill">Obligatorio elegir 1</span>
+      <article class="card section-card">
+        <div class="section-head">
+          <div>
+            <h3>2. Elige tu plato fuerte</h3>
+            <p>Puedes escoger el plato que se combine con esa sopa y luego agregar otro combo distinto al carrito.</p>
           </div>
-          <div class="options-grid" id="mainsGrid"></div>
-        </section>
+          <div class="pill">Obligatorio elegir 1</div>
+        </div>
+        <div class="options-grid" id="mainsGrid"></div>
+      </article>
 
-        <section class="section-card">
-          <div class="section-head">
-            <div>
-              <h3>3. Jugo del día</h3>
-              <p>Por ahora está configurado como un solo jugo incluido. Luego también se puede volver selección si lo deseas.</p>
-            </div>
-            <span class="pill">Incluido</span>
+      <article class="card section-card">
+        <div class="section-head">
+          <div>
+            <h3>3. Jugo del día</h3>
+            <p>El jugo se carga automáticamente desde la misma hoja.</p>
           </div>
-          <div class="jugo-card">
-            <img id="drinkImage" src="img/jugos.webp" alt="Jugo del día" loading="lazy" decoding="async">
-            <div>
-              <h4 id="drinkTitle">Jugo del día</h4>
-              <p id="drinkDescription">Refrescante, natural y perfecto para acompañar el almuerzo.</p>
-            </div>
+        </div>
+        <div class="drink-card">
+          <img id="drinkImage" src="img/jugos.webp" alt="Jugo del día">
+          <div>
+            <h4 id="drinkTitle">Jugo del día</h4>
+            <p id="drinkDescription">Refrescante y natural.</p>
           </div>
-        </section>
+        </div>
+      </article>
 
-        <section class="config-card">
-          <h3>Zona fácil de editar</h3>
-          <p>La página quedó preparada para trabajar con tu Google Sheet y también con datos locales de respaldo. Soporta hasta <strong>4 sopas</strong> y <strong>4 platos fuertes</strong>, mostrando solo las opciones que realmente existan.</p>
-          <code>// Campos sugeridos en Google Sheet:
-// sopa_1 ... sopa_4 | plato_1 ... plato_4 | jugo | precio_servir | precio_llevar | activo
-// Si sopa_4 o plato_4 tienen valor, se muestran automáticamente.</code>
-        </section>
-      </div>
+      <article class="card section-card">
+        <div class="section-head">
+          <div>
+            <h3>4. Arma tus combos</h3>
+            <p>Aquí está la mejora clave: ahora sí puedes agregar varios combos al mismo pedido.</p>
+          </div>
+        </div>
+
+        <div class="builder">
+          <div class="mode-wrap">
+            <label>Modalidad del combo</label>
+            <div class="mode-grid" id="modeGrid">
+              <div class="mode-option selected" data-mode="Para servir">
+                <strong>Para servir</strong>
+                <span>Ideal para mesa en el local</span>
+              </div>
+              <div class="mode-option" data-mode="Para llevar">
+                <strong>Para llevar</strong>
+                <span>Listo para retirar o enviar</span>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" id="addComboBtn" type="button">Agregar combo</button>
+        </div>
+      </article>
+
+      <article class="card cart-wrap">
+        <h3>Pedido actual</h3>
+        <div id="cartList" class="cart-list"></div>
+        <div class="notes-wrap" style="margin-top:16px;">
+          <label for="generalNotes">Observaciones generales</label>
+          <textarea id="generalNotes" placeholder="Ejemplo: un combo sin cebolla, enviar cubiertos, poco ají, etc."></textarea>
+        </div>
+        <div class="footer-actions">
+          <div>
+            <div class="total" id="cartTotal">$0.00</div>
+            <div class="muted-note">Total referencial según las cantidades agregadas.</div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-light" id="clearCartBtn" type="button">Limpiar pedido</button>
+            <a class="btn btn-primary" id="sendWhatsappBtn" href="#" target="_blank" rel="noopener">Enviar pedido por WhatsApp</a>
+          </div>
+        </div>
+      </article>
     </section>
   </main>
 
   <footer>
     <div class="container footer-inner">
       <div>© <span id="year"></span> Floresta Brava · La excelencia del sabor</div>
-      <div>
-        <a href="index.html">Inicio</a> ·
-        <a href="menudigital.html">Menú digital</a>
-      </div>
+      <div><a href="index.html">Inicio</a> · <a href="menudigital.html">Menú general</a></div>
     </div>
   </footer>
 
-  <div class="floating-cta">
-    <a class="btn btn-primary" id="floatingWhatsApp" href="#" target="_blank" rel="noopener" aria-label="Enviar pedido por WhatsApp">
-      <span>WhatsApp</span>
-    </a>
+  <div class="floating">
+    <a class="btn btn-primary" id="floatingWhatsappBtn" href="#" target="_blank" rel="noopener">WhatsApp</a>
   </div>
 
   <script>
-    const GOOGLE_SHEET_CSV_URL = ""; // Pega aquí el CSV publicado de la nueva pestaña ALMUERZOS_WEB cuando la tengas lista.
-
-    const FALLBACK_MENU_DATA = {
-      fechaLabel: "Lunes a sábado",
-      precioServir: 2.75,
-      precioLlevar: 3.25,
-      whatsapp: "593983603626",
-      heroTitle: "Arma tu almuerzo del día",
-      heroText: "Elige 1 sopa, 1 plato fuerte y disfruta el jugo del día. En pocos segundos tu pedido queda listo para enviar por WhatsApp.",
-      heroImage: "img/almuerzo.webp",
-      drink: {
-        name: "Jugo del día",
-        description: "Refrescante, natural y perfecto para acompañar el almuerzo.",
-        image: "img/jugos.webp"
-      },
-      soups: [
-        { id: "sopa-1", name: "Yaguarlocro", description: "Sopa tradicional quiteña, sabrosa y casera.", image: "img/yaguarlocro.webp" },
-        { id: "sopa-2", name: "Encebollado", description: "Pescado, yuca y cebolla curtida con mucho sabor.", image: "img/encebollado.webp" },
-        { id: "sopa-3", name: "Sopa del día", description: "Pregunta por nuestra preparación casera disponible hoy.", image: "img/almuerzo.webp" }
-      ],
-      mains: [
-        { id: "plato-1", name: "Seco de pollo", description: "Arroz, pollo bien sazonado y acompañamiento del día.", image: "img/secodepollo.webp" },
-        { id: "plato-2", name: "Carne apanada", description: "Crujiente, dorada y con guarnición completa.", image: "img/carneapanada.webp" },
-        { id: "plato-3", name: "Segundo del día", description: "Opción casera especial según disponibilidad del día.", image: "img/segundo.webp" }
-      ]
+    const SHEET_CONFIG = {
+      spreadsheetId: '1A7LBK6E_pnmcGnvfushwHClpeC1yc0SEOTOAXyBoVJc',
+      gid: '1748658337',
+      whatsapp: '593983603626'
     };
 
-    let MENU_DATA = JSON.parse(JSON.stringify(FALLBACK_MENU_DATA));
+    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_CONFIG.spreadsheetId}/export?format=csv&gid=${SHEET_CONFIG.gid}`;
 
     const state = {
-      soup: null,
-      main: null,
-      mode: "Para servir"
+      menu: null,
+      selectedSoupId: null,
+      selectedMainId: null,
+      selectedMode: 'Para servir',
+      cart: []
     };
 
-    function money(v){
-      return "$" + Number(v || 0).toFixed(2);
+    function escapeHtml(text){
+      return String(text || '')
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function money(value){
+      return '$' + Number(value || 0).toFixed(2);
+    }
+
+    function normalize(value){
+      return String(value || '').trim();
+    }
+
+    function pick(...values){
+      for(const value of values){
+        const v = normalize(value);
+        if(v) return v;
+      }
+      return '';
     }
 
     function parseCsvLine(line){
       const result = [];
-      let current = "";
+      let current = '';
       let insideQuotes = false;
-
-      for(let i = 0; i < line.length; i++){
+      for(let i=0;i<line.length;i++){
         const char = line[i];
-        const next = line[i + 1];
-
+        const next = line[i+1];
         if(char === '"'){
           if(insideQuotes && next === '"'){
             current += '"';
@@ -847,248 +357,315 @@
           } else {
             insideQuotes = !insideQuotes;
           }
-        } else if(char === "," && !insideQuotes){
+        } else if(char === ',' && !insideQuotes){
           result.push(current);
-          current = "";
+          current = '';
         } else {
           current += char;
         }
       }
-
       result.push(current);
-      return result.map(v => v.trim());
+      return result;
     }
 
     function parseCsv(text){
-      const lines = String(text || "").replace(/\r/g, "").split("\n").filter(line => line.trim());
+      const lines = String(text || '').replace(/\r/g,'').split('\n').filter(line => line.trim());
       if(lines.length < 2) return [];
-
       const headers = parseCsvLine(lines[0]).map(h => h.trim());
       return lines.slice(1).map(line => {
         const values = parseCsvLine(line);
         const row = {};
-        headers.forEach((header, index) => {
-          row[header] = values[index] || "";
-        });
+        headers.forEach((header, index) => row[header] = values[index] || '');
         return row;
       });
     }
 
-    function normalizeText(value){
-      return String(value || "").trim();
+    function optionImage(row, prefix, index, fallback){
+      return pick(row[`${prefix}_${index}_imagen`], row[`${prefix}_${index}_image`], fallback);
     }
 
-    function pickFirstFilled(...values){
-      for(const value of values){
-        const normalized = normalizeText(value);
-        if(normalized) return normalized;
-      }
-      return "";
+    function optionDescription(row, prefix, index, fallback){
+      return pick(row[`${prefix}_${index}_descripcion`], row[`${prefix}_${index}_description`], fallback);
     }
 
-    function buildDynamicOptions(prefix, row, fallbackItems, defaultImage, defaultDescription){
+    function buildOptions(row, prefix, defaultImage, defaultDescription){
       const items = [];
-
-      for(let i = 1; i <= 4; i++){
-        const name = pickFirstFilled(row[`${prefix}_${i}`], row[`${prefix}${i}`]);
+      for(let i=1;i<=4;i++){
+        const name = pick(row[`${prefix}_${i}`], row[`${prefix}${i}`]);
         if(!name) continue;
-
-        const fallback = fallbackItems[i - 1] || {};
-        const description = pickFirstFilled(
-          row[`${prefix}_${i}_descripcion`],
-          row[`${prefix}_${i}_description`],
-          fallback.description,
-          defaultDescription
-        );
-        const image = pickFirstFilled(
-          row[`${prefix}_${i}_imagen`],
-          row[`${prefix}_${i}_image`],
-          fallback.image,
-          defaultImage
-        );
-
         items.push({
           id: `${prefix}-${i}`,
           name,
-          description,
-          image
+          description: optionDescription(row, prefix, i, defaultDescription),
+          image: optionImage(row, prefix, i, defaultImage)
         });
       }
-
       return items;
     }
 
-    function mapSheetRowToMenuData(row){
-      const soups = buildDynamicOptions(
-        "sopa",
-        row,
-        FALLBACK_MENU_DATA.soups,
-        "img/almuerzo.webp",
-        "Opción de sopa del día."
-      );
-
-      const mains = buildDynamicOptions(
-        "plato",
-        row,
-        FALLBACK_MENU_DATA.mains,
-        "img/segundo.webp",
-        "Opción de plato fuerte del día."
-      );
-
+    function mapRow(row){
       return {
-        fechaLabel: pickFirstFilled(row.fecha_label, row.fecha, FALLBACK_MENU_DATA.fechaLabel),
-        precioServir: Number(pickFirstFilled(row.precio_servir, row.price_serve, FALLBACK_MENU_DATA.precioServir)),
-        precioLlevar: Number(pickFirstFilled(row.precio_llevar, row.price_takeout, FALLBACK_MENU_DATA.precioLlevar)),
-        whatsapp: pickFirstFilled(row.whatsapp, FALLBACK_MENU_DATA.whatsapp),
-        heroTitle: pickFirstFilled(row.titulo, row.hero_title, FALLBACK_MENU_DATA.heroTitle),
-        heroText: pickFirstFilled(row.descripcion, row.hero_text, FALLBACK_MENU_DATA.heroText),
-        heroImage: pickFirstFilled(row.poster_url, row.hero_image, FALLBACK_MENU_DATA.heroImage),
+        fechaLabel: pick(row.fecha_label, row.fecha, 'Menú del día'),
+        title: pick(row.titulo, 'Almuerzo del día'),
+        description: pick(row.descripcion, 'Elige tus combinaciones y envía el pedido por WhatsApp.'),
+        heroImage: pick(row.poster_url, row.hero_image, 'img/almuerzo.webp'),
+        precioServir: Number(pick(row.precio_servir, row.price_serve, '0')),
+        precioLlevar: Number(pick(row.precio_llevar, row.price_takeout, '0')),
+        whatsapp: pick(row.whatsapp, SHEET_CONFIG.whatsapp),
         drink: {
-          name: pickFirstFilled(row.jugo, row.jugo_nombre, FALLBACK_MENU_DATA.drink.name),
-          description: pickFirstFilled(row.jugo_descripcion, FALLBACK_MENU_DATA.drink.description),
-          image: pickFirstFilled(row.jugo_imagen, row.jugo_image, FALLBACK_MENU_DATA.drink.image)
+          name: pick(row.jugo, row.jugo_nombre, 'Jugo del día'),
+          description: pick(row.jugo_descripcion, 'Refrescante y natural.'),
+          image: pick(row.jugo_imagen, row.jugo_image, 'img/jugos.webp')
         },
-        soups: soups.length ? soups : FALLBACK_MENU_DATA.soups,
-        mains: mains.length ? mains : FALLBACK_MENU_DATA.mains
+        soups: buildOptions(row, 'sopa', 'img/almuerzo.webp', 'Opción de sopa del día.'),
+        mains: buildOptions(row, 'plato', 'img/segundo.webp', 'Opción de plato fuerte del día.')
       };
     }
 
-    async function loadMenuFromSheet(){
-      if(!GOOGLE_SHEET_CSV_URL) return false;
-
-      try {
-        const response = await fetch(GOOGLE_SHEET_CSV_URL, { cache: "no-store" });
-        if(!response.ok) throw new Error("No se pudo leer la hoja publicada.");
-
+    async function loadMenu(){
+      const status = document.getElementById('sheetStatus');
+      try{
+        const response = await fetch(CSV_URL, { cache:'no-store' });
+        if(!response.ok) throw new Error('No se pudo leer la hoja.');
         const text = await response.text();
         const rows = parseCsv(text);
-
-        if(!rows.length) return false;
-
-        const activeRow =
-          rows.find(row => normalizeText(row.activo).toUpperCase() === "SI") ||
-          rows.find(row => normalizeText(row.activo).toUpperCase() === "TRUE") ||
-          rows[0];
-
-        MENU_DATA = mapSheetRowToMenuData(activeRow);
-        return true;
-      } catch (error) {
-        console.warn("No se pudo cargar la hoja de Google Sheets. Se usa fallback local.", error);
-        MENU_DATA = JSON.parse(JSON.stringify(FALLBACK_MENU_DATA));
-        return false;
+        if(!rows.length) throw new Error('La hoja no tiene datos.');
+        const activeRow = rows.find(row => ['SI','TRUE','YES','1'].includes(normalize(row.activo).toUpperCase())) || rows[0];
+        const menu = mapRow(activeRow);
+        if(!menu.soups.length || !menu.mains.length){
+          throw new Error('Faltan sopas o platos en la fila activa.');
+        }
+        state.menu = menu;
+        status.textContent = 'Menú cargado correctamente desde Google Sheet.';
+        status.classList.remove('error');
+      } catch(error){
+        state.menu = {
+          fechaLabel: 'Revisión requerida',
+          title: 'No se pudo cargar la hoja',
+          description: 'Revisa que la hoja esté publicada o compartida para acceso web y que la fila activa tenga datos.',
+          heroImage: 'img/almuerzo.webp',
+          precioServir: 0,
+          precioLlevar: 0,
+          whatsapp: SHEET_CONFIG.whatsapp,
+          drink: { name:'Jugo del día', description:'Pendiente de cargar desde la hoja.', image:'img/jugos.webp' },
+          soups: [],
+          mains: []
+        };
+        status.textContent = 'No se pudo cargar Google Sheet. Revisa publicación, permisos o columnas.';
+        status.classList.add('error');
       }
     }
 
-    function createOptionCard(item, group){
+    function renderMenu(){
+      const menu = state.menu;
+      document.getElementById('heroDate').textContent = menu.fechaLabel;
+      document.getElementById('heroTitle').textContent = menu.title;
+      document.getElementById('heroText').textContent = menu.description;
+      document.getElementById('heroImage').src = menu.heroImage;
+      document.getElementById('priceServe').textContent = money(menu.precioServir);
+      document.getElementById('priceTakeout').textContent = money(menu.precioLlevar);
+      document.getElementById('drinkTitle').textContent = menu.drink.name;
+      document.getElementById('drinkDescription').textContent = menu.drink.description;
+      document.getElementById('drinkImage').src = menu.drink.image;
+      document.getElementById('selectedDrink').textContent = menu.drink.name;
+      document.getElementById('badgeSoups').textContent = `${menu.soups.length} sopa${menu.soups.length === 1 ? '' : 's'}`;
+      document.getElementById('badgeMains').textContent = `${menu.mains.length} plato${menu.mains.length === 1 ? '' : 's'} fuerte${menu.mains.length === 1 ? '' : 's'}`;
+
+      document.getElementById('soupsGrid').innerHTML = menu.soups.length
+        ? menu.soups.map(item => optionCard(item, 'soup')).join('')
+        : '<div class="cart-empty">No hay sopas cargadas en la hoja activa.</div>';
+
+      document.getElementById('mainsGrid').innerHTML = menu.mains.length
+        ? menu.mains.map(item => optionCard(item, 'main')).join('')
+        : '<div class="cart-empty">No hay platos fuertes cargados en la hoja activa.</div>';
+    }
+
+    function optionCard(item, type){
       return `
-        <article class="option-card">
-          <input type="radio" name="${group}" id="${item.id}" value="${item.name}">
-          <label for="${item.id}">
-            <div class="option-media">
-              <img src="${item.image}" alt="${item.name}" loading="lazy" decoding="async">
-              <div class="checkmark">✓</div>
+        <article class="option" data-type="${type}" data-id="${escapeHtml(item.id)}">
+          <div class="option-media">
+            <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy" decoding="async">
+            <div class="check">✓</div>
+          </div>
+          <div class="option-body">
+            <h4>${escapeHtml(item.name)}</h4>
+            <p>${escapeHtml(item.description)}</p>
+          </div>
+        </article>`;
+    }
+
+    function bindStaticEvents(){
+      document.getElementById('soupsGrid').addEventListener('click', e => {
+        const card = e.target.closest('.option[data-type="soup"]');
+        if(!card) return;
+        state.selectedSoupId = card.dataset.id;
+        renderSelections();
+      });
+
+      document.getElementById('mainsGrid').addEventListener('click', e => {
+        const card = e.target.closest('.option[data-type="main"]');
+        if(!card) return;
+        state.selectedMainId = card.dataset.id;
+        renderSelections();
+      });
+
+      document.getElementById('modeGrid').addEventListener('click', e => {
+        const card = e.target.closest('.mode-option');
+        if(!card) return;
+        state.selectedMode = card.dataset.mode;
+        renderSelections();
+      });
+
+      document.getElementById('addComboBtn').addEventListener('click', addCombo);
+      document.getElementById('clearCartBtn').addEventListener('click', () => {
+        state.cart = [];
+        updateCart();
+      });
+      document.getElementById('generalNotes').addEventListener('input', updateWhatsappLinks);
+
+      document.getElementById('cartList').addEventListener('click', e => {
+        const minus = e.target.closest('[data-action="minus"]');
+        const plus = e.target.closest('[data-action="plus"]');
+        const remove = e.target.closest('[data-action="remove"]');
+        if(!minus && !plus && !remove) return;
+        const index = Number((minus || plus || remove).dataset.index);
+        const item = state.cart[index];
+        if(!item) return;
+        if(minus){
+          item.qty -= 1;
+          if(item.qty <= 0) state.cart.splice(index,1);
+        }
+        if(plus){ item.qty += 1; }
+        if(remove){ state.cart.splice(index,1); }
+        updateCart();
+      });
+    }
+
+    function renderSelections(){
+      document.querySelectorAll('.option[data-type="soup"]').forEach(card => {
+        card.classList.toggle('selected', card.dataset.id === state.selectedSoupId);
+      });
+      document.querySelectorAll('.option[data-type="main"]').forEach(card => {
+        card.classList.toggle('selected', card.dataset.id === state.selectedMainId);
+      });
+      document.querySelectorAll('.mode-option').forEach(card => {
+        card.classList.toggle('selected', card.dataset.mode === state.selectedMode);
+      });
+
+      const soup = getSelectedSoup();
+      const main = getSelectedMain();
+      document.getElementById('selectedSoup').textContent = soup ? soup.name : 'Aún no eliges';
+      document.getElementById('selectedMain').textContent = main ? main.name : 'Aún no eliges';
+    }
+
+    function getSelectedSoup(){
+      return state.menu.soups.find(item => item.id === state.selectedSoupId) || null;
+    }
+
+    function getSelectedMain(){
+      return state.menu.mains.find(item => item.id === state.selectedMainId) || null;
+    }
+
+    function comboPrice(mode){
+      return mode === 'Para llevar' ? state.menu.precioLlevar : state.menu.precioServir;
+    }
+
+    function addCombo(){
+      const soup = getSelectedSoup();
+      const main = getSelectedMain();
+      if(!soup || !main){
+        alert('Debes elegir una sopa y un plato fuerte antes de agregar el combo.');
+        return;
+      }
+      const mode = state.selectedMode;
+      const key = `${soup.id}|${main.id}|${mode}`;
+      const existing = state.cart.find(item => item.key === key);
+      if(existing){
+        existing.qty += 1;
+      } else {
+        state.cart.push({
+          key,
+          soupName: soup.name,
+          mainName: main.name,
+          mode,
+          price: comboPrice(mode),
+          qty: 1
+        });
+      }
+      updateCart();
+    }
+
+    function renderCart(){
+      const list = document.getElementById('cartList');
+      if(!state.cart.length){
+        list.innerHTML = '<div class="cart-empty">Todavía no hay combos agregados. Elige una sopa, un plato y pulsa "Agregar combo".</div>';
+        return;
+      }
+      list.innerHTML = state.cart.map((item, index) => `
+        <article class="cart-item">
+          <div>
+            <h4>Combo ${index + 1}</h4>
+            <p><strong>Sopa:</strong> ${escapeHtml(item.soupName)}</p>
+            <p><strong>Plato:</strong> ${escapeHtml(item.mainName)}</p>
+            <p><strong>Modalidad:</strong> ${escapeHtml(item.mode)}</p>
+            <p><strong>Precio unitario:</strong> ${money(item.price)}</p>
+          </div>
+          <div class="cart-actions">
+            <div class="qty">
+              <button type="button" data-action="minus" data-index="${index}" aria-label="Restar">−</button>
+              <span>${item.qty}</span>
+              <button type="button" data-action="plus" data-index="${index}" aria-label="Sumar">+</button>
             </div>
-            <div class="option-body">
-              <h4>${item.name}</h4>
-              <p>${item.description}</p>
-            </div>
-          </label>
-        </article>
-      `;
+            <button class="remove-btn" type="button" data-action="remove" data-index="${index}">Quitar</button>
+          </div>
+        </article>`).join('');
     }
 
-    function renderBadges(){
-      const soupsCount = MENU_DATA.soups.length;
-      const mainsCount = MENU_DATA.mains.length;
-      document.getElementById("badgeSoups").textContent = `${soupsCount} sopa${soupsCount === 1 ? "" : "s"} a elegir`;
-      document.getElementById("badgeMains").textContent = `${mainsCount} plato${mainsCount === 1 ? "" : "s"} fuerte${mainsCount === 1 ? "" : "s"}`;
-    }
-
-    function renderData(){
-      state.soup = null;
-      state.main = null;
-
-      document.getElementById("heroTitle").textContent = MENU_DATA.heroTitle;
-      document.getElementById("heroText").textContent = MENU_DATA.heroText;
-      document.getElementById("heroImage").src = MENU_DATA.heroImage;
-      document.getElementById("priceServe").textContent = money(MENU_DATA.precioServir);
-      document.getElementById("priceTakeout").textContent = money(MENU_DATA.precioLlevar);
-      document.getElementById("drinkTitle").textContent = MENU_DATA.drink.name;
-      document.getElementById("drinkDescription").textContent = MENU_DATA.drink.description;
-      document.getElementById("drinkImage").src = MENU_DATA.drink.image;
-      document.getElementById("selectedDrink").textContent = MENU_DATA.drink.name;
-
-      document.getElementById("soupsGrid").innerHTML = MENU_DATA.soups.map(item => createOptionCard(item, "soup")).join("");
-      document.getElementById("mainsGrid").innerHTML = MENU_DATA.mains.map(item => createOptionCard(item, "main")).join("");
-
-      renderBadges();
-    }
-
-    function getCurrentPrice(){
-      return state.mode === "Para llevar" ? MENU_DATA.precioLlevar : MENU_DATA.precioServir;
+    function cartTotal(){
+      return state.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
     }
 
     function buildWhatsappMessage(){
       const lines = [];
-      lines.push("Hola, quiero pedir un almuerzo de Floresta Brava:");
-      lines.push("Modalidad: " + state.mode);
-      lines.push("Sopa: " + (state.soup || "Por confirmar"));
-      lines.push("Plato fuerte: " + (state.main || "Por confirmar"));
-      lines.push("Jugo: " + MENU_DATA.drink.name);
-      lines.push("Precio referencial: " + money(getCurrentPrice()));
-
-      const notes = document.getElementById("notes").value.trim();
-      if(notes) lines.push("Observaciones: " + notes);
-
-      lines.push("Gracias.");
-      return lines.join("\n");
-    }
-
-    function updateSummary(){
-      document.getElementById("selectedSoup").textContent = state.soup || "Selecciona una sopa";
-      document.getElementById("selectedMain").textContent = state.main || "Selecciona un plato fuerte";
-      document.getElementById("selectedPrice").textContent = money(getCurrentPrice());
-
-      const url = "https://wa.me/" + MENU_DATA.whatsapp + "?text=" + encodeURIComponent(buildWhatsappMessage());
-      document.getElementById("whatsappBtn").href = url;
-      document.getElementById("floatingWhatsApp").href = url;
-    }
-
-    function bindEvents(){
-      document.querySelectorAll('input[name="soup"]').forEach(input => {
-        input.addEventListener("change", e => {
-          state.soup = e.target.value;
-          updateSummary();
-        });
+      lines.push('Hola, quiero pedir almuerzos de Floresta Brava:');
+      state.cart.forEach((item, index) => {
+        lines.push(`${index + 1}. ${item.qty} combo(s)`);
+        lines.push(`   Sopa: ${item.soupName}`);
+        lines.push(`   Plato fuerte: ${item.mainName}`);
+        lines.push(`   Modalidad: ${item.mode}`);
+        lines.push(`   Precio unitario: ${money(item.price)}`);
       });
-
-      document.querySelectorAll('input[name="main"]').forEach(input => {
-        input.addEventListener("change", e => {
-          state.main = e.target.value;
-          updateSummary();
-        });
-      });
-
-      document.querySelectorAll('input[name="modo"]').forEach(input => {
-        input.addEventListener("change", e => {
-          state.mode = e.target.value;
-          updateSummary();
-        });
-      });
-
-      document.getElementById("notes").addEventListener("input", updateSummary);
+      lines.push(`Total referencial: ${money(cartTotal())}`);
+      lines.push(`Jugo: ${state.menu.drink.name}`);
+      const notes = normalize(document.getElementById('generalNotes').value);
+      if(notes){ lines.push(`Observaciones: ${notes}`); }
+      lines.push('Gracias.');
+      return lines.join('\n');
     }
 
-    async function initPage(){
-      document.getElementById("year").textContent = new Date().getFullYear();
-      await loadMenuFromSheet();
-      renderData();
-      bindEvents();
-      updateSummary();
+    function updateWhatsappLinks(){
+      const href = `https://wa.me/${state.menu.whatsapp}?text=${encodeURIComponent(buildWhatsappMessage())}`;
+      document.getElementById('sendWhatsappBtn').href = href;
+      document.getElementById('floatingWhatsappBtn').href = href;
     }
 
-    initPage();
-  </script>
+    function updateCart(){
+      renderCart();
+      document.getElementById('selectedTotal').textContent = money(cartTotal());
+      document.getElementById('cartTotal').textContent = money(cartTotal());
+      updateWhatsappLinks();
+    }
+
+    async function init(){
+      document.getElementById('year').textContent = new Date().getFullYear();
+      await loadMenu();
+      renderMenu();
+      bindStaticEvents();
+      renderSelections();
+      updateCart();
+    }
+
+    init();
   </script>
 </body>
 </html>
