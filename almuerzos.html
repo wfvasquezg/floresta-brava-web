@@ -167,7 +167,26 @@
       .order-item{flex-direction:column}
       .order-right{align-items:flex-start}
     }
-  </style>
+  
+    .sticky-cart{
+      position:fixed;
+      right:18px;
+      bottom:78px;
+      z-index:90;
+      background:#0b2731;
+      color:#fff;
+      text-decoration:none;
+      padding:12px 16px;
+      border-radius:999px;
+      font-weight:800;
+      box-shadow:0 14px 30px rgba(0,0,0,.18);
+    }
+    .order-qty{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:10px;}
+    .qty-btn{width:32px;height:32px;border:0;border-radius:999px;background:#145b6b;color:#fff;font-size:18px;font-weight:800;cursor:pointer;}
+    .qty-num{min-width:18px;text-align:center;font-weight:800;color:#0b2731;}
+    @media (max-width:640px){ .sticky-cart{bottom:74px;padding:12px 14px;} }
+
+</style>
 </head>
 <body>
   <header>
@@ -321,7 +340,7 @@
         </div>
       </section>
 
-      <section class="section-card">
+      <section class="section-card" id="tu-pedido">
         <div class="section-head">
           <div>
             <h3>3. Tu pedido</h3>
@@ -339,6 +358,7 @@
     </div>
   </main>
 
+  <a class="sticky-cart" id="floating-cart" href="#tu-pedido">Tu pedido (0)</a>
   <a class="sticky-wa" id="floating-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
 
   <script>
@@ -535,6 +555,18 @@
           return;
         }
 
+        const plusBtn = event.target.closest('[data-plus-index]');
+        if (plusBtn) {
+          changeQty(Number(plusBtn.dataset.plusIndex), 1);
+          return;
+        }
+
+        const minusBtn = event.target.closest('[data-minus-index]');
+        if (minusBtn) {
+          changeQty(Number(minusBtn.dataset.minusIndex), -1);
+          return;
+        }
+
         const removeBtn = event.target.closest('[data-remove-index]');
         if (removeBtn) {
           const index = Number(removeBtn.dataset.removeIndex);
@@ -548,47 +580,43 @@
         const { soup, main, mode } = state.lunchSelection;
         if (!soup || !main) return alert('Primero elige una sopa y un plato fuerte.');
         const price = mode === 'servir' ? state.data.precioServir : state.data.precioLlevar;
-        state.order.push({
+        addOrIncrementOrder({
           type: 'Almuerzo',
           mode,
           price,
           lines: [`Sopa: ${soup.name}`, `Plato fuerte: ${main.name}`, `Jugo: ${state.data.jugo}`]
         });
-        syncSummary();
       });
 
       document.getElementById('add-extra-soup').addEventListener('click', () => {
         const option = state.extraSoup.option;
         if (!option) return alert('Elige una sopa extra.');
-        state.order.push({
+        addOrIncrementOrder({
           type: 'Sopa extra',
           mode: state.extraSoup.mode,
           price: state.data.precioSoloSopa,
           lines: [`Sopa: ${option.name}`]
         });
-        syncSummary();
       });
 
       document.getElementById('add-extra-main').addEventListener('click', () => {
         const option = state.extraMain.option;
         if (!option) return alert('Elige un plato fuerte extra.');
-        state.order.push({
+        addOrIncrementOrder({
           type: 'Plato fuerte extra',
           mode: state.extraMain.mode,
           price: state.data.precioSoloPlato,
           lines: [`Plato fuerte: ${option.name}`]
         });
-        syncSummary();
       });
 
       document.getElementById('add-extra-juice').addEventListener('click', () => {
-        state.order.push({
+        addOrIncrementOrder({
           type: 'Jugo extra',
           mode: state.extraJuice.mode,
           price: state.data.precioJugoExtra,
           lines: [`Jugo: ${state.data.jugo}`]
         });
-        syncSummary();
       });
 
       document.getElementById('clear-order').addEventListener('click', () => {
@@ -599,10 +627,36 @@
       document.getElementById('order-notes').addEventListener('input', syncWhatsAppLink);
     }
 
+    function orderSignature(item) {
+      return JSON.stringify([item.type, item.mode, item.lines]);
+    }
+
+    function addOrIncrementOrder(item) {
+      const sig = orderSignature(item);
+      const existing = state.order.find(x => x.signature === sig);
+      if (existing) {
+        existing.qty = Number(existing.qty || 1) + 1;
+      } else {
+        state.order.push({ ...item, qty: 1, signature: sig });
+      }
+      syncSummary();
+    }
+
+    function changeQty(index, delta) {
+      const item = state.order[index];
+      if (!item) return;
+      item.qty = Number(item.qty || 1) + delta;
+      if (item.qty <= 0) {
+        state.order.splice(index, 1);
+      }
+      syncSummary();
+    }
+
     function syncSummary() {
-      const lunches = state.order.filter(x => x.type === 'Almuerzo').length;
-      const extras = state.order.length - lunches;
-      const total = state.order.reduce((sum, item) => sum + Number(item.price || 0), 0);
+      const lunches = state.order.filter(x => x.type === 'Almuerzo').reduce((sum, item) => sum + Number(item.qty || 1), 0);
+      const totalItems = state.order.reduce((sum, item) => sum + Number(item.qty || 1), 0);
+      const extras = totalItems - lunches;
+      const total = state.order.reduce((sum, item) => sum + (Number(item.price || 0) * Number(item.qty || 1)), 0);
 
       document.getElementById('summary-lunches').textContent = String(lunches);
       document.getElementById('summary-extras').textContent = String(extras);
@@ -626,7 +680,12 @@
             ${item.lines.map(line => `<p>${line}</p>`).join('')}
           </div>
           <div class="order-right">
-            <div class="order-price">${currency(item.price)}</div>
+            <div class="order-price">${currency(Number(item.price || 0) * Number(item.qty || 1))}</div>
+            <div class="order-qty">
+              <button class="qty-btn" type="button" data-minus-index="${index}">−</button>
+              <span class="qty-num">${Number(item.qty || 1)}</span>
+              <button class="qty-btn" type="button" data-plus-index="${index}">+</button>
+            </div>
             <button class="order-remove" type="button" data-remove-index="${index}">Quitar</button>
           </div>
         </div>
@@ -641,12 +700,12 @@
         message += '%0AQuiero pedir un almuerzo del día.';
       } else {
         state.order.forEach(item => {
-          message += `%0A- ${encodeURIComponent(item.type)} (${item.mode === 'servir' ? 'Para servir' : 'Para llevar'})`;
+          message += `%0A- ${encodeURIComponent(item.type)} x${encodeURIComponent(String(item.qty || 1))} (${item.mode === 'servir' ? 'Para servir' : 'Para llevar'})`;
           item.lines.forEach(line => {
             message += `%0A  ${encodeURIComponent(line)}`;
           });
         });
-        const total = state.order.reduce((sum, item) => sum + Number(item.price || 0), 0);
+        const total = state.order.reduce((sum, item) => sum + (Number(item.price || 0) * Number(item.qty || 1)), 0);
         message += `%0A%0ATotal estimado: ${encodeURIComponent(currency(total))}`;
       }
 
@@ -656,6 +715,8 @@
       const href = `https://wa.me/${phone}?text=${message}`;
       document.getElementById('send-whatsapp').href = href;
       document.getElementById('floating-wa').href = href;
+      const orderCount = state.order.reduce((sum, item) => sum + Number(item.qty || 1), 0);
+      document.getElementById('floating-cart').textContent = `Tu pedido (${orderCount})`;
     }
 
     bindEvents();
