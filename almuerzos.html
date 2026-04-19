@@ -419,7 +419,7 @@
         precioLlevar: Number(row.precio_llevar || 0),
         precioSoloSopa: Number(row.precio_solo_sopa || 1.50),
         precioSoloPlato: Number(row.precio_solo_plato || 2.25),
-        precioJugoExtra: Number(row.precio_jugo_extra || 0.75),
+        precioJugoExtra: Number(row.precio_jugo_extra || 0.50),
         whatsapp: String(row.whatsapp || SHEET_CONFIG.whatsapp || '').replace(/\D/g,''),
         soups,
         mains
@@ -436,7 +436,7 @@
         const active = rows.find(r => String(r.activo || '').trim().toUpperCase() === 'SI') || rows[0];
         if (!active) throw new Error('No hay filas disponibles');
         state.data = normalizeRow(active);
-        statusEl.textContent = 'Menú cargado correctamente desde Google Sheet.';
+        statusEl.textContent = 'Menú cargado correctamente.';
         statusEl.classList.remove('error');
         hydrateUI();
       } catch (error) {
