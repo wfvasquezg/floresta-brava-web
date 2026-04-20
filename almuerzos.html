@@ -55,25 +55,65 @@
     }
     .nav-btn.primary{background:#fff;color:var(--verde-oscuro);border:none}
 
-    .hero{padding:22px 0 8px}
-    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch}
+    .hero{padding:18px 0 10px}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);gap:18px;align-items:start}
     .hero-card,.summary-card,.section-card{
       background:var(--card);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);
     }
     .hero-card{
-      padding:28px;
-      background:linear-gradient(135deg,rgba(11,39,49,.96),rgba(122,75,31,.72));
-      color:#fff;min-height:240px;display:flex;flex-direction:column;justify-content:flex-end;
+      padding:26px 26px 24px;
+      background:
+        radial-gradient(700px 260px at 100% 100%, rgba(245,124,34,.24), transparent 55%),
+        radial-gradient(700px 260px at 0% 0%, rgba(31,182,201,.18), transparent 45%),
+        linear-gradient(135deg,rgba(11,39,49,.98),rgba(122,75,31,.78));
+      color:#fff;
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      overflow:hidden;
+      position:relative;
+      isolation:isolate;
     }
-    .eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#ffe2bb;font-weight:800}
-    h1{margin:10px 0 8px;font-size:clamp(30px,5vw,54px);line-height:1.02}
-    .hero-card p{margin:0 0 16px;font-size:18px;color:#f8efe6;max-width:640px}
+    .hero-card::after{
+      content:"";
+      position:absolute;
+      inset:auto -80px -80px auto;
+      width:240px;
+      height:240px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(255,255,255,.16), rgba(255,255,255,0) 68%);
+      z-index:-1;
+    }
+    .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#ffe2bb;font-weight:900}
+    h1{margin:10px 0 8px;font-size:clamp(32px,4.4vw,48px);line-height:1.02;max-width:11ch}
+    .hero-card p{margin:0 0 14px;font-size:17px;color:#f8efe6;max-width:620px}
+    .hero-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap}
+    .hero-prices{display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:10px;min-width:min(100%,300px)}
+    .hero-price{
+      background:rgba(255,247,232,.12);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(10px);
+      border-radius:18px;
+      padding:12px 14px;
+    }
+    .hero-price span{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#ffe7c2;font-weight:800}
+    .hero-price strong{display:block;margin-top:4px;font-size:28px;line-height:1;color:#fff}
+    .hero-bottom{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;flex-wrap:wrap}
     .badges{display:flex;gap:8px;flex-wrap:wrap}
-    .badge{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.1);font-weight:700;font-size:13px}
+    .badge{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10);font-weight:700;font-size:13px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .hero-btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:13px 18px;border-radius:999px;font-weight:900;font-size:14px;
+      border:1px solid rgba(255,255,255,.22);color:#fff;background:rgba(255,255,255,.10)
+    }
+    .hero-btn.primary{background:#fff;color:var(--verde-oscuro);border-color:#fff}
+    .hero-btn:hover{transform:translateY(-1px)}
 
-    .summary-card{padding:24px;display:flex;flex-direction:column;gap:14px}
-    .summary-card h2{margin:0;font-size:26px;color:var(--verde-oscuro)}
-    .summary-sub{margin:0;color:var(--muted);font-size:15px}
+    .summary-card{padding:22px;display:flex;flex-direction:column;gap:12px;position:sticky;top:92px}
+    .summary-card h2{margin:0;font-size:24px;color:var(--verde-oscuro)}
+    .summary-sub{margin:0;color:var(--muted);font-size:15px;max-width:36ch}
     .status{
       padding:14px 16px;border-radius:18px;font-weight:800;font-size:15px;border:1px solid #bfdbfe;background:#eff6ff;color:#1d4ed8
     }
@@ -81,18 +121,19 @@
     .summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
     .summary-mini,.summary-wide{
       border:1px solid var(--line);border-radius:20px;padding:16px;background:#fff;
+      box-shadow:0 6px 16px rgba(0,0,0,.03);
     }
     .summary-mini .label,.summary-wide .label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6b7280;font-weight:900}
-    .summary-mini .value{margin-top:8px;font-size:24px;font-weight:900;color:#4b2a12}
+    .summary-mini .value{margin-top:8px;font-size:26px;font-weight:900;color:#4b2a12}
     .summary-wide .row{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:8px}
-    .summary-wide .value{font-size:18px;font-weight:900;color:var(--verde-oscuro);text-align:right}
-    .summary-tip{margin:0;color:var(--muted);font-size:14px}
+    .summary-wide .value{font-size:20px;font-weight:900;color:var(--verde-oscuro);text-align:right}
+    .summary-tip{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
 
     main{padding:10px 0 120px}
     .stack{display:grid;gap:18px}
-    .section-card{padding:22px}
+    .section-card{padding:22px 22px 24px}
     .section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-    .section-head h3{margin:0;font-size:24px;color:#4b2a12}
+    .section-head h3{margin:0;font-size:26px;color:#4b2a12}
     .section-head p{margin:8px 0 0;color:#64748b;font-size:15px;max-width:760px}
     .pill{padding:10px 14px;border-radius:999px;background:#fff1e7;border:1px solid #f6d2b7;color:#7c3b00;font-weight:900;white-space:nowrap}
 
@@ -149,29 +190,32 @@
     .order-remove{border:none;background:#fff1f2;color:#be123c;padding:10px 14px;border-radius:999px;font-weight:800;cursor:pointer}
 
     .notes{width:100%;min-height:120px;margin-top:14px;border-radius:20px;border:1px solid var(--line);padding:16px;font:inherit;resize:vertical}
-    .sticky-wa{position:fixed;right:16px;bottom:16px;z-index:1100;background:#22c55e;color:#fff;padding:16px 22px;border-radius:999px;font-weight:900;box-shadow:0 16px 32px rgba(34,197,94,.28)}
+    .sticky-wa{position:fixed;right:18px;bottom:16px;z-index:1100;background:#22c55e;color:#fff;padding:15px 22px;border-radius:999px;font-weight:900;box-shadow:0 16px 32px rgba(34,197,94,.28);border:1px solid rgba(255,255,255,.24)}
 
     .hidden{display:none !important}
 
     @media (max-width:980px){
       .hero-grid,.extras-grid{grid-template-columns:1fr}
+      .summary-card{position:static}
     }
     @media (max-width:720px){
       .nav{align-items:flex-start;flex-direction:column}
       .nav-actions{width:100%;justify-content:stretch}
       .nav-btn{flex:1;text-align:center}
-      .summary-grid,.choice-grid,.mode-grid{grid-template-columns:1fr}
+      .summary-grid,.choice-grid,.mode-grid,.hero-prices{grid-template-columns:1fr}
       .choice .title{font-size:22px}
       .section-head h3{font-size:22px}
       .summary-card h2{font-size:22px}
       .order-item{flex-direction:column}
       .order-right{align-items:flex-start}
+      .hero-card{min-height:auto;padding:22px}
+      .hero-bottom,.hero-top{flex-direction:column;align-items:flex-start}
     }
   
     .sticky-cart{
       position:fixed;
       right:18px;
-      bottom:78px;
+      bottom:82px;
       z-index:90;
       background:#0b2731;
       color:#fff;
@@ -180,6 +224,7 @@
       border-radius:999px;
       font-weight:800;
       box-shadow:0 14px 30px rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.12);
     }
     .order-qty{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:10px;}
     .qty-btn{width:32px;height:32px;border:0;border-radius:999px;background:#145b6b;color:#fff;font-size:18px;font-weight:800;cursor:pointer;}
@@ -208,13 +253,33 @@
   <section class="hero">
     <div class="container hero-grid">
       <article class="hero-card">
-        <div class="eyebrow" id="hero-date">Menú actualizado</div>
-        <h1 id="hero-title">Almuerzo del día</h1>
-        <p id="hero-description">Elige tu sopa, tu plato fuerte y agrega extras si deseas.</p>
-        <div class="badges">
-          <span class="badge" id="badge-soups">0 sopas</span>
-          <span class="badge" id="badge-mains">0 platos fuertes</span>
-          <span class="badge" id="badge-jugo">1 jugo del día</span>
+        <div class="hero-top">
+          <div>
+            <div class="eyebrow" id="hero-date">Menú actualizado</div>
+            <h1 id="hero-title">Almuerzo del día</h1>
+            <p id="hero-description">Elige tu sopa, tu plato fuerte y agrega extras si deseas.</p>
+          </div>
+          <div class="hero-prices" aria-label="Precios del almuerzo">
+            <div class="hero-price">
+              <span>Para servir</span>
+              <strong id="heroPriceServe">$2.75</strong>
+            </div>
+            <div class="hero-price">
+              <span>Para llevar</span>
+              <strong id="heroPriceTakeout">$3.25</strong>
+            </div>
+          </div>
+        </div>
+        <div class="hero-bottom">
+          <div class="badges">
+            <span class="badge" id="badge-soups">0 sopas</span>
+            <span class="badge" id="badge-mains">0 platos fuertes</span>
+            <span class="badge" id="badge-jugo">1 jugo del día</span>
+          </div>
+          <div class="hero-actions">
+            <a class="hero-btn primary" href="#tu-pedido">Ver tu pedido</a>
+            <a class="hero-btn" href="#armar-almuerzo">Empezar</a>
+          </div>
         </div>
       </article>
 
@@ -255,7 +320,7 @@
 
   <main>
     <div class="container stack">
-      <section class="section-card">
+      <section class="section-card" id="armar-almuerzo">
         <div class="section-head">
           <div>
             <h3>1. Arma tu almuerzo</h3>
@@ -376,21 +441,8 @@
       order: []
     };
 
-    function parsePrice(value, fallback = 0) {
-      if (value === undefined || value === null) return fallback;
-      const raw = String(value).trim();
-      if (!raw) return fallback;
-      const normalized = raw
-        .replace(/\$/g, '')
-        .replace(/\s+/g, '')
-        .replace(/\.(?=\d{3}(\D|$))/g, '')
-        .replace(',', '.');
-      const num = Number(normalized);
-      return Number.isFinite(num) ? num : fallback;
-    }
-
     function currency(value) {
-      return '$' + parsePrice(value, 0).toFixed(2);
+      return '$' + Number(value || 0).toFixed(2);
     }
 
     function todayYMD() {
@@ -428,14 +480,14 @@
         description: (row.descripcion || 'Elige tu sopa y tu plato fuerte.').trim(),
         date: (row.fecha || todayYMD()).trim(),
         jugo: (row.jugo || 'Jugo del día').trim(),
-        precioServir: parsePrice(row.precio_servir, 0),
-        precioLlevar: parsePrice(row.precio_llevar, 0),
-        precioSopaServir: parsePrice(row.precio_sopa_servir, 1.50),
-        precioSopaLlevar: parsePrice(row.precio_sopa_llevar, 1.75),
-        precioPlatoServir: parsePrice(row.precio_plato_servir, 2.25),
-        precioPlatoLlevar: parsePrice(row.precio_plato_llevar, 2.50),
-        precioJugoServir: parsePrice(row.precio_jugo_servir, 0.50),
-        precioJugoLlevar: parsePrice(row.precio_jugo_llevar, 0.75),
+        precioServir: Number(row.precio_servir || 0),
+        precioLlevar: Number(row.precio_llevar || 0),
+        precioSopaServir: Number(row.precio_sopa_servir || 1.50),
+        precioSopaLlevar: Number(row.precio_sopa_llevar || 1.75),
+        precioPlatoServir: Number(row.precio_plato_servir || 2.25),
+        precioPlatoLlevar: Number(row.precio_plato_llevar || 2.50),
+        precioJugoServir: Number(row.precio_jugo_servir || 0.50),
+        precioJugoLlevar: Number(row.precio_jugo_llevar || 0.75),
         whatsapp: String(row.whatsapp || SHEET_CONFIG.whatsapp || '').replace(/\D/g,''),
         soups,
         mains
@@ -474,6 +526,8 @@
 
       document.getElementById('price-serve').textContent = currency(d.precioServir);
       document.getElementById('price-takeaway').textContent = currency(d.precioLlevar);
+      document.getElementById('heroPriceServe').textContent = currency(d.precioServir);
+      document.getElementById('heroPriceTakeout').textContent = currency(d.precioLlevar);
       document.getElementById('lunch-serve-price').textContent = currency(d.precioServir);
       document.getElementById('lunch-takeaway-price').textContent = currency(d.precioLlevar);
       document.getElementById('summary-jugo').textContent = d.jugo;
