@@ -231,6 +231,191 @@
     .qty-num{min-width:18px;text-align:center;font-weight:800;color:#0b2731;}
     @media (max-width:640px){ .sticky-cart{bottom:74px;padding:12px 14px;} }
 
+
+/* Floating buttons + mini carrito */
+.floating-ctas{
+  position:fixed;
+  right:18px;
+  bottom:16px;
+  display:grid;
+  gap:10px;
+  z-index:1100;
+}
+.fab{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  min-width:72px;
+  padding:14px 18px;
+  border-radius:999px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:900;
+  box-shadow:0 16px 32px rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(10px);
+}
+.fab svg{width:22px;height:22px;fill:currentColor;flex:0 0 auto}
+.fab-whatsapp{background:#22c55e}
+.fab-cart{background:linear-gradient(135deg,#f57c22,#ff9a2f)}
+.fab-call{background:#4b5563}
+.fab.disabled{opacity:.55;pointer-events:none;filter:grayscale(.15)}
+.fab-cart.has-items{box-shadow:0 16px 34px rgba(245,124,34,.32)}
+.fab-cart.is-pulse{animation:cartPulse .6s ease}
+@keyframes cartPulse{
+  0%{transform:scale(1)}
+  35%{transform:scale(1.10)}
+  65%{transform:scale(.96)}
+  100%{transform:scale(1)}
+}
+.floating-ctas.is-hidden-during-cart{
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(10px);
+  transition:opacity .2s ease, transform .2s ease;
+}
+.cart-panel{
+  position:fixed;
+  right:18px;
+  bottom:88px;
+  width:min(390px, calc(100vw - 32px));
+  max-height:min(68vh, 560px);
+  background:rgba(255,255,255,.98);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:0 20px 46px rgba(0,0,0,.18);
+  z-index:1095;
+  overflow:hidden;
+  display:none;
+  flex-direction:column;
+}
+.cart-panel.open{display:flex}
+.cart-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 16px 14px;
+  background:linear-gradient(180deg, rgba(34,197,94,.10), rgba(255,255,255,0));
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+.cart-title{font-weight:900;color:var(--verde-oscuro);font-size:18px}
+.cart-close{
+  width:38px;height:38px;border-radius:999px;border:1px solid var(--line);
+  background:#fff;color:#111827;cursor:pointer;font-size:22px;line-height:1;
+}
+.cart-list{
+  padding:10px 16px;
+  flex:1 1 auto;
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.cart-empty{
+  color:var(--muted);
+  font-size:14px;
+  padding:10px 2px 16px;
+}
+.cart-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px dashed rgba(0,0,0,.08);
+}
+.cart-row:last-child{border-bottom:none}
+.cart-row-name{font-weight:900;color:var(--verde-oscuro);font-size:15px}
+.cart-row-sub{margin-top:4px;color:#64748b;font-size:13px;line-height:1.4}
+.cart-row-right{text-align:right;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.cart-row-total{font-weight:900;font-size:18px;color:#4b2a12;white-space:nowrap}
+.cart-row-qty{display:inline-flex;align-items:center;gap:8px}
+.cart-mini-btn{
+  width:30px;height:30px;border-radius:999px;border:0;background:#145b6b;color:#fff;
+  font-size:18px;font-weight:900;cursor:pointer;line-height:1;
+}
+.cart-mini-val{min-width:16px;text-align:center;font-weight:900;color:#0b2731}
+.cart-foot{
+  padding:14px 16px 16px;
+  border-top:1px solid rgba(0,0,0,.06);
+  background:#fff;
+}
+.cart-total{font-weight:900;color:#0b2731;font-size:26px;margin-bottom:12px}
+.cart-notes-label{display:block;font-weight:900;color:#0b2731;font-size:13px;margin:0 0 8px}
+.cart-notes{
+  width:100%;
+  min-height:92px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px;
+  font:inherit;
+  resize:vertical;
+  margin-bottom:12px;
+}
+.cart-actions{display:flex;gap:10px;align-items:center}
+.cart-clear{
+  flex:0 0 auto;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  padding:12px 16px;
+  font-weight:900;
+  cursor:pointer;
+}
+.cart-send{
+  flex:1 1 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border-radius:999px;
+  background:#22c55e;
+  color:#fff;
+  text-decoration:none;
+  padding:14px 16px;
+  font-weight:900;
+}
+.cart-send.disabled{opacity:.6;pointer-events:none}
+.cart-toast{
+  position:fixed;
+  left:50%;
+  bottom:calc(96px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(12px);
+  background:rgba(11,44,47,.96);
+  color:#fff;
+  padding:12px 16px;
+  border-radius:999px;
+  box-shadow:0 14px 30px rgba(0,0,0,.22);
+  font-size:13px;
+  font-weight:800;
+  z-index:1200;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .22s ease, transform .22s ease;
+  max-width:calc(100vw - 32px);
+  text-align:center;
+}
+.cart-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (max-width:640px){
+  .floating-ctas{right:14px;bottom:14px}
+  .fab-whatsapp,.fab-call{
+    width:72px;
+    padding-left:0;
+    padding-right:0;
+  }
+  .fab-whatsapp span,.fab-call span{display:none}
+  .fab-cart{min-width:108px;padding:14px 16px}
+  .cart-panel{
+    right:12px;
+    left:12px;
+    width:auto;
+    bottom:84px;
+    max-height:calc(100vh - 150px);
+  }
+  .cart-actions{
+    display:grid;
+    grid-template-columns:1fr 1.2fr;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -414,8 +599,46 @@
     </div>
   </main>
 
-  <a class="sticky-cart" id="floating-cart" href="#tu-pedido">Tu pedido (0)</a>
-  <a class="sticky-wa" id="floating-wa" href="#" target="_blank" rel="noopener">WhatsApp</a>
+
+  <div class="floating-ctas" aria-label="Accesos rápidos">
+    <a class="fab fab-whatsapp disabled" id="waCart" href="#" target="_blank" rel="noopener" aria-label="Enviar pedido por WhatsApp">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path d="M19.11 17.45c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.48-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5 0 1.47 1.08 2.9 1.23 3.1.15.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.71.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/>
+        <path d="M16.02 3C8.84 3 3 8.84 3 16.02c0 2.3.6 4.47 1.65 6.36L3 29l6.81-1.63c1.82 1 3.92 1.57 6.21 1.57C23.2 28.94 29 23.2 29 16.02 29 8.84 23.2 3 16.02 3zm0 23.64c-2.06 0-3.97-.6-5.59-1.63l-.4-.25-4.04.97.96-3.93-.26-.41a10.48 10.48 0 0 1-1.64-5.67c0-5.82 4.74-10.56 10.56-10.56 5.82 0 10.56 4.74 10.56 10.56 0 5.82-4.74 10.56-10.56 10.56z"/>
+      </svg>
+      <span>Enviar (0)</span>
+    </a>
+    <a class="fab fab-cart" id="cartToggle" href="#" aria-label="Ver pedido">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.2 6h13.1c.7 0 1.2.7 1 1.4l-1.6 6.1c-.2.6-.8 1-1.4 1H8.1l.3 1.2c.1.4.5.8 1 .8H19v2H9.4c-1.4 0-2.6-1-2.9-2.4L4.3 4H2V2h3.7l1.5 4z"/>
+      </svg>
+      <span>Pedido</span>
+    </a>
+    <a class="fab fab-call" href="tel:+593983603626" aria-label="Llamar">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6.6 10.8c1.6 3 3.7 5.1 6.7 6.7l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.9.6.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C10.1 22 2 13.9 2 3c0-.6.4-1 1-1h3.9c.6 0 1 .4 1 1 0 1.4.2 2.7.6 3.9.1.4 0 .8-.3 1.1L6.6 10.8z"/>
+      </svg>
+      <span>Llamar</span>
+    </a>
+  </div>
+
+  <aside class="cart-panel empty" id="cartPanel" aria-label="Tu pedido">
+    <div class="cart-head">
+      <div class="cart-title">Tu pedido</div>
+      <button type="button" class="cart-close" id="cartClose" aria-label="Cerrar">×</button>
+    </div>
+    <div class="cart-list"></div>
+    <div class="cart-foot">
+      <div class="cart-total">Total: —</div>
+      <label class="cart-notes-label" for="cartNotes">Observaciones (opcional)</label>
+      <textarea class="cart-notes" id="cartNotes" placeholder="Ej: sin cebolla, poco ají, con funda, enviar cubiertos..."></textarea>
+      <div class="cart-actions">
+        <button type="button" class="cart-clear" id="cartClear">Limpiar</button>
+        <a class="cart-send" id="cartSend" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+      </div>
+    </div>
+  </aside>
+  <div id="cartToast" class="cart-toast" aria-live="polite" aria-atomic="true"></div>
 
   <script>
     const SHEET_CONFIG = {
@@ -548,6 +771,8 @@
       renderMiniChoices('extra-soup-options', d.soups, 'extraSoup');
       renderMiniChoices('extra-main-options', d.mains, 'extraMain');
       syncSummary();
+      pulseCart();
+      showToast('Pedido actualizado');
     }
 
     function renderChoices(containerId, items, kind) {
@@ -697,7 +922,10 @@
         syncSummary();
       });
 
-      document.getElementById('order-notes').addEventListener('input', syncWhatsAppLink);
+      document.getElementById('order-notes').addEventListener('input', () => {
+        syncNotesBetweenViews(false);
+        syncWhatsAppLink();
+      });
     }
 
     function orderSignature(item) {
@@ -765,6 +993,154 @@
       `).join('');
     }
 
+    
+    let toastTimer = null;
+
+    function isMobileView() {
+      return window.matchMedia('(max-width: 640px)').matches;
+    }
+
+    function pulseCart() {
+      const btn = document.getElementById('cartToggle');
+      if (!btn) return;
+      btn.classList.remove('is-pulse');
+      void btn.offsetWidth;
+      btn.classList.add('is-pulse');
+      setTimeout(() => btn.classList.remove('is-pulse'), 650);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('cartToast');
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+    }
+
+    function totalOrderCount() {
+      return state.order.reduce((sum, item) => sum + Number(item.qty || 1), 0);
+    }
+
+    function totalOrderAmount() {
+      return state.order.reduce((sum, item) => sum + (Number(item.price || 0) * Number(item.qty || 1)), 0);
+    }
+
+    function setCartToggleLabel() {
+      const cartToggle = document.getElementById('cartToggle');
+      if (!cartToggle) return;
+      const span = cartToggle.querySelector('span');
+      if (!span) return;
+      const count = totalOrderCount();
+      if (count <= 0) {
+        span.textContent = isMobileView() ? '(0)' : 'Pedido';
+      } else {
+        span.textContent = isMobileView() ? `(${count})` : `Pedido (${count})`;
+      }
+      cartToggle.classList.toggle('has-items', count > 0);
+    }
+
+    function toggleCartPanel(forceOpen) {
+      const panel = document.getElementById('cartPanel');
+      const floating = document.querySelector('.floating-ctas');
+      if (!panel) return;
+      const open = typeof forceOpen === 'boolean' ? forceOpen : !panel.classList.contains('open');
+      panel.classList.toggle('open', open);
+      if (floating) floating.classList.toggle('is-hidden-during-cart', open);
+    }
+
+    function renderMiniCart() {
+      const panel = document.getElementById('cartPanel');
+      const list = panel?.querySelector('.cart-list');
+      const totalEl = panel?.querySelector('.cart-total');
+      const send = panel?.querySelector('#cartSend');
+      const clearBtn = panel?.querySelector('#cartClear');
+      if (!panel || !list || !totalEl || !send || !clearBtn) return;
+
+      const totalCount = totalOrderCount();
+      const totalAmount = totalOrderAmount();
+
+      if (!state.order.length) {
+        panel.classList.remove('open');
+        panel.classList.add('empty');
+        const floating = document.querySelector('.floating-ctas');
+        if (floating) floating.classList.remove('is-hidden-during-cart');
+        list.innerHTML = '<div class="cart-empty">Agrega almuerzos y extras para armar tu pedido.</div>';
+        totalEl.textContent = 'Total: —';
+        send.classList.add('disabled');
+        send.href = '#';
+        clearBtn.disabled = true;
+        return;
+      }
+
+      panel.classList.remove('empty');
+      clearBtn.disabled = false;
+      list.innerHTML = state.order.map((item, index) => `
+        <div class="cart-row">
+          <div class="cart-row-main">
+            <div class="cart-row-name">${item.type} · ${item.mode === 'servir' ? 'Para servir' : 'Para llevar'}</div>
+            <div class="cart-row-sub">${item.lines.join(' · ')}</div>
+          </div>
+          <div class="cart-row-right">
+            <div class="cart-row-total">${currency(Number(item.price || 0) * Number(item.qty || 1))}</div>
+            <div class="cart-row-qty">
+              <button type="button" class="cart-mini-btn" data-minus-index="${index}" aria-label="Restar">−</button>
+              <span class="cart-mini-val">${Number(item.qty || 1)}</span>
+              <button type="button" class="cart-mini-btn" data-plus-index="${index}" aria-label="Sumar">+</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      totalEl.textContent = `Total aprox: ${currency(totalAmount)}`;
+      send.classList.remove('disabled');
+      clearBtn.disabled = false;
+    }
+
+    function syncNotesBetweenViews(fromMini = false) {
+      const mainNotes = document.getElementById('order-notes');
+      const miniNotes = document.getElementById('cartNotes');
+      if (!mainNotes || !miniNotes) return;
+      if (fromMini) mainNotes.value = miniNotes.value;
+      else miniNotes.value = mainNotes.value;
+    }
+
+    function syncFloatingButtons(phone, href) {
+      const count = totalOrderCount();
+      const waBtn = document.getElementById('waCart');
+      const floating = document.querySelector('.floating-ctas');
+
+      if (waBtn) {
+        const span = waBtn.querySelector('span');
+        if (span) span.textContent = `Enviar (${count})`;
+        if (count === 0) {
+          waBtn.classList.add('disabled');
+          waBtn.href = '#';
+          waBtn.setAttribute('aria-disabled', 'true');
+        } else {
+          waBtn.classList.remove('disabled');
+          waBtn.removeAttribute('aria-disabled');
+          waBtn.href = href;
+        }
+      }
+
+      setCartToggleLabel();
+
+      const send = document.getElementById('cartSend');
+      if (send) {
+        if (count === 0) {
+          send.classList.add('disabled');
+          send.href = '#';
+        } else {
+          send.classList.remove('disabled');
+          send.href = href;
+        }
+      }
+
+      if (count === 0 && floating) {
+        floating.classList.remove('is-hidden-during-cart');
+      }
+    }
+
     function syncWhatsAppLink() {
       const phone = state.data?.whatsapp || SHEET_CONFIG.whatsapp;
       let message = 'Hola, quiero pedir en Floresta Brava:%0A';
@@ -778,8 +1154,7 @@
             message += `%0A  ${encodeURIComponent(line)}`;
           });
         });
-        const total = state.order.reduce((sum, item) => sum + (Number(item.price || 0) * Number(item.qty || 1)), 0);
-        message += `%0A%0ATotal estimado: ${encodeURIComponent(currency(total))}`;
+        message += `%0A%0ATotal estimado: ${encodeURIComponent(currency(totalOrderAmount()))}`;
       }
 
       const notes = document.getElementById('order-notes').value.trim();
@@ -787,12 +1162,47 @@
 
       const href = `https://wa.me/${phone}?text=${message}`;
       document.getElementById('send-whatsapp').href = href;
-      document.getElementById('floating-wa').href = href;
-      const orderCount = state.order.reduce((sum, item) => sum + Number(item.qty || 1), 0);
-      document.getElementById('floating-cart').textContent = `Tu pedido (${orderCount})`;
+      syncFloatingButtons(phone, href);
+      renderMiniCart();
+    }
+
+    function attachCartViewEvents() {
+      const openBtn = document.getElementById('cartToggle');
+      const closeBtn = document.getElementById('cartClose');
+      const clearBtn = document.getElementById('cartClear');
+      const cartNotes = document.getElementById('cartNotes');
+
+      if (openBtn) {
+        openBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          syncNotesBetweenViews(false);
+          toggleCartPanel();
+        });
+      }
+      if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleCartPanel(false);
+        });
+      }
+      if (clearBtn) {
+        clearBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          state.order = [];
+          syncSummary();
+        });
+      }
+      if (cartNotes) {
+        cartNotes.addEventListener('input', () => {
+          syncNotesBetweenViews(true);
+          syncWhatsAppLink();
+        });
+      }
+      window.addEventListener('resize', setCartToggleLabel);
     }
 
     bindEvents();
+    attachCartViewEvents();
     loadData();
   </script>
 </body>
