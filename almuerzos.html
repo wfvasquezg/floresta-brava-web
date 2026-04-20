@@ -416,6 +416,15 @@
   }
 }
 
+
+/* Desktop: se mantiene la sección completa inferior.
+   Móvil: el carrito flotante pasa a ser la experiencia principal y ocultamos la sección visual duplicada. */
+@media (max-width:640px){
+  #tu-pedido{
+    display:none !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -462,7 +471,7 @@
             <span class="badge" id="badge-jugo">1 jugo del día</span>
           </div>
           <div class="hero-actions">
-            <a class="hero-btn primary" href="#tu-pedido">Ver tu pedido</a>
+            <a class="hero-btn primary" id="heroOrderBtn" href="#tu-pedido">Ver tu pedido</a>
             <a class="hero-btn" href="#armar-almuerzo">Empezar</a>
           </div>
         </div>
@@ -1198,7 +1207,24 @@
           syncWhatsAppLink();
         });
       }
-      window.addEventListener('resize', setCartToggleLabel);
+
+      const heroOrderBtn = document.getElementById('heroOrderBtn');
+      if (heroOrderBtn) {
+        heroOrderBtn.addEventListener('click', (e) => {
+          if (isMobileView()) {
+            e.preventDefault();
+            syncNotesBetweenViews(false);
+            toggleCartPanel(true);
+          }
+        });
+      }
+
+      window.addEventListener('resize', () => {
+        setCartToggleLabel();
+        if (!isMobileView()) {
+          toggleCartPanel(false);
+        }
+      });
     }
 
     bindEvents();
