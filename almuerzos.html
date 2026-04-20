@@ -259,14 +259,14 @@
             <h1 id="hero-title">Almuerzo del día</h1>
             <p id="hero-description">Elige tu sopa, tu plato fuerte y agrega extras si deseas.</p>
           </div>
-          <div class="hero-prices" aria-label="Precios del almuerzo">
-            <div class="hero-price">
-              <span>Para servir</span>
-              <strong id="heroPriceServe">$2.75</strong>
+          <div class="hero-meta" aria-label="Información principal del almuerzo">
+            <div class="hero-meta-card">
+              <span>Desde</span>
+              <strong id="heroPriceFrom">$2.75</strong>
             </div>
-            <div class="hero-price">
-              <span>Para llevar</span>
-              <strong id="heroPriceTakeout">$3.25</strong>
+            <div class="hero-meta-card">
+              <span>Jugo del día</span>
+              <strong id="heroDrink">Jugo del día</strong>
             </div>
           </div>
         </div>
@@ -287,16 +287,7 @@
         <h2>Resumen rápido</h2>
         <p class="summary-sub">Haz el pedido fácil desde el celular y envíalo en un solo WhatsApp.</p>
         <div id="load-status" class="status">Cargando menú desde Google Sheet...</div>
-        <div class="summary-grid">
-          <div class="summary-mini">
-            <div class="label">Para servir</div>
-            <div class="value" id="price-serve">$0.00</div>
-          </div>
-          <div class="summary-mini">
-            <div class="label">Para llevar</div>
-            <div class="value" id="price-takeaway">$0.00</div>
-          </div>
-        </div>
+        <div class="summary-price-note">Almuerzo del día desde <strong id="price-from">$0.00</strong>. Selecciona la modalidad en cada almuerzo o extra.</div>
         <div class="summary-wide">
           <div class="label">Almuerzos agregados</div>
           <div class="row"><div>Pedidos completos</div><div class="value" id="summary-lunches">0</div></div>
@@ -537,10 +528,9 @@
       document.getElementById('badge-mains').textContent = `${d.mains.length} plato${d.mains.length === 1 ? '' : 's'} fuerte${d.mains.length === 1 ? '' : 's'}`;
       document.getElementById('badge-jugo').textContent = d.jugo;
 
-      document.getElementById('price-serve').textContent = currency(d.precioServir);
-      document.getElementById('price-takeaway').textContent = currency(d.precioLlevar);
-      document.getElementById('heroPriceServe').textContent = currency(d.precioServir);
-      document.getElementById('heroPriceTakeout').textContent = currency(d.precioLlevar);
+      document.getElementById('price-from').textContent = currency(Math.min(d.precioServir || 0, d.precioLlevar || 0) || d.precioServir || d.precioLlevar || 0);
+      document.getElementById('heroPriceFrom').textContent = currency(Math.min(d.precioServir || 0, d.precioLlevar || 0) || d.precioServir || d.precioLlevar || 0);
+      document.getElementById('heroDrink').textContent = d.jugo;
       document.getElementById('lunch-serve-price').textContent = currency(d.precioServir);
       document.getElementById('lunch-takeaway-price').textContent = currency(d.precioLlevar);
       document.getElementById('summary-jugo').textContent = d.jugo;
