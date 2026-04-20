@@ -458,6 +458,19 @@
       return parsed.data || [];
     }
 
+    function parsePrice(value, fallback = 0) {
+      if (value === undefined || value === null || value === '') return fallback;
+      const raw = String(value).trim();
+      if (!raw) return fallback;
+      const cleaned = raw
+        .replace(/\$/g, '')
+        .replace(/\s+/g, '')
+        .replace(/\.(?=\d{3}(\D|$))/g, '')
+        .replace(',', '.');
+      const num = Number(cleaned);
+      return Number.isFinite(num) ? num : fallback;
+    }
+
     function normalizeRow(row) {
       const soups = [1,2,3,4]
         .map(i => ({
@@ -480,14 +493,14 @@
         description: (row.descripcion || 'Elige tu sopa y tu plato fuerte.').trim(),
         date: (row.fecha || todayYMD()).trim(),
         jugo: (row.jugo || 'Jugo del día').trim(),
-        precioServir: Number(row.precio_servir || 0),
-        precioLlevar: Number(row.precio_llevar || 0),
-        precioSopaServir: Number(row.precio_sopa_servir || 1.50),
-        precioSopaLlevar: Number(row.precio_sopa_llevar || 1.75),
-        precioPlatoServir: Number(row.precio_plato_servir || 2.25),
-        precioPlatoLlevar: Number(row.precio_plato_llevar || 2.50),
-        precioJugoServir: Number(row.precio_jugo_servir || 0.50),
-        precioJugoLlevar: Number(row.precio_jugo_llevar || 0.75),
+        precioServir: parsePrice(row.precio_servir, 0),
+        precioLlevar: parsePrice(row.precio_llevar, 0),
+        precioSopaServir: parsePrice(row.precio_sopa_servir, 1.50),
+        precioSopaLlevar: parsePrice(row.precio_sopa_llevar, 1.75),
+        precioPlatoServir: parsePrice(row.precio_plato_servir, 2.25),
+        precioPlatoLlevar: parsePrice(row.precio_plato_llevar, 2.50),
+        precioJugoServir: parsePrice(row.precio_jugo_servir, 0.50),
+        precioJugoLlevar: parsePrice(row.precio_jugo_llevar, 0.75),
         whatsapp: String(row.whatsapp || SHEET_CONFIG.whatsapp || '').replace(/\D/g,''),
         soups,
         mains
