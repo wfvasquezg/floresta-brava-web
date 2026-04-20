@@ -949,10 +949,12 @@
         display:none;
       }
 
-      /* El carrito sí mantiene texto, pero compacto */
+      /* El carrito muestra solo el contador en móvil */
       .fab-cart{
-        min-width: 118px;
+        min-width: 92px;
         justify-content: center;
+        padding-left: 12px;
+        padding-right: 12px;
       }
 
       .fab-cart span{
@@ -1916,7 +1918,12 @@ function syncCartUI(){
   if (cartToggle){
     const span = cartToggle.querySelector("span");
     if (span){
-      span.textContent = n > 0 ? "Pedido (" + n + ")" : "Pedido";
+      const isMobile = window.matchMedia("(max-width: 480px)").matches;
+      if (isMobile){
+        span.textContent = n > 0 ? "(" + n + ")" : "(0)";
+      } else {
+        span.textContent = n > 0 ? "Pedido (" + n + ")" : "Pedido";
+      }
     }
     cartToggle.classList.toggle("has-items", n > 0);
   }
@@ -2063,6 +2070,7 @@ const notesEl = document.getElementById("cartNotes");
 if (notesEl){
   notesEl.addEventListener("input", () => syncCartUI());
 }
+window.addEventListener("resize", () => syncCartUI());
 }
 
 function findItem(categoryTitle, itemName) {
