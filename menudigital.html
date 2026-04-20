@@ -1315,6 +1315,49 @@
   }
 }
 
+
+
+/* Toast elegante del carrito */
+.cart-toast{
+  position: fixed;
+  left: 50%;
+  bottom: calc(96px + env(safe-area-inset-bottom));
+  transform: translateX(-50%) translateY(12px);
+  background: rgba(11,44,47,.96);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 999px;
+  box-shadow: 0 14px 30px rgba(0,0,0,.22);
+  font-size: 13px;
+  font-weight: 800;
+  z-index: 1200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
+  max-width: calc(100vw - 32px);
+  text-align: center;
+}
+.cart-toast.show{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Carrito más vendedor cuando tiene productos */
+.fab-cart.has-items{
+  background: linear-gradient(135deg, #f57c22, #ff9a2f);
+}
+
+/* Pulso al agregar productos */
+.fab-cart.is-pulse{
+  animation: cartPulse .6s ease;
+}
+@keyframes cartPulse{
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.10); }
+  65%  { transform: scale(.96); }
+  100% { transform: scale(1); }
+}
+
 </style>
 </head>
 
@@ -1516,7 +1559,7 @@
       </svg>
       <span>Llamar</span>
     </a>
-  </div
+  </div>
 
 <!-- Mini panel de carrito -->
 <aside class="cart-panel empty" id="cartPanel" aria-label="Tu pedido">
@@ -1534,7 +1577,7 @@
       <a class="cart-send" id="cartSend" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
     </div>
   </div>
-</aside>>
+</aside>
 
 
   <!-- Menú de categorías (overlay) -->
@@ -1791,8 +1834,46 @@ function toggleCartPanel(forceOpen){
   panel.classList.toggle("open", open);
 }
 
+
+let toastTimer = null;
+
+function pulseCart(){
+  const btn = document.getElementById("cartToggle");
+  if (!btn) return;
+
+  btn.classList.remove("is-pulse");
+  void btn.offsetWidth;
+  btn.classList.add("is-pulse");
+
+  setTimeout(() => {
+    btn.classList.remove("is-pulse");
+  }, 650);
+}
+
+function showToast(message){
+  const toast = document.getElementById("cartToast");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 1600);
+}
+
 function syncCartUI(){
   const n = cartCount();
+
+  const cartToggle = document.getElementById("cartToggle");
+  if (cartToggle){
+    const span = cartToggle.querySelector("span");
+    if (span){
+      span.textContent = n > 0 ? "Pedido (" + n + ")" : "Pedido";
+    }
+    cartToggle.classList.toggle("has-items", n > 0);
+  }
 
   // Botón flotante WhatsApp (sigue enviando directo)
   const waBtn = document.getElementById("waCart");
@@ -1880,8 +1961,8 @@ function setupCartSelection(){
       const name = plus.getAttribute("data-plus-item") || "";
       const price = plus.getAttribute("data-plus-price");
       incQty(name, price, +1);
-      // abrir panel cuando agregan el primer producto
-      if (cartCount() === 1) toggleCartPanel(true);
+      pulseCart();
+      showToast(name + " agregado al pedido");
     } else if (minus){
       const name = minus.getAttribute("data-minus-item") || "";
       const price = minus.getAttribute("data-minus-price");
@@ -2272,6 +2353,8 @@ function findItem(categoryTitle, itemName) {
     setupIngredientsModal();
     setupCategoriesMenu(); 
   </script>
+
+  <div id="cartToast" class="cart-toast" aria-live="polite" aria-atomic="true"></div>
 
   <footer class="site-footer">
     <div class="footer-inner">
