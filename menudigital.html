@@ -563,13 +563,6 @@
       gap: 10px;
       z-index: 999;
     }  
-
-    .floating-ctas.is-hidden-during-cart{
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(10px);
-      transition: opacity .2s ease, transform .2s ease;
-    }
    
     .float-btn{
       appearance: none;
@@ -942,23 +935,30 @@
     @media (max-width: 480px){
       .fab{ padding: 12px; border-radius: 16px; }
 
-      /* Oculta texto solo en botones secundarios */
+      /* En móvil, los botones secundarios quedan solo con ícono */
+      .fab-whatsapp,
+      .fab-call{
+        width: 72px;
+        justify-content: center;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
       .fab-whatsapp span,
       .fab-call span{
         display:none;
       }
 
-      /* El carrito debe mostrar el número del pedido en móvil */
+      /* El carrito sí mantiene texto, pero compacto */
+      .fab-cart{
+        min-width: 118px;
+        justify-content: center;
+      }
+
       .fab-cart span{
         display:inline;
       }
-
-      .fab-cart{
-        padding: 12px 14px;
-        min-width: 132px;
-        justify-content: center;
-      }
-    } 
+    }
 
     /* Quita subrayado a los botones flotantes */
     .fab { text-decoration: none; }
@@ -1255,7 +1255,7 @@
   flex:1.2;
   border-radius: 999px;
   border:1px solid rgba(0,0,0,.0);
-  background: #22c55e;
+  background: var(--wa);
   color:#fff;
   text-decoration:none;
   padding:10px 12px;
@@ -1374,6 +1374,20 @@
 .fab-cart.is-pulse{
   animation: cartPulse .6s ease;
 }
+
+/* Cuando el pedido está abierto, ocultamos flotantes para no tapar el CTA */
+.floating-ctas.is-hidden-during-cart{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+/* Color fijo del botón enviar para evitar inconsistencias */
+.cart-send{
+  background: #22c55e;
+}
+
 @keyframes cartPulse{
   0%   { transform: scale(1); }
   35%  { transform: scale(1.10); }
@@ -1941,12 +1955,10 @@ function syncCartUI(){
     if (n === 0){
       panel.classList.remove("open");
       panel.classList.add("empty");
-
       const floating = document.querySelector(".floating-ctas");
       if (floating){
         floating.classList.remove("is-hidden-during-cart");
       }
-
       if (list) list.innerHTML = '<div class="cart-empty">Selecciona productos con + para armar tu pedido.</div>';
       if (totalEl) totalEl.textContent = "Total: —";
       if (send) { send.classList.add("disabled"); send.href = "#"; }
