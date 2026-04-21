@@ -497,23 +497,138 @@
   .nav-toggle-label{ display:none; }
 }
 
-  .menu-highlight-row{
+
+
+
+  /* Menú diario dinámico: presentación más comercial */
+  .menu-daily-card{
+    background: linear-gradient(135deg, #ffffff, #fffaf2);
+    border-left-color: var(--naranja);
+    padding: 20px 18px;
+  }
+  .menu-daily-top{
     display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;
-    margin:14px 0 8px;
+    grid-template-columns: minmax(0,1fr) auto;
+    gap:16px;
+    align-items:start;
+    margin-bottom:14px;
   }
-  .menu-highlight-chip{
+  .menu-daily-kicker{
+    display:inline-block;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:900;
+    color:#8a4b14;
+    background:#fff1df;
+    border:1px solid #f6d2b7;
+    border-radius:999px;
+    padding:4px 10px;
+    margin-bottom:8px;
+  }
+  .menu-daily-card h3{
+    font-size:24px;
+    margin-bottom:6px;
+  }
+  .menu-daily-card p{
+    color:#555;
+  }
+  .menu-daily-prices{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(120px,1fr));
+    gap:10px;
+    min-width:min(100%,280px);
+  }
+  .menu-price-chip{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:18px;
     padding:12px 14px;
-    border-radius:16px;
-    background:#fff7ef;
-    border:1px solid rgba(245,124,34,.18);
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+    text-align:left;
   }
-  .menu-highlight-chip strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#8a5a24;margin-bottom:4px}
-  .menu-highlight-chip span{font-size:20px;font-weight:800;color:var(--verde-oscuro)}
-  .menu-detail-list{display:grid;gap:8px;margin:12px 0 0}
-  .menu-detail-list p{margin:0;font-size:14px;color:#4a5560}
-  @media (max-width:640px){.menu-highlight-row{grid-template-columns:1fr;}}
+  .menu-price-chip span{
+    display:block;
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#7c6b57;
+    font-weight:900;
+    margin-bottom:4px;
+  }
+  .menu-price-chip strong{
+    display:block;
+    font-size:28px;
+    line-height:1;
+    color:var(--verde-oscuro);
+  }
+  .menu-daily-meta{
+    display:grid;
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .menu-line{
+    background:rgba(255,255,255,.82);
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:16px;
+    padding:12px 14px;
+  }
+  .menu-line strong{
+    display:block;
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#7c3b00;
+    margin-bottom:4px;
+  }
+  .menu-line span{
+    display:block;
+    font-size:14px;
+    color:#374151;
+    font-weight:600;
+  }
+  .menu-daily-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .menu-secondary-btn{
+    color:var(--verde-oscuro);
+    border-color: rgba(11,39,49,.18);
+    background:#fff;
+  }
+  .menu-hoy-grid.hidden{display:none !important}
+  @media (max-width: 900px){
+    .menu-daily-top{
+      grid-template-columns:1fr;
+    }
+    .menu-daily-prices{
+      grid-template-columns:1fr 1fr;
+      min-width:0;
+    }
+  }
+  @media (max-width: 560px){
+    .menu-daily-card{
+      padding:18px 16px;
+    }
+    .menu-daily-card h3{
+      font-size:22px;
+    }
+    .menu-daily-prices{
+      grid-template-columns:1fr;
+    }
+    .menu-price-chip strong{
+      font-size:24px;
+    }
+    .menu-daily-actions{
+      flex-direction:column;
+      align-items:stretch;
+    }
+    .menu-daily-actions .btn{
+      width:100%;
+    }
+  }
 
 </style>
 
@@ -732,23 +847,47 @@
 			</div>
 
 			<!-- ESTE ES TU BLOQUE DINÁMICO (se llena desde Google Sheet) -->
-			<div id="menu-hoy" class="highlight">
-			  <h3 id="menu-titulo">Menú del día</h3>
-			  <p id="menu-descripcion" style="margin-bottom:12px;">Sopa, plato fuerte y bebida. Todos los días una opción práctica, casera y rendidora.</p>
+			<div id="menu-hoy" class="highlight menu-daily-card">
+			  <div class="menu-daily-top">
+			    <div>
+			      <div class="menu-daily-kicker" id="menu-kicker">Disponible hoy</div>
+			      <h3 id="menu-titulo">Menú del día</h3>
+			      <p id="menu-descripcion">Sopa, plato fuerte y bebida.</p>
+			    </div>
+			    <div class="menu-daily-prices" aria-label="Precios del almuerzo">
+			      <div class="menu-price-chip">
+			        <span>Para servir</span>
+			        <strong id="menu-precio">$2.75</strong>
+			      </div>
+			      <div class="menu-price-chip">
+			        <span>Para llevar</span>
+			        <strong id="menu-preciollevar">$3.25</strong>
+			      </div>
+			    </div>
+			  </div>
 
-			  <p><strong>Sopa:</strong> <span id="menu-sopa">Consulta por WhatsApp</span></p>
-			  <p><strong>Plato(s):</strong> <span id="menu-segundos">3 opciones disponibles</span></p>
-			  <p><strong>Precio servir:</strong> <span id="menu-precio">$2.75</span></p>
-			  <p><strong>Precio llevar:</strong> <span id="menu-preciollevar">$3.25</span></p>
-			  <p><strong>Bebida:</strong> <span id="menu-bebida">Jugo del Día</span></p>
+			  <div class="menu-daily-meta">
+			    <div class="menu-line">
+			      <strong>Sopa del día</strong>
+			      <span id="menu-sopa">Consulta por WhatsApp</span>
+			    </div>
+			    <div class="menu-line">
+			      <strong>Platos fuertes</strong>
+			      <span id="menu-segundos">3 opciones disponibles</span>
+			    </div>
+			    <div class="menu-line">
+			      <strong>Bebida</strong>
+			      <span id="menu-bebida">Jugo del Día</span>
+			    </div>
+			  </div>
 
-			  <div class="btn-group" style="margin-top:14px;">
-			    <a id="menu-whatsapp-btn" class="btn btn-primary" href="https://wa.me/593983603626?text=Hola%2C%20quiero%20el%20men%C3%BA%20del%20d%C3%ADa%20(sopa%20%2B%20segundo%20%2B%20bebida)%20de%20Floresta%20Brava.%20%C2%BFQu%C3%A9%20hay%20hoy%3F" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-			    <a id="menu-arma-btn" class="btn btn-ghost" href="almuerzos.html">Armar almuerzo completo</a>
+			  <div class="menu-daily-actions">
+			    <a id="menu-wa-btn" class="btn btn-primary" href="https://wa.me/593983603626?text=Hola%2C%20quiero%20el%20men%C3%BA%20del%20d%C3%ADa%20de%20Floresta%20Brava" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+			    <a class="btn btn-ghost menu-secondary-btn" href="almuerzos.html">Armar almuerzo completo</a>
 			  </div>
 			</div>
 
-			<div id="menu-opciones" class="menu-hoy-grid" style="display:none"></div>
+			<div id="menu-opciones" class="menu-hoy-grid hidden" aria-label="Opciones del menú especial"></div>
 		  </div>
 
 		  <!-- DERECHA: afiche -->
@@ -907,7 +1046,7 @@
   <script defer>
   // =========================
   // Floresta Brava - Menú dinámico (Google Sheets CSV)
-  // - Lunes a sábado: ALMUERZO_WEB (gid=1748658337)
+  // - Lunes a sábado: MENU_HOY (gid=0)
   // - Domingo: FIN_SEMANA (gid=17929628) como "menú especial"
   // =========================
 
@@ -947,35 +1086,6 @@
     const v = String(p ?? "").replace("$", "").trim();
     if (!v) return "";
     return "$" + v.replace(",", "."); // normaliza por si viene con coma
-  }
-
-  function renderMenuCommercialBlock({title, description, soup, mains, drink, servePrice, takePrice}) {
-    const block = document.getElementById("menu-hoy");
-    if (!block) return;
-    const html = `
-      <h3 id="menu-titulo">${escapeHtml(title)}</h3>
-      <p id="menu-descripcion" style="margin-bottom:12px;">${escapeHtml(description)}</p>
-      <div class="menu-highlight-row">
-        <div class="menu-highlight-chip">
-          <strong>Para servir</strong>
-          <span id="menu-precio">${escapeHtml(servePrice || "$2.75")}</span>
-        </div>
-        <div class="menu-highlight-chip">
-          <strong>Para llevar</strong>
-          <span id="menu-preciollevar">${escapeHtml(takePrice || "$3.25")}</span>
-        </div>
-      </div>
-      <div class="menu-detail-list">
-        <p><strong>Sopa:</strong> <span id="menu-sopa">${escapeHtml(soup || "Consulta por WhatsApp")}</span></p>
-        <p><strong>Plato(s):</strong> <span id="menu-segundos">${escapeHtml(mains || "3 opciones disponibles")}</span></p>
-        <p><strong>Bebida:</strong> <span id="menu-bebida">${escapeHtml(drink || "Jugo del día")}</span></p>
-      </div>
-      <div class="btn-group" style="margin-top:14px;">
-        <a id="menu-whatsapp-btn" class="btn btn-primary" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
-        <a id="menu-arma-btn" class="btn btn-ghost" href="almuerzos.html">Armar almuerzo completo</a>
-      </div>
-    `;
-    block.innerHTML = html;
   }
 
   function setText(id, value) {
@@ -1048,13 +1158,28 @@
 	  const dow = dayOfWeekTZ(); // 0 domingo
 	  const isSunday = dow === 0;
 
-	  const menuOpciones = document.getElementById("menu-opciones"); // opcional (tarjetas)
-	  const menuBlock = document.getElementById("menu-hoy");         // debe existir para el bloque
-	  if (menuBlock) menuBlock.style.display = ""; // importante: nunca ocultarlo por defecto
+	  const menuOpciones = document.getElementById("menu-opciones");
+	  const menuBlock = document.getElementById("menu-hoy");
+	  const menuWaBtn = document.getElementById("menu-wa-btn");
+	  if (menuBlock) menuBlock.style.display = "";
 
-	  // Helpers: poner textos si existen (si no existen, no pasa nada)
 	  const setTitle = (t) => setText("menu-titulo", t);
 	  const setDesc  = (t) => setText("menu-descripcion", t);
+	  const setKicker = (t) => setText("menu-kicker", t);
+
+	  const showWeekendCards = (rows) => {
+		if (!menuOpciones) return;
+		menuOpciones.classList.remove("hidden");
+		menuOpciones.style.display = "";
+		menuOpciones.innerHTML = buildWeekendCards(rows.slice(0, 6));
+	  };
+
+	  const hideWeekendCards = () => {
+		if (!menuOpciones) return;
+		menuOpciones.classList.add("hidden");
+		menuOpciones.style.display = "none";
+		menuOpciones.innerHTML = "";
+	  };
 
 	  // ========= DOMINGO: FIN_SEMANA =========
 	  if (isSunday) {
@@ -1064,81 +1189,66 @@
 		  if (rows && rows.length) {
 			const first = rows[0] || {};
 
+			setKicker("Solo por hoy");
 			setTitle("Menú especial de domingo");
-			setDesc("Solo por hoy: opciones especiales. Reserva por WhatsApp y lo dejamos listo.");
+			setDesc("Opciones especiales para compartir en familia. Reserva por WhatsApp y lo dejamos listo.");
 
-			// Imagen especial (poster_url opcional)
 			setImg("menu-hoy-poster", first.poster_url, today);
-
-			// Resumen (usa la primera opción como referencia)
 			setText("menu-sopa", ((first.sopa || "") + "").trim() || "Consulta por WhatsApp");
-			setText("menu-segundos",((first.plato_fuerte || "") + "").trim() ||  "Elige tu opción especial");
+			setText("menu-segundos", ((first.plato_fuerte || "") + "").trim() || "Elige tu opción especial");
 			setText("menu-bebida", ((first.bebida || "Jugo natural") + "").trim());
 			setText("menu-precio", normalizePrice(first.price) || "$2.75");
 			setText("menu-preciollevar", normalizePrice(first.price_takeout) || "$3.25");
 
-			// Tarjetas opcionales (si quieres mostrar opciones)
-			if (menuOpciones) {
-			  menuOpciones.style.display = "";
-			  menuOpciones.innerHTML = buildWeekendCards(rows.slice(0, 6));
-			}
+			showWeekendCards(rows);
 
-			// Botón WhatsApp
-			const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
-			if (waBtn) {
+			if (menuWaBtn) {
 			  const msg = encodeURIComponent("Hola, vengo del menú especial de domingo de Floresta Brava. Quiero reservar: ");
-			  waBtn.href = WHATSAPP_BASE + msg;
+			  menuWaBtn.href = WHATSAPP_BASE + msg;
 			}
-
-			return; // domingo listo
+			return;
 		  }
-		  // si no hay rows, cae a menú normal
 		} catch (e) {
 		  console.warn("FIN_SEMANA:", e);
-		  // cae a menú normal si falla
 		}
 	  }
 
 	  // ========= LUN-SÁB: ALMUERZO_WEB =========
 	  try {
 		const rows = await loadCSV(ALMUERZO_WEB_CSV_URL);
+		const active = rows.find(r => String(r.activo || "").trim().toUpperCase() === "SI") || rows[0];
 
-		if (rows && rows.length) {
-		  const m = rows[0] || {};
+		if (active) {
+		  const sopas = [1,2,3,4]
+			.map(i => (active[`sopa_${i}`] || "").toString().trim())
+			.filter(Boolean);
+		  const platos = [1,2,3,4]
+			.map(i => (active[`plato_${i}`] || "").toString().trim())
+			.filter(Boolean);
 
-		  setTitle("Menú del día");
-		  setDesc("Sopa, plato fuerte y bebida. Pide por WhatsApp y lo dejamos listo.");
+		  setKicker((active.fecha || today).toString().trim() || "Disponible hoy");
+		  setTitle((active.titulo || "Menú del día").toString().trim());
+		  setDesc((active.descripcion || "Sopa, plato fuerte y bebida. Pide por WhatsApp y lo dejamos listo.").toString().trim());
 
-		  setText("menu-precio", normalizePrice(m.price) || "$2.75");
-		  setText("menu-preciollevar", normalizePrice(m.price_takeout) || "$3.25");
-
-		  const sopas = (m.sopas || "").toString().split("|").map(s => s.trim()).filter(Boolean);
-		  const platos = (m.platos_fuertes || "").toString().split("|").map(s => s.trim()).filter(Boolean);
-
+		  setText("menu-precio", normalizePrice(active.precio_servir) || "$2.75");
+		  setText("menu-preciollevar", normalizePrice(active.precio_llevar) || "$3.25");
 		  setText("menu-sopa", sopas.length ? sopas.join(" / ") : "Consulta por WhatsApp");
-		  setText("menu-segundos", platos.length ? platos.join(" / ") : "3 opciones disponibles");
-		  setText("menu-bebida", (m.bebida || "Limonada").toString().trim());
+		  setText("menu-segundos", platos.length ? platos.join(" / ") : "Opciones disponibles");
+		  setText("menu-bebida", (active.jugo || "Jugo del día").toString().trim());
 
-		  // Imagen menú diario (poster_url opcional)
-		  setImg("menu-hoy-poster", m.poster_url, today);
+		  setImg("menu-hoy-poster", active.poster_url, today);
+		  hideWeekendCards();
 
-		  // Oculta tarjetas si existen
-		  if (menuOpciones) {
-			menuOpciones.style.display = "none";
-			menuOpciones.innerHTML = "";
+		  if (menuWaBtn) {
+			const msg = encodeURIComponent("Hola, vengo del menú diario de Floresta Brava. Quiero pedir: ");
+			menuWaBtn.href = WHATSAPP_BASE + msg;
 		  }
-
-		  // Botón WhatsApp
-		  const waBtn = document.querySelector('#menu-hoy a.btn.btn-primary');
-		  if (waBtn) {
-			const msg = encodeURIComponent("Hola, vengo del menú de hoy de Floresta Brava. Quiero pedir: ");
-			waBtn.href = WHATSAPP_BASE + msg;
-		  }
+		} else {
+		  hideWeekendCards();
 		}
 	  } catch (e) {
 		console.warn("ALMUERZO_WEB:", e);
-		// Fallback: deja el contenido del HTML sin tocarlo
-		if (menuOpciones) { menuOpciones.style.display = "none"; menuOpciones.innerHTML = ""; }
+		hideWeekendCards();
 	  }
 	}
 
