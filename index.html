@@ -850,23 +850,23 @@
 			<div id="menu-hoy" class="highlight menu-daily-card">
 			  <div class="menu-daily-top">
 			    <div>
-			      <div class="menu-daily-kicker" id="menu-kicker">Disponible hoy</div>
-			      <h3 id="menu-titulo">Menú del día</h3>
-			      <p id="menu-descripcion">Sopa, plato fuerte y bebida.</p>
+			      <div class="menu-daily-kicker" id="menu-kicker">Consultando disponibilidad</div>
+			      <h3 id="menu-titulo">Consultando el menú de hoy</h3>
+			      <p id="menu-descripcion">Un momento, estamos revisando las opciones disponibles.</p>
 			    </div>
-			    <div class="menu-daily-prices" aria-label="Precios del almuerzo">
+			    <div class="menu-daily-prices" aria-label="Precios del almuerzo" style="display:none">
 			      <div class="menu-price-chip">
 			        <span>Para servir</span>
-			        <strong id="menu-precio">$2.75</strong>
+			        <strong id="menu-precio">—</strong>
 			      </div>
 			      <div class="menu-price-chip">
 			        <span>Para llevar</span>
-			        <strong id="menu-preciollevar">$3.25</strong>
+			        <strong id="menu-preciollevar">—</strong>
 			      </div>
 			    </div>
 			  </div>
 
-			  <div class="menu-daily-meta">
+			  <div class="menu-daily-meta" style="display:none">
 			    <div class="menu-line">
 			      <strong>Sopa del día</strong>
 			      <span id="menu-sopa">Consulta por WhatsApp</span>
@@ -882,7 +882,7 @@
 			  </div>
 
 			  <div class="menu-daily-actions">
-			    <a id="menu-wa-btn" class="btn btn-primary" href="https://wa.me/593983237560?text=Hola%2C%20quiero%20el%20men%C3%BA%20del%20d%C3%ADa%20de%20Floresta%20Brava" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+			    <a id="menu-wa-btn" class="btn btn-primary" href="https://wa.me/593983237560?text=Hola%2C%20quiero%20conocer%20las%20opciones%20disponibles%20de%20hoy%20en%20Floresta%20Brava." target="_blank" rel="noopener">Consultar por WhatsApp</a>
 			    <a class="btn btn-ghost menu-secondary-btn" href="almuerzos.html">Armar almuerzo completo</a>
 			  </div>
 			</div>
@@ -891,7 +891,7 @@
 		  </div>
 
 		  <!-- DERECHA: afiche -->
-		  <aside class="menudiario-right">
+		  <aside class="menudiario-right" style="display:none">
 			<div class="poster-card">
 			  <img
 				id="menu-hoy-poster"
@@ -1015,7 +1015,7 @@
                 +593 98 323 7560
               </a>
             </p>
-            <p><strong>Teléfono:</strong> <a href="tel:+59323226646">023226646</a></p>
+            <p><strong>Teléfono:</strong> <a href="tel:+593983237560">+593 98 323 7560</a></p>
             <p><strong>Correo:</strong> <a href="mailto:ventas@florestabrava.com">ventas@florestabrava.com</a></p>
             <p><strong>Dirección:</strong> Av. Coruña y Guipuzcoa</p>
           </div>
@@ -1065,23 +1065,103 @@
       .replaceAll("'", "&#39;");
   }
 
-  function todayYMD(timeZone = "America/Guayaquil") {
+  function dateYMDInEcuador(date = new Date()) {
 	const parts = new Intl.DateTimeFormat("en-CA", {
-	timeZone, year: "numeric", month: "2-digit", day: "2-digit"
-	}).formatToParts(new Date());
+	  timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit"
+	}).formatToParts(date);
 	const map = Object.fromEntries(parts.map(p => [p.type, p.value]));
-	return `${map.year}-${map.month}-${map.day}`; // YYYY-MM-DD
+	return `${map.year}-${map.month}-${map.day}`;
   }
 
+  function todayYMD() {
+	return dateYMDInEcuador(new Date());
+  }
 
-  function dayOfWeekTZ(timeZone = "America/Guayaquil") {
-	// 0=Domingo ... 6=Sábado
-    const parts = new Intl.DateTimeFormat("en-US", { timeZone, weekday: "short" })
-		.formatToParts(new Date());
-	const wd = parts.find(p => p.type === "weekday")?.value || "";
-	const map = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-	return map[wd] ?? new Date().getDay();
+  function canonicalYMD(year, month, day) {
+	const y = Number(year);
+	const m = Number(month);
+	const d = Number(day);
+	if (!Number.isInteger(y) || !Number.isInteger(m) || !Number.isInteger(d)) return "";
+	const candidate = new Date(Date.UTC(y, m - 1, d));
+	if (candidate.getUTCFullYear() !== y || candidate.getUTCMonth() !== m - 1 || candidate.getUTCDate() !== d) return "";
+	return `${String(y).padStart(4, "0")}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+  }
+
+  function normalizeSheetDate(value) {
+	const raw = String(value ?? "").trim();
+	if (!raw) return "";
+
+	let match = raw.match(/^(\d{4})[-\/.](\d{1,2})[-\/.](\d{1,2})$/);
+	if (match) return canonicalYMD(match[1], match[2], match[3]);
+
+	match = raw.match(/^(\d{1,2})[-\/.](\d{1,2})[-\/.](\d{4})$/);
+	if (match) {
+	  const first = Number(match[1]);
+	  const second = Number(match[2]);
+	  const year = Number(match[3]);
+	  const monthFirst = first <= 12 && second > 12;
+	  return monthFirst
+		? canonicalYMD(year, first, second)
+		: canonicalYMD(year, second, first);
 	}
+
+	if (/^\d{5}(?:\.\d+)?$/.test(raw)) {
+	  const serialDate = new Date(Date.UTC(1899, 11, 30) + Math.floor(Number(raw)) * 86400000);
+	  return canonicalYMD(serialDate.getUTCFullYear(), serialDate.getUTCMonth() + 1, serialDate.getUTCDate());
+	}
+
+	const timestamp = Date.parse(raw);
+	return Number.isFinite(timestamp) ? dateYMDInEcuador(new Date(timestamp)) : "";
+  }
+
+  function normalizeColumnName(value) {
+	return String(value ?? "")
+	  .replace(/^\uFEFF/, "")
+	  .normalize("NFD")
+	  .replace(/[\u0300-\u036f]/g, "")
+	  .trim()
+	  .toLowerCase()
+	  .replace(/[^a-z0-9]/g, "");
+  }
+
+  function findColumn(row, names) {
+	const accepted = new Set(names.map(normalizeColumnName));
+	return Object.keys(row || {}).find(key => accepted.has(normalizeColumnName(key))) || "";
+  }
+
+  function rowIsActiveWhenRequired(row) {
+	const activeColumn = findColumn(row, ["activo", "active", "habilitado"]);
+	if (!activeColumn) return true;
+	const value = String(row[activeColumn] ?? "")
+	  .normalize("NFD")
+	  .replace(/[\u0300-\u036f]/g, "")
+	  .trim()
+	  .toUpperCase();
+	return ["SI", "YES", "TRUE", "1"].includes(value);
+  }
+
+  function rowMatchesDate(row, targetDate) {
+	const dateColumn = findColumn(row, ["fecha", "date", "fecha_menu"]);
+	if (dateColumn) return normalizeSheetDate(row[dateColumn]) === targetDate;
+
+	const fromColumn = findColumn(row, ["active_from", "desde", "fecha_desde"]);
+	const toColumn = findColumn(row, ["active_to", "hasta", "fecha_hasta"]);
+	if (!fromColumn || !toColumn) return false;
+	const from = normalizeSheetDate(row[fromColumn]);
+	const to = normalizeSheetDate(row[toColumn]);
+	return Boolean(from && to && from <= targetDate && targetDate <= to);
+  }
+
+  function validRowsForDate(rows, targetDate) {
+	return (Array.isArray(rows) ? rows : []).filter(row =>
+	  rowMatchesDate(row, targetDate) && rowIsActiveWhenRequired(row)
+	);
+  }
+
+  function isSundayYMD(ymd) {
+	const normalized = normalizeSheetDate(ymd);
+	return Boolean(normalized) && new Date(`${normalized}T12:00:00Z`).getUTCDay() === 0;
+  }
   function normalizePrice(p) {
     const v = String(p ?? "").replace("$", "").trim();
     if (!v) return "";
@@ -1128,39 +1208,21 @@
     return parsed.data || [];
   }
 
-  function buildWeekendCards(rows) {
-    // Render tipo tarjeta para 2-4 opciones
-    return rows.map((r, idx) => {
-      const title = escapeHtml((r.title || `Opción ${idx + 1}`).toString().trim());
-      const sopa = escapeHtml((r.sopa || "").toString().trim());
-      const plato = escapeHtml((r.plato_fuerte || "").toString().trim());
-      const bebida = escapeHtml((r.bebida || "").toString().trim());
-      const price = escapeHtml(normalizePrice(r.price) || "$2.75");
-
-      return `
-        <div class="menu-hoy-col">
-          <h3>${title}</h3>
-          ${sopa ? `<p><strong>Sopa:</strong> ${sopa}</p>` : ""}
-          ${plato ? `<p><strong>Plato fuerte:</strong> ${plato}</p>` : ""}
-          ${bebida ? `<p><strong>Bebida:</strong> ${bebida}</p>` : ""}
-          <div class="price">${price}</div>
-        </div>
-      `;
-    }).join("");
-  }
-
 	async function initMenus() {
 	  // Año footer
 	  const yearEl = document.getElementById("year");
 	  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 	  const today = todayYMD();
-	  const dow = dayOfWeekTZ(); // 0 domingo
-	  const isSunday = dow === 0;
+	  const isSunday = isSundayYMD(today);
 
 	  const menuOpciones = document.getElementById("menu-opciones");
 	  const menuBlock = document.getElementById("menu-hoy");
 	  const menuWaBtn = document.getElementById("menu-wa-btn");
+	  const menuPrices = menuBlock?.querySelector(".menu-daily-prices");
+	  const menuMeta = menuBlock?.querySelector(".menu-daily-meta");
+	  const posterColumn = document.querySelector("#menudiario .menudiario-right");
+	  const posterImg = document.getElementById("menu-hoy-poster");
 	  if (menuBlock) menuBlock.style.display = "";
 
 	  const setTitle = (t) => setText("menu-titulo", t);
@@ -1169,38 +1231,114 @@
 
 	  const showWeekendCards = (rows) => {
 		if (!menuOpciones) return;
+		menuOpciones.replaceChildren();
+		rows.slice(0, 6).forEach((row, idx) => {
+		  const card = document.createElement("div");
+		  card.className = "menu-hoy-col";
+
+		  const heading = document.createElement("h3");
+		  heading.textContent = String(row.title || `Opción ${idx + 1}`).trim();
+		  card.appendChild(heading);
+
+		  const appendLine = (label, value) => {
+			const clean = String(value ?? "").trim();
+			if (!clean) return;
+			const paragraph = document.createElement("p");
+			const strong = document.createElement("strong");
+			strong.textContent = `${label}: `;
+			paragraph.append(strong, document.createTextNode(clean));
+			card.appendChild(paragraph);
+		  };
+
+		  appendLine("Sopa", row.sopa);
+		  appendLine("Plato fuerte", row.plato_fuerte);
+		  appendLine("Bebida", row.bebida);
+
+		  const price = document.createElement("div");
+		  price.className = "price";
+		  price.textContent = normalizePrice(row.price) || "Consultar";
+		  card.appendChild(price);
+		  menuOpciones.appendChild(card);
+		});
 		menuOpciones.classList.remove("hidden");
 		menuOpciones.style.display = "";
-		menuOpciones.innerHTML = buildWeekendCards(rows.slice(0, 6));
 	  };
 
 	  const hideWeekendCards = () => {
 		if (!menuOpciones) return;
 		menuOpciones.classList.add("hidden");
 		menuOpciones.style.display = "none";
-		menuOpciones.innerHTML = "";
+		menuOpciones.replaceChildren();
 	  };
+
+	  const setDetailsVisible = (visible) => {
+		if (menuPrices) menuPrices.style.display = visible ? "" : "none";
+		if (menuMeta) menuMeta.style.display = visible ? "" : "none";
+	  };
+
+	  const setPoster = (url) => {
+		const clean = String(url ?? "").trim();
+		if (!clean || !posterImg || !posterColumn) {
+		  if (posterColumn) posterColumn.style.display = "none";
+		  return;
+		}
+		posterColumn.style.display = "";
+		setImg("menu-hoy-poster", clean, today);
+	  };
+
+	  const setWhatsAppConsultation = (message) => {
+		if (!menuWaBtn) return;
+		menuWaBtn.textContent = "Consultar por WhatsApp";
+		menuWaBtn.href = WHATSAPP_BASE + encodeURIComponent(message);
+	  };
+
+	  const showUnavailable = (kind) => {
+		hideWeekendCards();
+		setDetailsVisible(false);
+		setPoster("");
+		setKicker(today);
+		if (kind === "loading") {
+		  setTitle("Consultando el menú de hoy");
+		  setDesc("Un momento, estamos revisando las opciones disponibles.");
+		} else if (kind === "error") {
+		  setTitle("No pudimos cargar el menú en este momento");
+		  setDesc("Escríbenos por WhatsApp para conocer las opciones disponibles.");
+		} else {
+		  setTitle("Menú de hoy aún no publicado");
+		  setDesc("Estamos preparando las opciones del día. Escríbenos por WhatsApp y te contamos qué tenemos disponible.");
+		}
+		setWhatsAppConsultation("Hola, quiero conocer las opciones disponibles de hoy en Floresta Brava.");
+	  };
+
+	  const prepareValidMenu = () => {
+		setDetailsVisible(true);
+		if (menuWaBtn) menuWaBtn.textContent = "Pedir por WhatsApp";
+	  };
+
+	  showUnavailable("loading");
 
 	  // ========= DOMINGO: FIN_SEMANA =========
 	  if (isSunday) {
 		try {
 		  const rows = await loadCSV(FIN_SEMANA_CSV_URL);
+		  const validRows = validRowsForDate(rows, today);
 
-		  if (rows && rows.length) {
-			const first = rows[0] || {};
+		  if (validRows.length) {
+			const first = validRows[0];
 
+			prepareValidMenu();
 			setKicker("Solo por hoy");
 			setTitle("Menú especial de domingo");
 			setDesc("Opciones especiales para compartir en familia. Reserva por WhatsApp y lo dejamos listo.");
 
-			setImg("menu-hoy-poster", first.poster_url, today);
+			setPoster(first.poster_url);
 			setText("menu-sopa", ((first.sopa || "") + "").trim() || "Consulta por WhatsApp");
 			setText("menu-segundos", ((first.plato_fuerte || "") + "").trim() || "Elige tu opción especial");
-			setText("menu-bebida", ((first.bebida || "Jugo natural") + "").trim());
-			setText("menu-precio", normalizePrice(first.price) || "$2.75");
-			setText("menu-preciollevar", normalizePrice(first.price_takeout) || "$3.25");
+			setText("menu-bebida", ((first.bebida || "Consulta por WhatsApp") + "").trim());
+			setText("menu-precio", normalizePrice(first.price) || "Consultar");
+			setText("menu-preciollevar", normalizePrice(first.price_takeout) || "Consultar");
 
-			showWeekendCards(rows);
+			showWeekendCards(validRows);
 
 			if (menuWaBtn) {
 			  const msg = encodeURIComponent("Hola, vengo del menú especial de domingo de Floresta Brava. Quiero reservar: ");
@@ -1208,15 +1346,19 @@
 			}
 			return;
 		  }
+		  showUnavailable("empty");
+		  return;
 		} catch (e) {
 		  console.warn("FIN_SEMANA:", e);
+		  showUnavailable("error");
+		  return;
 		}
 	  }
 
 	  // ========= LUN-SÁB: ALMUERZO_WEB =========
 	  try {
 		const rows = await loadCSV(ALMUERZO_WEB_CSV_URL);
-		const active = rows.find(r => String(r.activo || "").trim().toUpperCase() === "SI") || rows[0];
+		const active = validRowsForDate(rows, today)[0];
 
 		if (active) {
 		  const sopas = [1,2,3,4]
@@ -1226,17 +1368,18 @@
 			.map(i => (active[`plato_${i}`] || "").toString().trim())
 			.filter(Boolean);
 
-		  setKicker((active.fecha || today).toString().trim() || "Disponible hoy");
+		  prepareValidMenu();
+		  setKicker(normalizeSheetDate(active.fecha) || today);
 		  setTitle((active.titulo || "Menú del día").toString().trim());
 		  setDesc((active.descripcion || "Sopa, plato fuerte y bebida. Pide por WhatsApp y lo dejamos listo.").toString().trim());
 
-		  setText("menu-precio", normalizePrice(active.precio_servir) || "$2.75");
-		  setText("menu-preciollevar", normalizePrice(active.precio_llevar) || "$3.25");
+		  setText("menu-precio", normalizePrice(active.precio_servir) || "Consultar");
+		  setText("menu-preciollevar", normalizePrice(active.precio_llevar) || "Consultar");
 		  setText("menu-sopa", sopas.length ? sopas.join(" / ") : "Consulta por WhatsApp");
-		  setText("menu-segundos", platos.length ? platos.join(" / ") : "Opciones disponibles");
-		  setText("menu-bebida", (active.jugo || "Jugo del día").toString().trim());
+		  setText("menu-segundos", platos.length ? platos.join(" / ") : "Consulta por WhatsApp");
+		  setText("menu-bebida", (active.jugo || "Consulta por WhatsApp").toString().trim());
 
-		  setImg("menu-hoy-poster", active.poster_url, today);
+		  setPoster(active.poster_url);
 		  hideWeekendCards();
 
 		  if (menuWaBtn) {
@@ -1244,11 +1387,11 @@
 			menuWaBtn.href = WHATSAPP_BASE + msg;
 		  }
 		} else {
-		  hideWeekendCards();
+		  showUnavailable("empty");
 		}
 	  } catch (e) {
 		console.warn("ALMUERZO_WEB:", e);
-		hideWeekendCards();
+		showUnavailable("error");
 	  }
 	}
 
