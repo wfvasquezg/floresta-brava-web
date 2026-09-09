@@ -653,7 +653,7 @@
   <meta name="theme-color" content="#145b6b">
 
   <!-- Capa visual compartida: dirección premium Floresta Brava -->
-  <link rel="stylesheet" href="css/brand-premium.css?v=20260907-7">
+  <link rel="stylesheet" href="css/brand-premium.css?v=20260908-1">
 
   <!-- PapaParse (defer para no bloquear render) -->
   <script defer src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
@@ -945,6 +945,7 @@
 			  <img
 				id="menu-hoy-poster"
 				src="img/almuerzo.webp"
+				data-fallback="img/almuerzo.webp"
 				alt="Afiche del menú del día"
 				loading="lazy"
 				decoding="async"
@@ -1264,7 +1265,12 @@
 	if (!base) return;
 
 	const v = versionStr || todayYMD();
-	el.src = base + (base.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(v);
+	const versioned = (src) => src + (src.includes("?") ? "&" : "?") + "v=" + encodeURIComponent(v);
+	el.onerror = () => {
+	  el.onerror = null;
+	  if (fb && base !== fb) el.src = versioned(fb);
+	};
+	el.src = versioned(base);
   }
 
   async function loadCSV(url) {

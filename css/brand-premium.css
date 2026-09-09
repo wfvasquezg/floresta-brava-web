@@ -472,6 +472,20 @@ body.home-page {
   text-wrap: balance;
 }
 
+@media (min-width: 901px) {
+  .home-page .hero h1 {
+    font-size: clamp(2.55rem, 4.28vw, 3.78rem);
+  }
+
+  .home-page #platos .section-title {
+    font-size: clamp(1.91rem, 3.4vw, 3.61rem);
+  }
+
+  .home-page #menudiario .section-title {
+    font-size: clamp(2.08rem, 3.7vw, 3.93rem);
+  }
+}
+
 .home-page .section-subtitle {
   max-width: 620px;
   margin: 0;
