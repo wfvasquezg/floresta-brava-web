@@ -625,7 +625,7 @@
       background:rgba(0,0,0,.42);
       backdrop-filter:blur(2px);
       -webkit-backdrop-filter:blur(2px);
-      z-index:2200;
+      z-index:10000;
     }
     .ingredients-modal{
       position:fixed;
@@ -640,7 +640,7 @@
       border-radius:18px;
       box-shadow:0 24px 60px rgba(0,0,0,.28);
       padding:18px;
-      z-index:2250;
+      z-index:10001;
       outline:none;
     }
     .ingredients-modal-head{
@@ -648,6 +648,10 @@
       align-items:flex-start;
       justify-content:space-between;
       gap:12px;
+      position:sticky;
+      top:0;
+      z-index:1;
+      background:#fff;
     }
     .ingredients-modal h2{
       margin:0;
