@@ -1455,11 +1455,85 @@
   100% { transform: scale(1); }
 }
 
+/* Selector ES/EN integrado al header. */
+.language-switch{
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
+  padding:3px;
+  border:1px solid rgba(255,255,255,.32);
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+}
+.language-switch button{
+  min-width:36px;
+  min-height:34px;
+  padding:7px 9px;
+  border:0;
+  border-radius:999px;
+  background:transparent;
+  color:rgba(255,255,255,.82);
+  font:inherit;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+}
+.language-switch button[aria-pressed="true"]{
+  color:var(--brand);
+  background:#fff;
+  box-shadow:0 4px 12px rgba(0,0,0,.16);
+}
+.language-switch button:focus-visible{
+  outline:3px solid #fff;
+  outline-offset:2px;
+}
+.ingredients-body{
+  margin:14px 0 18px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
+}
+.ingredients-body p{ margin:0 0 12px; }
+.ingredients-body p:last-child{ margin-bottom:0; }
+.ingredients-list{
+  margin:8px 0 14px;
+  padding-left:22px;
+}
+.ingredients-list li{ margin:4px 0; }
+.ingredients-warning{
+  padding:11px 12px;
+  border-radius:12px;
+  background:#fff7e8;
+  border:1px solid rgba(245,124,34,.28);
+  color:var(--ink);
+}
+body.ingredients-open{ overflow:hidden; }
+
+@media (max-width:560px){
+  .menu-page .topbar-row .brand-mark{ max-width:132px; height:auto; }
+  .menu-page .topbar-row .actions{ gap:5px; }
+  .menu-page .language-switch button{
+    min-width:31px;
+    min-height:32px;
+    padding:6px;
+    font-size:11px;
+  }
+  .menu-page .topbar-row .actions .btn{
+    min-height:36px;
+    padding:8px 9px;
+    font-size:11px;
+  }
+}
+@media (max-width:340px){
+  .menu-page .topbar-row .brand-mark{ max-width:92px; }
+}
+
 </style>
+<link rel="stylesheet" href="css/brand-premium.css?v=20260907-7" />
 </head>
 
-<body>
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+<body class="menu-page">
+  <a class="skip-link" href="#contenido" data-i18n="skipLink">Saltar al contenido</a>
 
 <!-- TOPBAR -->
 <header class="topbar std-header" id="top">
@@ -1468,7 +1542,7 @@
     <!-- FILA 1 -->
     <div class="topbar-row">
       <div class="brand">
-        <a class="brand-link" href="index.html" aria-label="Ir al inicio">
+        <a class="brand-link" href="index.html" aria-label="Ir al inicio" data-i18n-aria="homeAria">
           <img class="brand-mark"
                src="img/letrasflorestabrava.png"
                alt="Floresta Brava"
@@ -1478,8 +1552,13 @@
       </div>
 
       <div class="actions">
+        <div class="language-switch" role="group" aria-label="Idioma" data-i18n-aria="languageSelectorAria">
+          <button type="button" data-lang="es" aria-pressed="true" lang="es">ES</button>
+          <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+        </div>
         <button
           aria-label="Abrir categorías"
+          data-i18n-aria="openCategoriesAria"
           aria-controls="catMenu"
           class="btn btn-light"
           id="catFloat"
@@ -1492,8 +1571,8 @@
     <!-- FILA 2 -->
     <div class="topbar-search">
       <div class="search">
-        <input id="q" type="search" placeholder="Buscar: encebollado, ceviche, bolón..." autocomplete="off" />
-        <button id="clear" type="button" title="Limpiar búsqueda" aria-label="Limpiar búsqueda">✕</button>
+        <input id="q" type="search" placeholder="Buscar: encebollado, ceviche, bolón..." data-i18n-placeholder="searchPlaceholder" data-i18n-aria="searchAria" autocomplete="off" />
+        <button id="clear" type="button" title="Limpiar búsqueda" aria-label="Limpiar búsqueda" data-i18n-title="clearSearch" data-i18n-aria="clearSearch">✕</button>
       </div>
     </div>
 
@@ -1504,42 +1583,42 @@
 
   <main class="wrap" id="contenido">
     <!-- HERO / IMAN -->
-    <section aria-label="Promoción principal" class="hero">
+    <section aria-label="Promoción principal" data-i18n-aria="heroAria" class="hero">
       <div class="hero-inner">
         <div>
-          <h2>Menú del día desde <span style="color:var(--gold)">$2,75</span></h2>
-          <p>Sazón casera, porciones generosas y atención rápida. Pide por WhatsApp y te lo tenemos listo.</p>
+          <span class="menu-hero-eyebrow" data-i18n="heroEyebrow">Menú digital · Floresta Brava</span>
+          <h2><span data-i18n="heroTitle">Elige, combina y pide</span> <span data-i18n="heroAccent">por WhatsApp</span></h2>
+          <p data-i18n="heroDescription">Explora desayunos, almuerzos, platos a la carta y bebidas. Suma tus favoritos y envía el pedido en un solo mensaje.</p>
 
           <div class="hero-badges">
-            <div class="badge"><strong>Listo en minutos</strong></div>
-            <div class="badge"><strong>Porciones que llenan</strong></div>
+            <div class="badge"><strong data-i18n="pricedMenu">Carta con precios</strong></div>
+            <div class="badge"><strong data-i18n="directOrder">Pedido directo</strong></div>
           </div>
         </div>
 
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#" id="waHero" rel="noopener" target="_blank">Pedir por WhatsApp</a>
-          <a class="btn btn-light" href="#destacados">Ver destacados</a>
-          <a class="btn btn-light" href="#mariscos">Ir a mariscos</a>
+          <a class="btn btn-primary" href="#" id="waHero" rel="noopener" target="_blank" data-i18n="orderWhatsApp">Pedir por WhatsApp</a>
+          <a class="btn btn-light" href="#destacados" data-i18n="viewFeatured">Ver destacados</a>
         </div>
       </div>
     </section>
 
     <!-- QUICK NAV -->
-    <nav aria-label="Categorías" class="chips">
-      <a class="chip" href="#almuerzos">Almuerzos <small>desde $2,75</small></a>
-      <a class="chip" href="#desayunos">Desayunos</a>
-      <a class="chip" href="#mariscos">Mariscos</a>
-      <a class="chip" href="#carnes">Carnes</a>
-      <a class="chip" href="#pollos">Pollos</a>
-      <a class="chip" href="#gaseosas">Bebidas</a>
-      <a class="chip" href="#pinchos">Pinchos</a>
+    <nav aria-label="Categorías" data-i18n-aria="categoriesAria" class="chips">
+      <a class="chip" href="#almuerzos"><span data-i18n="catLunch">Almuerzos</span> <small data-i18n="lunchFrom">desde $2,75</small></a>
+      <a class="chip" href="#desayunos" data-i18n="catBreakfast">Desayunos</a>
+      <a class="chip" href="#mariscos" data-i18n="catSeafood">Mariscos</a>
+      <a class="chip" href="#carnes" data-i18n="catMeat">Carnes</a>
+      <a class="chip" href="#pollos" data-i18n="catChicken">Pollos</a>
+      <a class="chip" href="#gaseosas" data-i18n="catDrinks">Bebidas</a>
+      <a class="chip" href="#pinchos" data-i18n="catSkewers">Pinchos</a>
     </nav>
 
     <!-- FEATURED -->
-    <section aria-label="Destacados" class="featured" id="destacados">
+    <section aria-label="Destacados" data-i18n-aria="featuredAria" class="featured" id="destacados">
       <div class="section-title">
-        <h3>Destacados</h3>
-        <span>Lo más pedido</span>
+        <h3 data-i18n="featuredTitle">Destacados</h3>
+        <span data-i18n="featuredSubtitle">Lo más pedido</span>
       </div>
       <div class="featured-grid" id="featuredGrid"></div>
     </section>
@@ -1547,131 +1626,131 @@
     <!-- CATEGORIES -->
     <section class="category" id="desayunos">
       <div class="category-header">
-        <h3 class="category-title">Desayunos</h3>
-        <div class="category-tag">Desde las 08h00</div>
+        <h3 class="category-title" data-i18n="catBreakfast">Desayunos</h3>
+        <div class="category-tag" data-i18n="breakfastTag">Desde las 08h00</div>
       </div>
-      <p class="category-description">Desayunos típicos para arrancar el día con energía.</p>
-      <div class="items" data-category="Desayunos"></div>
+      <p class="category-description" data-i18n="breakfastDescription">Desayunos típicos para arrancar el día con energía.</p>
+      <div class="items" data-category-id="desayunos"></div>
     </section>
     
     <section class="category" id="almuerzos">
       <div class="category-header">
-        <h3 class="category-title">Almuerzos</h3>
-        <div class="category-tag">Menú del día</div>
+        <h3 class="category-title" data-i18n="catLunch">Almuerzos</h3>
+        <div class="category-tag" data-i18n="dailyMenu">Menú del día</div>
       </div>
-      <p class="category-description">Opciones completas y económicas para todos los días.</p>
-      <div class="items" data-category="Almuerzos"></div>
+      <p class="category-description" data-i18n="lunchDescription">Opciones completas y económicas para todos los días.</p>
+      <div class="items" data-category-id="almuerzos"></div>
     </section>
 
     <section class="category" id="carnes">
       <div class="category-header">
-        <h3 class="category-title">Carnes</h3>
-        <div class="category-tag">Platos fuertes</div>
+        <h3 class="category-title" data-i18n="catMeat">Carnes</h3>
+        <div class="category-tag" data-i18n="mainCourses">Platos fuertes</div>
       </div>
-      <p class="category-description">Cortes a la plancha o apanados, con acompañantes completos.</p>
-      <div class="items" data-category="Carnes"></div>
+      <p class="category-description" data-i18n="meatDescription">Cortes a la plancha o apanados, con acompañantes completos.</p>
+      <div class="items" data-category-id="carnes"></div>
     </section>
 
     <section class="category" id="mariscos">
       <div class="category-header">
-        <h3 class="category-title">Mariscos</h3>
-        <div class="category-tag">Sabores de la costa</div>
+        <h3 class="category-title" data-i18n="catSeafood">Mariscos</h3>
+        <div class="category-tag" data-i18n="coastalFlavors">Sabores de la costa</div>
       </div>
-      <p class="category-description">Ceviches, arroces y platos calientes con mariscos frescos.</p>
-      <div class="items" data-category="Mariscos"></div>
+      <p class="category-description" data-i18n="seafoodDescription">Ceviches, arroces y platos calientes con mariscos frescos.</p>
+      <div class="items" data-category-id="mariscos"></div>
     </section>
 
     <section class="category" id="pollos">
       <div class="category-header">
-        <h3 class="category-title">Pollos</h3>
-        <div class="category-tag">A la carta</div>
+        <h3 class="category-title" data-i18n="catChicken">Pollos</h3>
+        <div class="category-tag" data-i18n="aLaCarte">A la carta</div>
       </div>
-      <p class="category-description">Platos de pollo bien sazonados y servidos con acompañantes.</p>
-      <div class="items" data-category="Pollos"></div>
+      <p class="category-description" data-i18n="chickenDescription">Platos de pollo bien sazonados y servidos con acompañantes.</p>
+      <div class="items" data-category-id="pollos"></div>
     </section>
 
     <section class="category" id="pinchos">
       <div class="category-header">
-        <h3 class="category-title">Pinchos</h3>
-        <div class="category-tag">A la parrilla</div>
+        <h3 class="category-title" data-i18n="catSkewers">Pinchos</h3>
+        <div class="category-tag" data-i18n="grilled">A la parrilla</div>
       </div>
-      <p class="category-description">Ideales para acompañar tu merienda.</p>
-      <div class="items" data-category="Pinchos"></div>
+      <p class="category-description" data-i18n="skewerDescription">Ideales para acompañar tu merienda.</p>
+      <div class="items" data-category-id="pinchos"></div>
     </section>    
 
     <section class="category" id="gaseosas">
       <div class="category-header">
-        <h3 class="category-title">Bebidas</h3>
-        <div class="category-tag">Frías</div>
+        <h3 class="category-title" data-i18n="catDrinks">Bebidas</h3>
+        <div class="category-tag" data-i18n="coldDrinks">Frías</div>
       </div>
-      <p class="category-description">Gaseosas y cervezas para acompañar tu comida.</p>
+      <p class="category-description" data-i18n="drinksDescription">Gaseosas y cervezas para acompañar tu comida.</p>
 
       <div class="divider"></div>
       <div class="section-title" style="margin:0 0 10px;">
-        <h3 style="margin:0;font-size:14px;">Jugos</h3>
+        <h3 style="margin:0;font-size:14px;" data-i18n="catJuices">Jugos</h3>
         <span></span>
       </div>
-      <div class="items" data-category="Jugos"></div>
+      <div class="items" data-category-id="jugos"></div>
       
       <div class="divider"></div>
       <div class="section-title" style="margin:0 0 10px;">
-        <h3 style="margin:0;font-size:14px;">Gaseosa</h3>
+        <h3 style="margin:0;font-size:14px;" data-i18n="catSoftDrinks">Gaseosa</h3>
         <span></span>
       </div>
-      <div class="items" data-category="Gaseosa"></div>
+      <div class="items" data-category-id="gaseosas"></div>
 
       <div class="divider"></div>
       <div class="section-title" style="margin:0 0 10px;">
-        <h3 style="margin:0;font-size:14px;">Cerveza</h3>
+        <h3 style="margin:0;font-size:14px;" data-i18n="catBeer">Cerveza</h3>
         <span></span>
       </div>
-      <div class="items" data-category="Cerveza"></div>
+      <div class="items" data-category-id="cerveza"></div>
     </section>
 
   </main>
 
   <!-- Botones flotantes -->
-  <div class="floating-ctas" aria-label="Accesos rápidos">
+  <div class="floating-ctas" aria-label="Accesos rápidos" data-i18n-aria="quickActionsAria">
     <a class="fab fab-whatsapp" id="waCart"
        href="#"
-       target="_blank" rel="noopener" aria-label="Enviar pedido por WhatsApp">
+       target="_blank" rel="noopener" aria-label="Enviar pedido por WhatsApp" data-i18n-aria="sendWhatsAppAria">
       <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
         <path d="M19.11 17.45c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.48-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.05 1.02-1.05 2.5 0 1.47 1.08 2.9 1.23 3.1.15.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.71.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/>
         <path d="M16.02 3C8.84 3 3 8.84 3 16.02c0 2.3.6 4.47 1.65 6.36L3 29l6.81-1.63c1.82 1 3.92 1.57 6.21 1.57C23.2 28.94 29 23.2 29 16.02 29 8.84 23.2 3 16.02 3zm0 23.64c-2.06 0-3.97-.6-5.59-1.63l-.4-.25-4.04.97.96-3.93-.26-.41a10.48 10.48 0 0 1-1.64-5.67c0-5.82 4.74-10.56 10.56-10.56 5.82 0 10.56 4.74 10.56 10.56 0 5.82-4.74 10.56-10.56 10.56z"/>
       </svg>
-      <span>Enviar (0)</span>
+      <span data-cart-send-label>Enviar (0)</span>
     </a>
 <a class="fab fab-cart" id="cartToggle"
    href="#"
-   aria-label="Ver pedido">
+   aria-label="Ver pedido" data-i18n-aria="viewOrderAria">
   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
     <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.2 6h13.1c.7 0 1.2.7 1 1.4l-1.6 6.1c-.2.6-.8 1-1.4 1H8.1l.3 1.2c.1.4.5.8 1 .8H19v2H9.4c-1.4 0-2.6-1-2.9-2.4L4.3 4H2V2h3.7l1.5 4z"/>
   </svg>
-  <span>Pedido</span>
+  <span data-cart-toggle-label>Pedido</span>
 </a>
   
-    <a class="fab fab-call" href="tel:+593983237560" aria-label="Llamar">
+    <a class="fab fab-call" href="tel:+593983237560" aria-label="Llamar" data-i18n-aria="callAria">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M6.6 10.8c1.6 3 3.7 5.1 6.7 6.7l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.9.6.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C10.1 22 2 13.9 2 3c0-.6.4-1 1-1h3.9c.6 0 1 .4 1 1 0 1.4.2 2.7.6 3.9.1.4 0 .8-.3 1.1L6.6 10.8z"/>
       </svg>
-      <span>Llamar</span>
+      <span data-i18n="call">Llamar</span>
     </a>
   </div>
 
 <!-- Mini panel de carrito -->
-<aside class="cart-panel empty" id="cartPanel" aria-label="Tu pedido">
+<aside class="cart-panel empty" id="cartPanel" aria-label="Tu pedido" data-i18n-aria="yourOrder">
   <div class="cart-head">
-    <div class="cart-title">Tu pedido</div>
-    <button type="button" class="cart-close" id="cartClose" aria-label="Cerrar">×</button>
+    <div class="cart-title" data-i18n="yourOrder">Tu pedido</div>
+    <button type="button" class="cart-close" id="cartClose" aria-label="Cerrar" data-i18n-aria="close">×</button>
   </div>
   <div class="cart-list"></div>
   <div class="cart-foot">
     <div class="cart-total">Total: —</div>
-<label class="cart-notes-label" for="cartNotes">Observaciones (opcional)</label>
-<textarea class="cart-notes" id="cartNotes" rows="2" placeholder="Ej: sin cebolla, poco ají, para llevar, enviar salsas aparte..."></textarea>
+<label class="cart-notes-label" for="cartNotes" data-i18n="notesOptional">Observaciones (opcional)</label>
+<textarea class="cart-notes" id="cartNotes" rows="2" placeholder="Ej: sin cebolla, poco ají, para llevar, enviar salsas aparte..." data-i18n-placeholder="notesPlaceholder"></textarea>
     <div class="cart-actions">
-      <button type="button" class="cart-clear" id="cartClear">Limpiar</button>
-      <a class="cart-send" id="cartSend" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+      <button type="button" class="cart-clear" id="cartClear" data-i18n="clear">Limpiar</button>
+      <a class="cart-send" id="cartSend" href="#" target="_blank" rel="noopener" data-i18n="sendWhatsApp">Enviar por WhatsApp</a>
     </div>
   </div>
 </aside>
@@ -1689,854 +1768,25 @@
     hidden>
     <div class="ingredients-modal-head">
       <h2 id="ingTitle">Ingredientes</h2>
-      <button class="ingredients-close" id="ingClose" type="button" aria-label="Cerrar ingredientes">×</button>
+      <button class="ingredients-close" id="ingClose" type="button" aria-label="Cerrar ingredientes" data-i18n-aria="closeIngredients">×</button>
     </div>
-    <p id="ingBody"></p>
+    <div class="ingredients-body" id="ingBody"></div>
     <div class="ingredients-actions">
-      <a class="btn btn-primary" id="ingWa" href="#" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+      <a class="btn btn-primary" id="ingWa" href="#" target="_blank" rel="noopener">Consultar ingredientes por WhatsApp</a>
     </div>
   </section>
 
 
   <!-- Menú de categorías (overlay) -->
-  <nav aria-label="Categorías" class="catmenu" hidden id="catMenu">
-    <a href="#desayunos">Desayunos</a>
-    <a href="#almuerzos">Almuerzos</a>
-    <a href="#mariscos">Mariscos</a>
-    <a href="#carnes">Carnes</a>
-    <a href="#pollos">Pollos</a>
-    <a href="#pinchos">Pinchos</a>
-    <a href="#gaseosas">Bebidas</a>
+  <nav aria-label="Categorías" data-i18n-aria="categoriesAria" class="catmenu" hidden id="catMenu">
+    <a href="#desayunos" data-i18n="catBreakfast">Desayunos</a>
+    <a href="#almuerzos" data-i18n="catLunch">Almuerzos</a>
+    <a href="#mariscos" data-i18n="catSeafood">Mariscos</a>
+    <a href="#carnes" data-i18n="catMeat">Carnes</a>
+    <a href="#pollos" data-i18n="catChicken">Pollos</a>
+    <a href="#pinchos" data-i18n="catSkewers">Pinchos</a>
+    <a href="#gaseosas" data-i18n="catDrinks">Bebidas</a>
   </nav>
-
-  <script>
-    /***********************
-     * CONFIG PRODUCCION
-     ***********************/
-    const IMG_BASE = "img/";
-    const WHATSAPP_NUMBER = "593983237560";
-    const WHATSAPP_PREFIX = "Hola, vengo del menú QR de Floresta Brava. ";
-
-    const FEATURED = [
-      { id: "encebollado", tag: "Clásico" },
-      { id: "ceviche-mixto", tag: "Top" },
-      { id: "chaulafan", tag: "Rápido" },
-      { id: "bisteck-costeno", tag: "Fuerte" },
-      { id: "carne-apanada", tag: "Crocante" },
-      { id: "tigrillo", tag: "Desayuno" },
-    ];
-
-    const MENU = [
-      {
-        id: "almuerzos",
-        title: "Almuerzos",
-        desc: "Opciones completas y económicas para todos los días.",
-        items: [
-          { id: "almuerzo-merienda", name: "Almuerzos / Meriendas", price: 2.75, file: "almuerzo.webp" },
-          { id: "almuerzo-encebollado", name: "Almuerzos con encebollado", price: 3.50, file: "almuerzo-encebollado.webp" },
-          { id: "merienda-pincho", name: "Meriendas con pincho", price: 3.50, file: "merienda-pincho.webp" },
-          { id: "segundo-dia", name: "Segundo del día", price: 2.25, file: "segundo.webp" },
-          { id: "sopa-dia", name: "Sopa del día", price: 1.50, file: "sopasola.webp" },
-        ],
-      },
-      {
-        id: "carnes",
-        title: "Carnes",
-        desc: "Cortes preparados a la plancha o apanados, con guarniciones completas.",
-        items: [
-          { id: "bisteck-costeno", name: "Bisteck costeño", price: 5.25, file: "bisteckcosteno.webp" },
-          { id: "carne-apanada", name: "Carne apanada", price: 5.25, file: "carneapanada.webp" },
-          { id: "chuleta", name: "Chuleta", price: 6.00, file: "chuleta.webp" },
-          { id: "churrasco", name: "Churrasco", price: 5.25, file: "churrasco.webp" },
-          { id: "lomo-pimienta", name: "Lomo a la pimienta", price: 5.25, file: "lomoalapimienta.webp" },
-          { id: "lomo-plancha", name: "Lomo a la plancha", price: 5.25, file: "lomolaplancha.webp" },
-          { id: "menestras", name: "Menestras", price: 5.25, file: "menestradecarne.webp" },
-          { id: "yaguarlocro", name: "Yaguarlocro", price: 3.50, file: "yaguarlocro.webp" },
-        ],
-      },
-      {
-        id: "desayunos",
-        title: "Desayunos",
-        desc: "Desayunos típicos ecuatorianos para arrancar el día con energía.",
-        items: [
-          { id: "combo-bolon", name: "Combo Bolón", price: 2.75, file: "bolon-estofado.webp" },
-          { id: "corviches", name: "Corviches", price: 1.00, file: "corviches.webp" },
-          { id: "desayuno-completo", name: "Desayuno completo", price: 3.75, file: "desayuno_completo.webp" },
-          { id: "desayuno-continental", name: "Desayuno continental", price: 2.75, file: "desayunocontinental.webp" },
-          { id: "empanadas", name: "Empanadas", price: 1.00, file: "empanadas.webp" },
-          { id: "muchines", name: "Muchines", price: 1.00, file: "muchin.webp" },
-          { id: "tamales", name: "Tamales", price: 1.00, file: "tamal.webp" },
-          { id: "bolon", name: "Bolón", price: 1.00, file: "bolonsolo.webp" },
-          { id: "tigrillo", name: "Tigrillo", price: 4.00, file: "tigrillo.webp" },
-        ],
-      },
-      {
-        id: "mariscos",
-        title: "Mariscos",
-        desc: "Ceviches, arroces y platos calientes preparados con mariscos frescos.",
-        items: [
-          { id: "arroz-camaron", name: "Arroz con camarón", price: 8.50, file: "arrozconcamaron.webp" },
-          { id: "arroz-concha", name: "Arroz con concha", price: 10.00, file: "arrozconconcha.webp" },
-          { id: "arroz-mixto", name: "Arroz mixto", price: 10.00, file: "arrozmixto.webp" },
-          { id: "bandera", name: "Bandera", price: 10.00, file: "bandera.webp" },
-          { id: "bochinche", name: "Bochinche", price: 10.00, file: "bochinche.webp" },
-          { id: "camarones-ajillo", name: "Camarones al ajillo", price: 8.50, file: "camaronesalajillo.webp" },
-          { id: "camarones-apanados", name: "Camarones apanados", price: 8.50, file: "camaronesapanados.webp" },
-          { id: "cazuelas", name: "Cazuelas", price: 8.50, file: "cazueladecamaron.webp" },
-          { id: "ceviche-camaron", name: "Ceviche de camarón", price: 8.50, file: "cevichedecamaron.webp" },
-          { id: "ceviche-concha", name: "Ceviche de concha", price: 10.00, file: "cevichedeconcha.webp" },
-          { id: "ceviche-pescado", name: "Ceviche de pescado", price: 8.00, file: "cevichedepescado.webp" },
-          { id: "ceviche-mixto", name: "Ceviche mixto", price: 10.00, file: "cevichemixto.webp" },
-          { id: "cevichon", name: "Cevichón", price: 4.50, file: "cevichon.webp" },
-          { id: "chaulafan", name: "Chaulafán", price: 3.75, file: "chaulafan.webp" },
-          { id: "chupe-pescado", name: "Chupe de pescado", price: 3.75, file: "chupedepescado.webp" },
-          { id: "corvina", name: "Corvina", price: 8.50, file: "corvina.webp" },
-          { id: "encebollado", name: "Encebollado", price: 3.00, file: "encebollado.webp" },
-          { id: "encebollado-mixto", name: "Encebollado mixto", price: 8.50, file: "encebolladomixto.webp" },
-          { id: "guatita", name: "Guatita", price: 3.00, file: "guatita.webp" },
-          { id: "langostinos-brava", name: "Langostinos a la brava", price: 10.00, file: "langostinosalabrava.webp" },
-          { id: "sopa-camaron", name: "Sopa de camarón", price: 8.50, file: "sopadecamaron.webp" },
-        ],
-      },
-      {
-        id: "pollos",
-        title: "Pollos",
-        desc: "Platos de pollo jugosos y bien sazonados, con acompañantes.",
-        items: [
-          { id: "arroz-pollo", name: "Arroz con pollo", price: 3.75, file: "arrozconpollo.webp" },
-          { id: "pechuga-plancha", name: "Pechuga a la plancha", price: 5.25, file: "pechugaalaplancha.webp" },
-          { id: "pechuga-apanada", name: "Pechuga apanada", price: 5.25, file: "pechugaapanada.webp" },
-          { id: "seco-pollo", name: "Seco de pollo", price: 4.00, file: "secodepollo.webp" },
-        ],
-      },
-      {
-        id: "jugos",
-        title: "Jugos",
-        desc: "Opciones individuales y jarras.",
-        items: [
-          { id: "vaso-jugo", name: "Vaso de Jugo", price: 2.00, file: "" },
-          { id: "limonada", name: "Limonada", price: 1.50, file: "" },
-          { id: "jarra-jugo", name: "Jarra de Jugo", price: 6.00, file: "" },
-        ],
-      },      
-      {
-        id: "gaseosas",
-        title: "Gaseosa",
-        desc: "Opciones individuales y familiares.",
-        items: [
-          { id: "gaseosa-mediana", name: "Gaseosa Mediana", price: 1.00, file: "" },
-          { id: "gaseosa-personal", name: "Gaseosa Personal", price: 0.65, file: "" },
-          { id: "gaseosa-135-l", name: "Gaseosa 1.35 L", price: 2.25, file: "" },
-          { id: "agua-sin-gas", name: "Agua sin gas", price: 1.00, file: "" },
-          { id: "agua-con-gas", name: "Agua con gas", price: 1.00, file: "" },
-
-        ],
-      },
-      {
-        id: "cerveza",
-        title: "Cerveza",
-        desc: "Cervezas nacionales.",
-        items: [
-          { id: "cerveza-pilsener-600ml", name: "Cerveza Pilsener 600 ml", price: 2.25, file: "" },
-          { id: "cerveza-club-550ml", name: "Cerveza Club 550 ml", price: 2.50, file: "" },
-          { id: "cerveza-artesanal-300", name: "Cerveza Artesanal", price: 3.00, file: "" },
-          { id: "cerveza-artesanal-325", name: "Cerveza Artesanal", price: 3.25, file: "" },
-          { id: "cerveza-artesanal-350", name: "Cerveza Artesanal", price: 3.50, file: "" },
-        ],
-      },
-      {
-        id: "pinchos",
-        title: "Pinchos",
-        desc: "Ideales para acompañar tu merienda.",
-        items: [
-          { id: "pincho-carne", name: "Pincho de carne", price: 1.00, file: "pincho-carne.webp" },
-          { id: "pincho-pollo", name: "Pincho de pollo", price: 1.00, file: "pincho-pollo.webp" },
-          { id: "pincho-completo", name: "Pincho completo", price: 2.50, file: "pincho-completo.webp" }
-        ],
-      },
-    ];
-
-    const PRODUCT_BY_ID = new Map();
-    for (const category of MENU) {
-      for (const item of category.items || []) {
-        const productId = String(item.id || "").trim();
-        if (!productId) throw new Error("Producto sin ID en la categoría: " + category.title);
-        if (PRODUCT_BY_ID.has(productId)) throw new Error("ID de producto duplicado: " + productId);
-        PRODUCT_BY_ID.set(productId, item);
-      }
-    }
-
-    function escapeHtml(value) {
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-    }
-
-    function formatPrice(p) {
-      if (p === null || p === undefined || p === "") return "";
-      return "$" + Number(p).toFixed(2).replace(".", ",");
-    }
-
-    function waLink(message) {
-      const base = "https://wa.me/" + WHATSAPP_NUMBER;
-      return base + "?text=" + encodeURIComponent(message);
-    }
-
-    function waForItem(itemName, priceText) {
-      const msg = WHATSAPP_PREFIX + "Quiero pedir: " + itemName + (priceText ? " (" + priceText + ")" : "") + ".";
-      return waLink(msg);
-    }
-
-    /***********************
- * CARRITO (CANTIDADES) + PANEL MINI
- ***********************/
-const CART = new Map(); // productId -> { id, name, price, qty }
-
-function normPrice(p){
-  if (p === "" || p == null) return null;
-  const n = Number(String(p).replace(",", "."));
-  return Number.isFinite(n) ? n : null;
-}
-
-function setQty(productId, qty){
-  const key = String(productId || "").trim();
-  const item = PRODUCT_BY_ID.get(key);
-  if (!item) return;
-  const q = Math.max(0, Number(qty || 0));
-  if (q === 0){
-    CART.delete(key);
-  } else {
-    CART.set(key, { id: key, name: item.name, price: normPrice(item.price), qty: q });
-  }
-  syncCartUI();
-}
-
-function incQty(productId, delta){
-  const key = String(productId || "").trim();
-  if (!PRODUCT_BY_ID.has(key)) return;
-  const cur = CART.get(key);
-  const next = Math.max(0, (cur ? (cur.qty || 0) : 0) + delta);
-  setQty(key, next);
-}
-
-function cartCount(){
-  let n = 0;
-  for (const v of CART.values()) n += (v.qty || 0);
-  return n;
-}
-
-function cartTotal(){
-  let t = 0;
-  for (const v of CART.values()){
-    if (typeof v.price === "number") t += v.price * (v.qty || 0);
-  }
-  return t;
-}
-
-function buildCartMessage(){
-  const notesEl = document.getElementById("cartNotes");
-  const notes = (notesEl && notesEl.value) ? notesEl.value.trim() : "";
-
-  if (CART.size === 0){
-    const base = WHATSAPP_PREFIX + "Quiero hacer un pedido. ¿Me ayudas por favor?";
-    return notes ? (base + "\nObservaciones: " + notes) : base;
-  }
-
-  const lines = [];
-  lines.push(WHATSAPP_PREFIX + "Quiero pedir:");
-  for (const v of CART.values()){
-    const qty = v.qty || 0;
-    const priceTxt = (typeof v.price === "number") ? formatPrice(v.price) : "";
-    const lineTotal = (typeof v.price === "number") ? formatPrice(v.price * qty) : "";
-    lines.push("- " + v.name + " x" + qty + (priceTxt ? " (" + priceTxt + " c/u)" : "") + (lineTotal ? " = " + lineTotal : ""));
-  }
-
-  const total = cartTotal();
-  if (total > 0){
-    lines.push("Total aprox: " + formatPrice(total));
-  }
-  if (notes){
-    lines.push("Observaciones: " + notes);
-  }
-  lines.push("Gracias.");
-  return lines.join("\n");
-}
-
-function toggleCartPanel(forceOpen){
-  const panel = document.getElementById("cartPanel");
-  const floating = document.querySelector(".floating-ctas");
-  if (!panel) return;
-
-  const open = (typeof forceOpen === "boolean")
-    ? forceOpen
-    : !panel.classList.contains("open");
-
-  panel.classList.toggle("open", open);
-
-  if (floating){
-    floating.classList.toggle("is-hidden-during-cart", open);
-  }
-}
-
-
-let toastTimer = null;
-
-function pulseCart(){
-  const btn = document.getElementById("cartToggle");
-  if (!btn) return;
-
-  btn.classList.remove("is-pulse");
-  void btn.offsetWidth;
-  btn.classList.add("is-pulse");
-
-  setTimeout(() => {
-    btn.classList.remove("is-pulse");
-  }, 650);
-}
-
-function showToast(message){
-  const toast = document.getElementById("cartToast");
-  if (!toast) return;
-
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    toast.classList.remove("show");
-  }, 1600);
-}
-
-function syncCartUI(){
-  const n = cartCount();
-
-  const cartToggle = document.getElementById("cartToggle");
-  if (cartToggle){
-    const span = cartToggle.querySelector("span");
-    if (span){
-      const isMobile = window.matchMedia("(max-width: 480px)").matches;
-      if (isMobile){
-        span.textContent = n > 0 ? "(" + n + ")" : "(0)";
-      } else {
-        span.textContent = n > 0 ? "Pedido (" + n + ")" : "Pedido";
-      }
-    }
-    cartToggle.classList.toggle("has-items", n > 0);
-  }
-
-  // Botón flotante WhatsApp (sigue enviando directo)
-  const waBtn = document.getElementById("waCart");
-  if (waBtn){
-    const span = waBtn.querySelector("span");
-    if (span) span.textContent = "Enviar (" + n + ")";
-    if (n === 0){
-      waBtn.classList.add("disabled");
-      waBtn.href = "#";
-      waBtn.setAttribute("aria-disabled", "true");
-    } else {
-      waBtn.classList.remove("disabled");
-      waBtn.removeAttribute("aria-disabled");
-      waBtn.href = waLink(buildCartMessage());
-    }
-  }
-
-  // Controles de cantidad en tarjetas
-  document.querySelectorAll("[data-qty-id]").forEach(el => {
-    const productId = el.getAttribute("data-qty-id") || "";
-    const it = CART.get(productId);
-    el.textContent = String(it ? (it.qty || 0) : 0);
-  });
-
-  // Panel mini carrito
-  const panel = document.getElementById("cartPanel");
-  if (panel){
-    const list = panel.querySelector(".cart-list");
-    const totalEl = panel.querySelector(".cart-total");
-    const send = panel.querySelector("#cartSend");
-    const clearBtn = panel.querySelector("#cartClear");
-
-    if (n === 0){
-      panel.classList.remove("open");
-      panel.classList.add("empty");
-      const floating = document.querySelector(".floating-ctas");
-      if (floating){
-        floating.classList.remove("is-hidden-during-cart");
-      }
-      if (list) list.innerHTML = '<div class="cart-empty">Selecciona productos con + para armar tu pedido.</div>';
-      if (totalEl) totalEl.textContent = "Total: —";
-      if (send) { send.classList.add("disabled"); send.href = "#"; }
-      if (clearBtn) clearBtn.disabled = true;
-    } else {
-      panel.classList.remove("empty");
-      if (list){
-        const rows = [];
-        for (const v of CART.values()){
-          const qty = v.qty || 0;
-          const lineTotal = (typeof v.price === "number") ? (v.price * qty) : null;
-          const priceTxt = (typeof v.price === "number") ? formatPrice(v.price) : "—";
-          const lineTxt  = (lineTotal != null) ? formatPrice(lineTotal) : "—";
-          const safeId = escapeHtml(v.id);
-          const safeName = escapeHtml(v.name);
-          const safePrice = escapeHtml(priceTxt);
-          const safeLineTotal = escapeHtml(lineTxt);
-          rows.push(
-            `<div class="cart-row">
-               <div class="cart-row-main">
-                 <div class="cart-row-name">${safeName}</div>
-                 <div class="cart-row-sub">${qty} x ${safePrice}</div>
-               </div>
-               <div class="cart-row-right">
-                 <div class="cart-row-total">${safeLineTotal}</div>
-                 <div class="cart-row-qty">
-                   <button type="button" class="cart-mini-btn" data-cart-minus-id="${safeId}" aria-label="Restar ${safeName}">−</button>
-                   <span class="cart-mini-val">${qty}</span>
-                   <button type="button" class="cart-mini-btn" data-cart-plus-id="${safeId}" aria-label="Sumar ${safeName}">+</button>
-                 </div>
-               </div>
-             </div>`
-          );
-        }
-        list.innerHTML = rows.join("");
-      }
-      const total = cartTotal();
-      if (totalEl) totalEl.textContent = (total > 0) ? ("Total aprox: " + formatPrice(total)) : "Total: —";
-      if (send) { send.classList.remove("disabled"); send.href = waLink(buildCartMessage()); }
-      if (clearBtn) clearBtn.disabled = false;
-    }
-  }
-}
-
-function setupCartSelection(){
-  // + / - en tarjetas
-  document.addEventListener("click", (e) => {
-    const plus = e.target.closest("[data-plus-id]");
-    const minus = e.target.closest("[data-minus-id]");
-    if (!plus && !minus) return;
-
-    e.preventDefault();
-    if (plus){
-      const productId = plus.getAttribute("data-plus-id") || "";
-      const item = PRODUCT_BY_ID.get(productId);
-      incQty(productId, +1);
-      pulseCart();
-      if (item) showToast(item.name + " agregado al pedido");
-    } else if (minus){
-      const productId = minus.getAttribute("data-minus-id") || "";
-      incQty(productId, -1);
-    }
-  });
-
-  // Panel: abrir/cerrar, limpiar, ajustar cantidades dentro del panel
-  document.addEventListener("click", (e) => {
-    const openBtn = e.target.closest("#cartToggle");
-    const closeBtn = e.target.closest("#cartClose");
-    const clearBtn = e.target.closest("#cartClear");
-    const plus = e.target.closest("[data-cart-plus-id]");
-    const minus = e.target.closest("[data-cart-minus-id]");
-
-    if (openBtn){ e.preventDefault(); toggleCartPanel(); return; }
-    if (closeBtn){ e.preventDefault(); toggleCartPanel(false); return; }
-
-    if (clearBtn){
-      e.preventDefault();
-      CART.clear();
-      const notesEl = document.getElementById("cartNotes");
-      if (notesEl) notesEl.value = "";
-      syncCartUI();
-      return;
-    }
-
-    if (plus){
-      e.preventDefault();
-      const productId = plus.getAttribute("data-cart-plus-id") || "";
-      incQty(productId, +1);
-      return;
-    }
-
-    if (minus){
-      e.preventDefault();
-      const productId = minus.getAttribute("data-cart-minus-id") || "";
-      incQty(productId, -1);
-      return;
-    }
-  });
-
-  // Inicial
-  syncCartUI();
-// Si cambian las observaciones, actualizar links de WhatsApp en vivo
-const notesEl = document.getElementById("cartNotes");
-if (notesEl){
-  notesEl.addEventListener("input", () => syncCartUI());
-}
-window.addEventListener("resize", () => syncCartUI());
-}
-
-    function findItemById(productId) {
-      return PRODUCT_BY_ID.get(String(productId || "").trim()) || null;
-    }
-
-    const FEATURED_SET = new Set(FEATURED.map(x => x.id));
-
-    function itemHTML(it, categoryTitle) {
-      const priceText = it.price != null ? formatPrice(it.price) : "";
-      const safeId = escapeHtml(it.id);
-      const safeName = escapeHtml(it.name);
-      const safeSearchName = escapeHtml((it.name || "").toLowerCase());
-      const safePriceText = escapeHtml(priceText || "—");
-
-      // Categorías donde NO queremos bloque "Sin foto" + sin botón Ingredientes
-      const noPhotoCategories = ["Jugos", "Gaseosa", "Cerveza"];
-      const isNoPhotoCat = noPhotoCategories.includes(categoryTitle);
-
-      // Nota de venta por tipo (comida vs bebidas)
-      let note = "";
-      if (it.price == null) {
-        note = "Consultar precio";
-      } else if (categoryTitle === "Jugos") {
-        note = "Natural y refrescante";
-      } else if (categoryTitle === "Gaseosa" || categoryTitle === "Cerveza") {
-        note = "Bien fría · Ideal para acompañar";
-      } else {
-        note = "Listo en minutos · Porciones que llenan";
-      }
-
-      // Badge "Más pedido" solo para comida (no bebidas)
-      const isTop = !isNoPhotoCat && FEATURED_SET.has(it.id);
-      const topBadge = isTop ? `<span class="top-badge">Más pedido</span>` : "";
-
-      // Si es comida y no hay file, mostramos "Sin foto".
-      // Si es bebida y no hay file, hacemos tarjeta compacta sin imagen.
-      let imgBlock = "";
-      let extraClass = "";
-      const priceBadge = `<div class="item-price">${safePriceText}</div>`;
-
-      if (it.file) {
-        const safeSrc = escapeHtml(IMG_BASE + it.file);
-        imgBlock = `
-          <div class="item-media">
-            <img src="${safeSrc}" alt="${safeName}" class="item-img" loading="lazy"
-                 onerror="this.outerHTML='<div class=&quot;no-img&quot;>Sin foto</div>'">
-            ${priceBadge}
-          </div>`;
-      } else if (!isNoPhotoCat) {
-        imgBlock = `
-          <div class="item-media">
-            <div class="no-img">Sin foto</div>
-            ${priceBadge}
-          </div>`;
-      } else {
-        extraClass = " item--compact";
-      }
-
-      // En bebidas no mostramos botón Ingredientes
-      const showIngredients = !isNoPhotoCat;
-      const headerPrice = isNoPhotoCat
-        ? `<span class="item-price-inline">${safePriceText}</span>`
-        : "";
-
-      return `
-        <article class="item${extraClass}" data-product-id="${safeId}" data-name="${safeSearchName}">
-          ${imgBlock}
-          <div class="item-body">
-            <div class="item-header-line">
-              <div class="item-name">${safeName}</div>
-              ${headerPrice}
-            </div>
-            ${!isNoPhotoCat ? `<div class="top-badge-wrap">${topBadge}</div>` : ""}
-            ${(!isNoPhotoCat && note) ? `<div class="item-note">${escapeHtml(note)}</div>` : ""}
-            <div class="item-actions">
-              <div class="qty-ctrl" aria-label="Cantidad">
-                <button class="qty-btn" type="button" data-minus-id="${safeId}" aria-label="Restar ${safeName}">−</button>
-                <span class="qty-val" data-qty-id="${safeId}">0</span>
-                <button class="qty-btn" type="button" data-plus-id="${safeId}" aria-label="Sumar ${safeName}">+</button>
-              </div>
-              ${showIngredients
-                ? `<button class="mini-btn" type="button" data-ingredients-id="${safeId}">Ingredientes</button>`
-                : ""}
-            </div>
-          </div>
-        </article>
-      `;
-    }
-
-
-    function renderCategory(categoryTitle, container) {
-      const cat = MENU.find(c => c.title === categoryTitle);
-      if (!cat) return;
-      container.innerHTML = cat.items.map(it => itemHTML(it, categoryTitle)).join("");
-    }
-
-    function renderAll() {
-      document.querySelectorAll(".items[data-category]").forEach(el => {
-        const catName = el.getAttribute("data-category");
-        renderCategory(catName, el);
-      });
-    }
-
-    function renderFeatured() {
-      const grid = document.getElementById("featuredGrid");
-      if (!grid) return;
-
-      const cards = FEATURED.map(f => {
-        const it = findItemById(f.id);
-        if (!it) return "";
-        const priceText = it.price != null ? formatPrice(it.price) : "";
-        const safeName = escapeHtml(it.name);
-        const safePriceText = escapeHtml(priceText || "Consultar");
-        const safeTag = escapeHtml(f.tag);
-        const img = it.file
-          ? `<img src="${escapeHtml(IMG_BASE + it.file)}" alt="${safeName}" loading="lazy" onerror="this.outerHTML='<div class=&quot;no-img&quot; style=&quot;height:100px;border-radius:0&quot;>Sin foto</div>'">`
-          : `<div class="no-img" style="height:100px;border-radius:0">Sin foto</div>`;
-
-        const href = escapeHtml(waForItem(it.name, priceText));
-        return `
-          <a class="feat" href="${href}" target="_blank" rel="noopener" title="Pedir ${safeName}">
-            <div class="feat-media">
-              ${img}
-              <div class="feat-price-badge">${safePriceText}</div>
-            </div>
-            <div class="feat-body">
-              <div class="name">${safeName}</div>
-              <div class="meta">
-                <div class="tag">${safeTag}</div>
-              </div>
-            </div>
-          </a>
-        `;
-      }).join("");
-
-      grid.innerHTML = cards;
-    }
-
-    function setupWhatsAppButtons() {
-      const generalMsg = WHATSAPP_PREFIX + "Quiero hacer un pedido. ¿Me ayudas por favor?";
-      const href = waLink(generalMsg);
-    
-      ["waTop", "waHero", "waFloat"].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.href = href;
-      });
-    }
-
-
-    function setupSearch() {
-      const q = document.getElementById("q");
-      const clear = document.getElementById("clear");
-
-      function applyFilter() {
-        const term = (q.value || "").trim().toLowerCase();
-        const allItems = document.querySelectorAll(".item");
-        allItems.forEach(card => {
-          const name = card.getAttribute("data-name") || "";
-          if (!term || name.includes(term)) card.classList.remove("hide");
-          else card.classList.add("hide");
-        });
-
-        document.querySelectorAll(".category").forEach(cat => {
-          const visible = cat.querySelectorAll(".item:not(.hide)").length;
-          if (term && visible === 0) cat.classList.add("hide");
-          else cat.classList.remove("hide");
-        });
-
-        const hero = document.querySelector(".hero");
-        const featured = document.getElementById("destacados");
-        if (hero) hero.classList.remove("hide");
-        if (featured) featured.classList.remove("hide");
-      }
-
-      q.addEventListener("input", applyFilter);
-      clear.addEventListener("click", () => {
-        q.value = "";
-        applyFilter();
-        q.focus();
-      });
-    }
-
-    function getIngredientsFor(productId){
-      const item = findItemById(productId);
-      return item && item.ingredients ? item.ingredients : null;
-    }
-
-    function setupIngredientsModal(){
-      const modal = document.getElementById("ingModal");
-      const backdrop = document.getElementById("ingBackdrop");
-      const title = document.getElementById("ingTitle");
-      const body = document.getElementById("ingBody");
-      const closeBtn = document.getElementById("ingClose");
-      const waBtn = document.getElementById("ingWa");
-      if (!modal || !backdrop || !title || !body || !closeBtn || !waBtn) return;
-
-      let lastFocused = null;
-
-      const getFocusable = () => Array.from(
-        modal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')
-      ).filter(el => !el.hidden);
-
-      const close = () => {
-        if (modal.hidden) return;
-        modal.hidden = true;
-        backdrop.hidden = true;
-        document.removeEventListener("keydown", onKey);
-        if (lastFocused && typeof lastFocused.focus === "function") {
-          lastFocused.focus({ preventScroll: true });
-        }
-      };
-
-      const onKey = (e) => {
-        if (e.key === "Escape") {
-          e.preventDefault();
-          close();
-          return;
-        }
-
-        if (e.key !== "Tab") return;
-        const focusable = getFocusable();
-        if (focusable.length === 0) {
-          e.preventDefault();
-          modal.focus();
-          return;
-        }
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      };
-
-      const open = (productId) => {
-        const item = findItemById(productId);
-        if (!item) return;
-        const ing = getIngredientsFor(productId);
-        lastFocused = document.activeElement;
-        title.textContent = "Ingredientes · " + item.name;
-
-        if (Array.isArray(ing) && ing.length){
-          body.textContent = "Ingredientes: " + ing.join(", ") + ".";
-        } else if (typeof ing === "string" && ing.trim()){
-          body.textContent = "Ingredientes: " + ing.trim();
-        } else {
-          body.textContent = "Ingredientes no registrados todavía. Si tienes alergias o restricciones alimentarias, escríbenos y te confirmamos antes de preparar tu pedido.";
-        }
-
-        const msg = WHATSAPP_PREFIX + "Quiero confirmar los ingredientes y posibles alérgenos de: " + item.name + " antes de hacer mi pedido.";
-        waBtn.href = waLink(msg);
-
-        modal.hidden = false;
-        backdrop.hidden = false;
-        document.addEventListener("keydown", onKey);
-        closeBtn.focus({ preventScroll: true });
-      };
-
-      backdrop.addEventListener("click", close);
-      closeBtn.addEventListener("click", close);
-
-      document.addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-ingredients-id]");
-        if (!btn) return;
-        e.preventDefault();
-        const productId = btn.getAttribute("data-ingredients-id");
-        if (productId) open(productId);
-      });
-    }
-
-    function setupCategoriesMenu(){
-      const menu = document.getElementById("catMenu");
-      const btn  = document.getElementById("catFloat");
-      if (!menu || !btn) return;
-  
-      let backdrop = null;
-  
-      const setChev = (open) => {
-        // Mantiene tu texto original "Categorías ▾" / "Categorías ▴"
-        btn.textContent = open ? "Categorías ▴" : "Categorías ▾";
-        btn.setAttribute("aria-expanded", open ? "true" : "false");
-      };
-  
-      const openMenu = () => {
-        if (!backdrop){
-          backdrop = document.createElement("div");
-          backdrop.className = "catmenu-backdrop";
-          backdrop.addEventListener("click", closeMenu);
-          document.body.appendChild(backdrop);
-        } else {
-          backdrop.classList.remove("hide");
-          backdrop.hidden = false;
-        }
-  
-        menu.hidden = false;
-        setChev(true);
-  
-        // Cierra con ESC
-        document.addEventListener("keydown", onKey);
-  
-        // Opcional: enfoca el primer link para accesibilidad
-        const firstLink = menu.querySelector("a");
-        if (firstLink) firstLink.focus({ preventScroll: true });
-      };
-  
-      const closeMenu = () => {
-        menu.hidden = true;
-        if (backdrop){
-          backdrop.hidden = true;          // lo ocultamos
-          backdrop.classList.add("hide");  // y aseguramos display none
-        }
-        setChev(false);
-        document.removeEventListener("keydown", onKey);
-      };
-  
-      const toggleMenu = () => {
-        const isOpen = !menu.hidden;
-        if (isOpen) closeMenu();
-        else openMenu();
-      };
-  
-      const onKey = (e) => {
-        if (e.key === "Escape") closeMenu();
-      };
-  
-      // Click en el botón
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        toggleMenu();
-      });
-  
-      // Si haces click en una categoría, que cierre el menú
-      menu.addEventListener("click", (e) => {
-        const a = e.target.closest("a[href^='#']");
-        if (!a) return;
-  
-        // Cierra primero
-        closeMenu();
-  
-        // Scroll suave y confiable
-        const id = a.getAttribute("href").slice(1);
-        const target = document.getElementById(id);
-        if (target){
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      });
-  
-      // Estado inicial accesible
-      btn.setAttribute("aria-expanded", "false");
-      setChev(false);
-    }
-
-
-    renderAll();
-    renderFeatured();
-    setupWhatsAppButtons();
-    setupCartSelection();
-    setupSearch();
-    setupIngredientsModal();
-    setupCategoriesMenu(); 
-  </script>
 
   <div id="cartToast" class="cart-toast" aria-live="polite" aria-atomic="true"></div>
 
@@ -2544,15 +1794,12 @@ window.addEventListener("resize", () => syncCartUI());
     <div class="footer-inner">
       <div><strong>Floresta Brava</strong> · Av. Coruña y Guipúzcoa · Quito</div>
       <div class="footer-links">
-        <a href="index.html">Inicio</a>
-        <a aria-current="page" href="menudigital.html">Menú digital</a>
-        <a href="#top">Subir</a>
+        <a href="index.html" data-i18n="home">Inicio</a>
+        <a aria-current="page" href="menudigital.html" data-i18n="digitalMenu">Menú digital</a>
+        <a href="#top" data-i18n="backToTop">Subir</a>
       </div>
     </div>
   </footer>
-
-  <script>
-   
-  </script>
+  <script src="menudigital-app.js"></script>
 </body>
 </html>

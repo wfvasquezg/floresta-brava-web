@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Floresta Brava | Comida típica ecuatoriana en Quito</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Restaurante Floresta Brava. Encebollado, yaguarlocro, corviches, empanadas y mucho más. Comida típica ecuatoriana con sabor casero en Quito.">
+  <meta name="description" content="Restaurante Floresta Brava. Encebollado, corviches, empanadas y mucho más. Comida típica ecuatoriana con sabor casero en Quito.">
   <meta name="robots" content="index,follow">
   <meta property="og:locale" content="es_EC">
 
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Floresta Brava">
   <meta property="og:title" content="Floresta Brava | Comida típica ecuatoriana en Quito">
-  <meta property="og:description" content="Encebollado, yaguarlocro, corviches, empanadas y mucho más. Comida típica ecuatoriana con sabor casero en La Floresta, Quito.">
+  <meta property="og:description" content="Encebollado, corviches, empanadas y mucho más. Comida típica ecuatoriana con sabor casero en La Floresta, Quito.">
   <meta property="og:url" content="https://www.florestabrava.com/">
   <meta property="og:image" content="https://www.florestabrava.com/img/letrasflorestabrava.png">
 
@@ -630,6 +630,16 @@
     }
   }
 
+  /* Dos testimonios activos después del retiro del producto discontinuado. */
+  .home-page #resenas .grid-3.reviews-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  @media (max-width: 768px){
+    .home-page #resenas .grid-3.reviews-grid{
+      grid-template-columns:1fr;
+    }
+  }
+
 </style>
 
 
@@ -640,16 +650,25 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180x180.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
-<meta name="theme-color" content="#145b6b">
+  <meta name="theme-color" content="#145b6b">
+
+  <!-- Capa visual compartida: dirección premium Floresta Brava -->
+  <link rel="stylesheet" href="css/brand-premium.css?v=20260907-7">
 
   <!-- PapaParse (defer para no bloquear render) -->
   <script defer src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </head>
 
-<body id="top">
+<body id="top" class="home-page">
   <a class="skip-link" href="#contenido">Saltar a contenido</a>
 
   <header>
+    <div class="announcement-bar">
+      <div class="container announcement-inner">
+        <span>Sazón ecuatoriana en La Floresta</span>
+        <a href="#menudiario">Consultar menú de hoy</a>
+      </div>
+    </div>
     <div class="container nav">
       <div class="logo-area">
         <a href="#top" aria-label="Ir al inicio">
@@ -678,6 +697,7 @@
           <li><a href="#resenas">Reseñas</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a href="#contacto">Contacto</a></li>
+          <li class="nav-order"><a href="https://wa.me/593983237560?text=Hola%20quiero%20hacer%20un%20pedido%20en%20Floresta%20Brava" target="_blank" rel="noopener">Pedir ahora</a></li>
         </ul>
       </nav>
     </div>
@@ -715,49 +735,78 @@
 
 
       <div class="container hero-content">
+        <div class="hero-copy">
+          <div class="hero-kicker">Restaurante ecuatoriano · La Floresta</div>
+          <h1>Sabor ecuatoriano que se disfruta desde el <em>primer bocado.</em></h1>
+
+          <p>
+            Desayunos, almuerzos y platos a la carta preparados con sazón casera.
+            Revisa nuestra carta y pide directamente por WhatsApp.
+          </p>
+
+          <div class="btn-group">
+            <a class="btn btn-primary"
+               href="https://wa.me/593983237560?text=Hola%20quiero%20hacer%20un%20pedido%20en%20Floresta%20Brava"
+               target="_blank" rel="noopener">
+              Pedir por WhatsApp
+            </a>
+
+            <a class="btn btn-ghost" href="menudigital.html">Explorar el menú</a>
+          </div>
+
+          <div class="hero-proof" aria-label="Información destacada">
+            <span>Pedido directo</span>
+            <span>Carta con precios</span>
+            <span>Av. Coruña y Guipúzcoa</span>
+          </div>
+        </div>
+
         <div class="hero-logo">
           <!-- Logo principal: eager + prioridad alta -->
-          <img
-            src="img/logoflorestatransparente.png"
-            alt="Floresta Brava - Logo"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            width="900"
-            height="900"
-          >
-        </div>
-
-        <div class="hero-kicker">Restaurante · Quito</div>
-        <h1>Comida típica ecuatoriana con sabor casero.</h1>
-
-        <p>
-          Encebollado, yaguarlocro, corviches, empanadas, pinchos y más.
-          Ven a Floresta Brava o haz tu pedido por WhatsApp. También puedes ver el <strong>menú digital</strong> desde tu celular (ideal para QR en mesas).
-        </p>
-
-        <div class="btn-group">
-          <a class="btn btn-primary"
-             href="https://wa.me/593983237560?text=Hola%20quiero%20hacer%20un%20pedido%20en%20Floresta%20Brava"
-             target="_blank" rel="noopener">
-            Pedir por WhatsApp
-          </a>
-
-          <a class="btn btn-ghost" href="menudigital.html">Ver menú digital</a>
-
-        </div>
-
-        <div class="hero-secondary-links" aria-label="Accesos rápidos">
-          <a class="secondary-link" href="#platos">Ver platos estrella</a>
-          <span class="sep">•</span>
-          <a class="secondary-link" href="#ubicacion">Cómo llegar</a>
+          <div class="hero-logo-art">
+            <img
+              src="img/logo-floresta-brava-2026.png"
+              alt="Floresta Brava - La excelencia del sabor"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              width="1024"
+              height="1536"
+            >
+          </div>
+          <div class="hero-location">La Floresta · Quito</div>
         </div>
       </div>
     </section>
+
+    <aside class="conversion-strip" aria-label="Accesos principales">
+      <div class="container conversion-grid">
+        <a class="conversion-link" href="#menudiario">
+          <small>Disponible cada día</small>
+          <strong>Menú del día</strong>
+          <span>Consulta la opción vigente</span>
+        </a>
+        <a class="conversion-link" href="menudigital.html">
+          <small>Todo en un lugar</small>
+          <strong>Carta completa</strong>
+          <span>Explora platos y precios</span>
+        </a>
+        <a class="conversion-link" href="#ubicacion">
+          <small>Estamos en Quito</small>
+          <strong>Cómo llegar</strong>
+          <span>Av. Coruña y Guipúzcoa</span>
+        </a>
+      </div>
+    </aside>
 <section id="platos" class="section alt">
       <div class="container">
-        <h2 class="section-title">Platos estrella</h2>
-        <p class="section-subtitle">Estos son los platos que más piden nuestros clientes. Preparados al momento, con recetas caseras y productos frescos.</p>
+        <div class="section-heading">
+          <div>
+            <span class="section-eyebrow">Favoritos de la casa</span>
+            <h2 class="section-title">Platos que siempre provocan volver</h2>
+          </div>
+          <p class="section-subtitle">Los sabores que más piden nuestros clientes, preparados con recetas caseras y productos frescos.</p>
+        </div>
 
         <div class="grid grid-3">
           <article class="card">
@@ -766,14 +815,6 @@
             <p>Pescado fresco, yuca suave y cebolla curtida. Ideal para empezar el día con energía.</p>
             <div class="price">$3.00</div>
             <div class="pill">Clásico de la casa</div>
-          </article>
-
-          <article class="card">
-            <img src="img/yaguarlocro.webp" alt="Yaguarlocro" loading="lazy" decoding="async">
-            <h3>Yaguarlocro</h3>
-            <p>Un manjar que no te lo puedes perder.</p>
-            <div class="price">$3.50</div>
-            <div class="pill">Sabor quiteño</div>
           </article>
 
           <article class="card">
@@ -796,7 +837,7 @@
             <img src="img/pincho-pollo.webp" alt="Pinchos" loading="lazy" decoding="async">
             <h3>Pinchos a la parrilla</h3>
             <p>Carne marinada y asada al momento, acompañada de papas y salsas caseras.</p>
-            <div class="price">$1.00</div>
+            <div class="price">$1.25</div>
             <div class="pill">Pasión parrillera</div>
           </article>
 
@@ -823,15 +864,23 @@
             <div class="price">$2.00</div>
           </article>
         </div>
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="menudigital.html">Ver toda la carta</a>
+        </div>
       </div>
     </section>
 
 	<section id="menudiario" class="section soft section-menudiario">
 	  <div class="container">
-		<h2 class="section-title">Menú diario</h2>
-		<p class="section-subtitle">
-		  Todos los días tenemos un menú diferente con sopa, plato fuerte y bebida. Ideal para almuerzos en familia.
-		</p>
+		<div class="section-heading">
+		  <div>
+			<span class="section-eyebrow">Preparado para hoy</span>
+			<h2 class="section-title">Menú diario</h2>
+		  </div>
+		  <p class="section-subtitle">
+			Todos los días tenemos un menú diferente con sopa, plato fuerte y bebida. Ideal para almuerzos en familia.
+		  </p>
+		</div>
 
 		<div class="menudiario-layout">
 		  <!-- IZQUIERDA: tus tarjetas -->
@@ -910,8 +959,13 @@
 
     <section id="empresas" class="section alt">
       <div class="container">
-        <h2 class="section-title">Pedidos para empresas y eventos</h2>
-        <p class="section-subtitle">Llevamos el sabor de Floresta Brava a tu oficina o evento. Diseñamos menús especiales para reuniones, capacitaciones y celebraciones.</p>
+        <div class="section-heading">
+          <div>
+            <span class="section-eyebrow">Atención a grupos</span>
+            <h2 class="section-title">Pedidos para empresas y eventos</h2>
+          </div>
+          <p class="section-subtitle">Llevamos el sabor de Floresta Brava a tu oficina o evento. Diseñamos menús especiales para reuniones, capacitaciones y celebraciones.</p>
+        </div>
 
         <div class="grid grid-2">
           <div>
@@ -939,20 +993,21 @@
 
     <section id="resenas" class="section alt">
       <div class="container">
-        <h2 class="section-title">Lo que dice la gente</h2>
-        <p class="section-subtitle">Las reseñas ayudan muchísimo a que más personas nos encuentren y se animen a visitarnos. Si ya nos probaste, déjanos tu reseña en Google ⭐</p>
+        <div class="section-heading">
+          <div>
+            <span class="section-eyebrow">Experiencias reales</span>
+            <h2 class="section-title">Lo que dice la gente</h2>
+          </div>
+          <p class="section-subtitle">Las reseñas ayudan muchísimo a que más personas nos encuentren y se animen a visitarnos. Si ya nos probaste, déjanos tu reseña en Google ⭐</p>
+        </div>
 
-        <div class="grid grid-3">
+        <div class="grid grid-3 reviews-grid">
           <article class="card testimonial">
             <p>“Por fin un encebollado con sabor casero de verdad. ¡Regresamos seguro!”</p>
             <div class="pill">Cliente</div>
           </article>
           <article class="card testimonial">
             <p>“El menú del día es súper completo y rápido. Perfecto para almorzar en La Floresta.”</p>
-            <div class="pill">Cliente</div>
-          </article>
-          <article class="card testimonial">
-            <p>“Corviches crujientes y el yaguarlocro top. Atención amable.”</p>
             <div class="pill">Cliente</div>
           </article>
         </div>
@@ -966,10 +1021,15 @@
 
     <section id="ubicacion" class="section soft">
       <div class="container">
-        <h2 class="section-title">Ubicación</h2>
-        <p class="section-subtitle">
-          Estamos en el barrio La Floresta, Quito. Búscanos como <strong>“Restaurante Floresta Brava”</strong> en Google Maps o usa el mapa interactivo para llegar fácilmente.
-        </p>
+        <div class="section-heading">
+          <div>
+            <span class="section-eyebrow">Visítanos</span>
+            <h2 class="section-title">Ubicación</h2>
+          </div>
+          <p class="section-subtitle">
+            Estamos en el barrio La Floresta, Quito. Búscanos como <strong>“Restaurante Floresta Brava”</strong> en Google Maps o usa el mapa interactivo para llegar fácilmente.
+          </p>
+        </div>
         <div class="map">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7913967586987!2d-78.4849230252237!3d-0.21048819978743813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d59b5dc1419ea7%3A0x230ed687bf1e3c6b!2sRestaurante%20Floresta%20Brava!5e0!3m2!1ses!2sec!4v1764054752201!5m2!1ses!2sec"
@@ -981,7 +1041,13 @@
 
     <section id="faq" class="section soft">
       <div class="container">
-        <h2 class="section-title">Preguntas frecuentes</h2>
+        <div class="section-heading">
+          <div>
+            <span class="section-eyebrow">Antes de visitarnos</span>
+            <h2 class="section-title">Preguntas frecuentes</h2>
+          </div>
+          <p class="section-subtitle">Respuestas rápidas sobre ubicación, pedidos, menú del día y atención a empresas.</p>
+        </div>
         <div class="grid grid-2 faq">
           <div class="card">
             <h3>¿Dónde queda Floresta Brava?</h3>
@@ -1005,8 +1071,13 @@
 
     <section id="contacto" class="section alt">
       <div class="container">
-        <h2 class="section-title">Contacto y reservas</h2>
-        <p class="section-subtitle">Haz tu pedido, reserva una mesa o pregunta por nuestros servicios para empresas.</p>
+        <div class="section-heading">
+          <div>
+            <span class="section-eyebrow">Hablemos</span>
+            <h2 class="section-title">Contacto y reservas</h2>
+          </div>
+          <p class="section-subtitle">Haz tu pedido, reserva una mesa o pregunta por nuestros servicios para empresas.</p>
+        </div>
 
         <div class="grid grid-2 contact-info">
           <div>
