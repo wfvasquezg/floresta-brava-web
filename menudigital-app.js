@@ -302,7 +302,7 @@ const MENU = Object.freeze([
       P("lomo-plancha", "Lomo a la plancha", "Grilled Beef Loin", 5.25, "lomolaplancha.webp", "referential",
         I("lomo de res|ajo|condimentos|acompañamientos", "grilled beef loin|garlic|seasonings|side dishes")),
       P("menestras", "Menestras", "Menestras — Ecuadorian Stewed Legumes", 5.25, "menestradecarne.webp", "needs_kitchen_confirmation",
-        I("fréjol o lenteja|cebolla|pimiento|tomate|ajo|achiote y comino|arroz|proteína y guarnición", "beans or lentils|onion|bell pepper|tomato|garlic|achiote and cumin|rice|protein and garnish"))
+        I("fréjol o lenteja|cebolla|pimiento|tomate|ajo|achiote|arroz|proteína y guarnición", "beans or lentils|onion|bell pepper|tomato|garlic|achiote|rice|protein and garnish"))
     ])
   },
   {
@@ -323,8 +323,8 @@ const MENU = Object.freeze([
         I("pan o tostadas|mantequilla o mermelada|jugo de fruta|café o leche|fruta según la presentación", "bread or toast|butter or jam|fruit juice|coffee or milk|fruit depending on the presentation")),
       P("empanadas", "Empanadas", "Empanadas", 1.00, "empanadas.webp", "confirmed",
         I("masa de empanada|relleno según elección: queso, carne o pollo", "empanada dough|choice of cheese, beef or chicken filling")),
-      P("muchines", "Muchines", "Muchines — Ecuadorian Cassava Fritters", 1.00, "muchin.webp", "needs_kitchen_confirmation",
-        I("yuca|queso o carne para el relleno|cebolla|ajo|achiote|comino|aceite para freír", "cassava|cheese or meat filling|onion|garlic|achiote|cumin|frying oil")),
+      P("muchines", "Muchines", "Muchines — Ecuadorian Cassava Fritters", 1.00, "muchin.webp", "confirmed",
+        I("yuca|sal|queso o chicharrón|acompañado de miel de caña", "cassava|salt|cheese or pork cracklings|served with sugarcane syrup")),
       P("tamales", "Tamales", "Ecuadorian Tamales", 1.00, "tamal.webp", "needs_kitchen_confirmation",
         I("masa de maíz|manteca|pollo o cerdo|cebolla|ajo|achiote|zanahoria|arveja|huevo|pasas|hoja de achira para envolver", "corn dough|lard|chicken or pork|onion|garlic|achiote|carrot|peas|egg|raisins|achira leaf for wrapping")),
       P("bolon", "Bolón", "Bolón — Green Plantain Ball", 1.00, "bolonsolo.webp", "needs_kitchen_confirmation",
@@ -370,13 +370,13 @@ const MENU = Object.freeze([
       P("chaulafan", "Chaulafán", "Ecuadorian-Style Fried Rice", 3.75, "chaulafan.webp", "needs_kitchen_confirmation",
         I("arroz|pollo, carne de res o camarón|huevo|zanahoria|arveja|pimiento|cebolla|ajo|salsa de soya|aceite y condimentos", "rice|chicken, beef or shrimp|egg|carrot|peas|bell pepper|onion|garlic|soy sauce|oil and seasonings")),
       P("chupe-pescado", "Chupe de pescado", "Fish Chupe — Ecuadorian Fish Soup", 3.75, "chupedepescado.webp", "needs_kitchen_confirmation",
-        I("pescado|papa, choclo y vegetales según la variante|cebolla, pimiento, ajo y tomate|caldo|leche, queso, mantequilla o harina en variantes cremosas|comino, orégano y cilantro", "fish|potato, corn and vegetables depending on the version|onion, bell pepper, garlic and tomato|broth|milk, cheese, butter or flour in creamy versions|cumin, oregano and cilantro")),
+        I("pescado|papa, choclo y vegetales según la variante|cebolla, pimiento, ajo y tomate|caldo|leche, queso, mantequilla o harina en variantes cremosas|orégano y cilantro", "fish|potato, corn and vegetables depending on the version|onion, bell pepper, garlic and tomato|broth|milk, cheese, butter or flour in creamy versions|oregano and cilantro")),
       P("corvina", "Corvina", "Corvina Fish", 8.50, "corvina.webp", "needs_kitchen_confirmation",
         I("corvina|ajo|limón|sal y condimentos|harina o apanado si se sirve frita|aceite|arroz, ensalada, plátano o papas como acompañamiento", "corvina fish|garlic|lime|salt and seasonings|flour or breading if served fried|oil|rice, salad, plantain or potatoes as side dishes")),
       P("encebollado", "Encebollado", "Encebollado — Ecuadorian Tuna & Cassava Soup", 3.00, "encebollado.webp", "referential",
         I("pescado/albacora|yuca|cebolla colorada curtida|tomate|cilantro|especias", "fish/tuna|cassava|pickled red onion|tomato|cilantro|spices")),
       P("encebollado-mixto", "Encebollado mixto", "Mixed Seafood Encebollado", 8.50, "encebolladomixto.webp", "needs_kitchen_confirmation",
-        I("pescado o albacora|yuca|camarón, calamar, concha u otros mariscos|cebolla colorada|tomate|cilantro|comino y especias|limón", "fish or tuna|cassava|shrimp, squid, black clams or other seafood|red onion|tomato|cilantro|cumin and spices|lime")),
+        I("pescado o albacora|yuca|camarón, calamar, concha u otros mariscos|cebolla colorada|tomate|cilantro|especias|limón", "fish or tuna|cassava|shrimp, squid, black clams or other seafood|red onion|tomato|cilantro|spices|lime")),
       P("guatita", "Guatita", "Guatita — Ecuadorian Beef Tripe & Peanut Stew", 3.00, "guatita.webp", "referential",
         I("mondongo de res|papa|maní|cebolla|ajo|achiote|condimentos", "beef tripe|potato|peanuts|onion|garlic|achiote|seasonings")),
       P("langostinos-brava", "Langostinos a la brava", "Langostinos a la Brava — House-Style Prawns", 10.00, "langostinosalabrava.webp", "needs_kitchen_confirmation",
